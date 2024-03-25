@@ -9,13 +9,12 @@ const sendEmail = async (options) => {
     console.log('EMAIL_PASSWORD:', process.env.EMAIL_PASSWORD);
 
     // create a transporter service to send the email
-    const transporter = nodemailer.createTransport({ 
-        service: process.env.EMAIL_HOST,
+    const transport = nodemailer.createTransport({ 
+        host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT,
-        secure: false,
         auth: {
             user: process.env.EMAIL_USER,
-            password: process.env.EMAIL_PASSWORD,
+            pass: process.env.EMAIL_PASSWORD,
         }
     })
 

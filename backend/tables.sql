@@ -42,7 +42,7 @@ insert into users
     (first_name, last_name, email, password, age, grade_level, status, role) 
 values
     ('Jane', 'Doe',  'jane_doe@example.com', 'password', 8, '4th grade', 'student', 'true');
-    ('John', 'Smith',  'admin@example.com', 'password', , '', 'admin', 'true');
+    ('John', 'Smith',  'admin@example.com', 'password', , , 'admin', 'true');
 
 insert into users
     (first_name, last_name, email, password, status, role) 
@@ -67,9 +67,20 @@ SET password = '1234567890'
 WHERE user_id = 1;
 
 ALTER TABLE Users
-ADD COLUMN passwordRestToken VARCHAR(255),
-ADD passwordRestTokenExpire DATE;
+ADD COLUMN password_reset_token VARCHAR(255),
+ADD COLUMN password_rest_token_expires DATE;
 
 ALTER TABLE Users
-DROP COLUMN passwordRestToken,
-DROP COLUMN passwordRestTokenExpire;
+DROP COLUMN password_rest_token,
+DROP COLUMN password_rest_token_expires;
+
+
+UPDATE Users
+SET status = 'true',
+    role = 'student'
+WHERE user_id = 1;
+
+UPDATE Users
+SET status = 'true',
+    role = 'admin'
+WHERE user_id = 2;

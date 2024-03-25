@@ -11,7 +11,7 @@ authController.signup = async (req, res, next) => {
     console.log('Received POST request to /signup');
     console.log('Request body:', req.body);
     const { first_name, last_name, email, password, age, grade_level, role, status } = req.body;
-   
+
     body('first_name').trim().notEmpty();
     body('last_name').trim().notEmpty();
     body('email').isEmail().normalizeEmail();
@@ -93,16 +93,20 @@ const createResetPasswordToken = async (email) => {
     console.log('email:', email);
     try {
         // Generate a random token
-        const resetToken = crypto.randomBytes(32).toString('hex');
-        const passwordRestTokenExpires = new Date(Date.now() + 10 * 60 * 1000); // Reset token expires in 10 minutes
+        const originalToken = crypto.randomBytes(32).toString('hex');
+        console.log('originalToken: ', originalToken);
+        const hashedToken = crypto.createHash('sha256').update(originalToken).digest('hex');
+        console.log('hashedToken: ', hashedToken);
+        const password_reset_token_expires = new Date(Date.now() + 10 * 60 * 10000); // Reset token expires in 10 hours
+        console.log('password_reset_token_expires: ', password_reset_token_expires)
 
         // Update the user's password reset token and expiration date in the database
-        const updateQuery = 'UPDATE Users SET password_rest_token = ?, password_rest_token_expires = ? WHERE email = ?';
-        await pool.query(updateQuery, [resetToken, passwordRestTokenExpires, email]);
+        const updateQuery = 'UPDATE Users SET password_reset_token = ?, password_reset_token_expires = ? WHERE email = ?';
+        await pool.query(updateQuery, [hashedToken, password_reset_token_expires, email]);
 
         console.log('Password reset token and expiration date updated successfully for user:', email);
-        return { resetToken, passwordRestTokenExpires };
-        
+        return { password_reset_token: originalToken, password_reset_token_expires };
+
     } catch (error) {
         console.error('Error updating password reset token and expiration date:', error);
         throw error; // Rethrow the error to handle it at a higher level
@@ -112,11 +116,12 @@ const createResetPasswordToken = async (email) => {
 authController.forgotPassword = async (req, res, next) => {
     console.log('Received POST request to /forgotPassword');
     console.log('Request body:', req.body);
-    const { email } = req.body; 
+    const { email } = req.body;
     try {
         // Get user from database based on email
         const [userRows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
         const user = userRows[0];
+        console.log('user.email:', user.email);
 
         // Check if user exists
         if (!user) {
@@ -126,37 +131,41 @@ authController.forgotPassword = async (req, res, next) => {
 
         // Generate reset token and expiration date
         const token = await createResetPasswordToken(email);
+        console.log('token:', token)
 
-         // Log SMTP configuration details
-         console.log('SMTP Configuration in ForgotPassword function:');
-         console.log('Host:', process.env.EMAIL_HOST);
-         console.log('Port:', process.env.EMAIL_PORT);
-         console.log('Username:', process.env.EMAIL_USER);
-         console.log('Password:', process.env.EMAIL_PASSWORD);
-         console.log('Request Protocol: ', req.protocol)
+        // Log SMTP configuration details
+        console.log('SMTP Configuration in ForgotPassword function:');
+        console.log('Host:', process.env.EMAIL_HOST);
+        console.log('Port:', process.env.EMAIL_PORT);
+        console.log('Username:', process.env.EMAIL_USER);
+        console.log('Password:', process.env.EMAIL_PASSWORD);
+
 
         // Send email to user with reset token
         const resetUrl = `${req.protocol}://${req.get('host')}/users/resetPassword/${token.resetToken}`;
         console.log('resetUrl: ', resetUrl)
-        const message = `We have received a password reset request. Please use the below link to reset your password \n\n${resetUrl}\n\nThis reset password link will be valid for only 10 minutes.`;
+        const message = `We have received a password reset request. Please use the below link to reset your password \n\n${resetUrl}\n\n
+                        This reset password link will be valid for only 10 minutes.`;
         try {
             await sendEmail({
-                email: user.email, 
+                email: user.email,
                 subject: 'Password change request received',
                 message: message
             });
-            // Respond to the client
-            console.log('Password reset link sent to the user email' )
-            
             res.status(200).json({
-                status:'success', 
-                message: 'Password reset link sent to the user email' });
+                status: 'success',
+                message: 'Password reset link sent to the user email'
+            });
+            // Respond to the client
+            console.log('Password reset link sent to the user email')
 
-        } catch(err) {
+
+
+        } catch (err) {
             console.error('Error sending email:', err);
             // Handle email sending error
             return res.status(500).json({ message: 'Error sending email to user.' });
-            
+
         }
     } catch (error) {
         console.error('Error in forgotPassword:', error);
@@ -165,8 +174,58 @@ authController.forgotPassword = async (req, res, next) => {
     }
 };
 
-authController.resetPassword = (req, res, next) => {
+authController.resetPassword = async (req, res, next) => {
+    const token = req.params.token;                 // Access token from URL parameters
+    console.log('token from url is: ', token);
 
-}
+    // Hash the token received from the request
+    const hashed_token = crypto.createHash('sha256').update(token).digest('hex');
+    console.log('Hashed token:', hashed_token);
+
+
+    try {
+        // Retrieve user from the database using the hashed token
+        const [userRows] = await pool.query('SELECT * FROM users WHERE password_reset_token = ?', [token]);
+        const user = userRows[0];
+
+        // Check if user exists and token is valid
+        if (!user || user.password_reset_token_expires < Date.now()) {
+            return res.status(400).json({
+                status: "error",
+                message: "Token is invalid or has expired"
+            });
+        }
+
+        // Update user's password and reset token fields
+        const newPassword = req.body.password;
+        const confirmedPassword = req.body.confirmedPassword;
+
+        // Check if password and confirmedPassword match
+        if (newPassword !== confirmedPassword) {
+            return res.status(400).json({
+                status: "error",
+                message: "Password and confirmed password do not match"
+            });
+        }
+
+        // Update user's password and reset token fields in the database
+        const hash_password = await bcrypt.hash(newPassword, 12);
+        const updateQuery = 'UPDATE users SET password = ?, password_reset_token = NULL, password_reset_token_expires = NULL WHERE email = ?';
+        await pool.query(updateQuery, [hash_password, user.email]);
+
+        res.status(200).json({
+            status: "success",
+            message: "Password reset successful"
+        });
+
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        res.status(500).json({
+            status: "error",
+            message: "Internal server error"
+        });
+    }
+};
+
 
 module.exports = authController;

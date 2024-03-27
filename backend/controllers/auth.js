@@ -100,7 +100,7 @@ const createResetPasswordToken = async (email) => {
         const password_reset_token_expires = new Date(Date.now() + 10 * 60 * 10000); // Reset token expires in 10 hours
         console.log('password_reset_token_expires: ', password_reset_token_expires)
 
-        // Update the user's password reset token and expiration date in the database
+        // UPDATE the user's password reset token and expiration date in the database
         const updateQuery = 'UPDATE Users SET password_reset_token = ?, password_reset_token_expires = ? WHERE email = ?';
         await pool.query(updateQuery, [hashedToken, password_reset_token_expires, email]);
 
@@ -196,7 +196,7 @@ authController.resetPassword = async (req, res, next) => {
             });
         }
 
-        // Update user's password and reset token fields
+        // UPDATE user's password and reset token fields
         const newPassword = req.body.password;
         const confirmedPassword = req.body.confirmedPassword;
 
@@ -208,7 +208,7 @@ authController.resetPassword = async (req, res, next) => {
             });
         }
 
-        // Update user's password and reset token fields in the database
+        // UPDATE user's password and reset token fields in the database
         const hash_password = await bcrypt.hash(newPassword, 12);
         const updateQuery = 'UPDATE users SET password = ?, password_reset_token = NULL, password_reset_token_expires = NULL WHERE email = ?';
         await pool.query(updateQuery, [hash_password, user.email]);
@@ -226,6 +226,155 @@ authController.resetPassword = async (req, res, next) => {
         });
     }
 };
+
+authController.changePassword = async (req, res) => {
+    const { email, reportedPassword, newPassword, confirmPassword } = req.body;
+    console.log('changePassword', email, reportedPassword, newPassword, confirmPassword)
+
+    try {
+        // Hash the reported password
+        const hash_reportedPassword = await bcrypt.hash(reportedPassword, 12);
+
+        // Retrieve the current password from the database
+        const db_password = await pool.query("SELECT password FROM users WHERE email=?", [email]);
+        const current_db_password = db_password[0][0].password;
+
+        // Compare reported password with the current password
+        const passwordsMatch = await bcrypt.compare(reportedPassword, current_db_password);
+
+        if (!passwordsMatch) {
+            return res.status(400).json({
+                status: "error",
+                message: "Reported password does not match the current password"
+            });
+        }
+
+        // Ensure new password matches confirmed password
+        if (newPassword !== confirmPassword) {
+            return res.status(400).json({
+                status: "error",
+                message: "New password and confirmed password do not match"
+            });
+        }
+
+        // Hash the new password
+        const hash_newPassword = await bcrypt.hash(newPassword, 12);
+
+        // UPDATE the password in the database
+        const updateQuery = 'UPDATE users SET password = ? WHERE email = ?';
+        await pool.query(updateQuery, [hash_newPassword, email]);
+
+        console.log('Password reset successful');
+        res.status(200).json({
+            status: "success",
+            message: "Password reset successful"
+        });
+
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        res.status(500).json({
+            status: "error",
+            message: "Internal server error"
+        });
+    }
+}
+
+// Controller method to retrieve students
+authController.getStudents = async (req, res, next) => {
+    try {
+        // SQL query to select students from the database
+        const query = "SELECT user_id, first_name, last_name, email, age, grade_level, role, status, password_reset_token, password_reset_token_expires FROM users WHERE role='student'";
+
+        // Executing the query using the database connection pool
+        const [results, fields] = await pool.query(query);
+        console.log([results, fields])
+        return res.status(200).json(results);
+
+    } catch (error) {
+        console.error('Error retrieving users:', error);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+// Controller method to update user status
+authController.updateUserStatus = async (req, res, next) => {
+    console.log(req);
+    let user = req.body;
+    console.log(user)
+
+    // Extracting user_id and status from request
+    const user_id = req.body.user_id;
+    const { status } = req.body.status;
+    console.log('user_id', user_id, 'status', status)
+
+    var query = "update users set status=? where user_id=?";
+    pool.query(query, [status, user_id], (err, results) => {
+        if (!err) {
+            if (res.affectedRows == 0) {
+                return res.status(404).json({ message: "User Id does not exist" });
+            }
+            return res.status(200).json({ message: "User updated status successfully" })
+        }
+        else {
+            return res.status(500).json(err);
+        }
+    })
+}
+
+// Controller method to update user grade level
+authController.updateGradeLevel = async (req, res) => {
+    // Extracting user_id and status from request
+
+    const { email, password, grade_level } = req.body;
+    console.log('email', email, 'password', password, "grade_level", grade_level)
+    try {
+        // Get user from database based on email
+        const [userRows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+        const user = userRows[0];
+        console.log('user.email:', user.email);
+
+        // Check if user exists
+
+
+        // get password from database
+        const database_password = await pool.query("SELECT password FROM users WHERE email=?", [email]);
+        const db_password = database_password[0][0].password
+        console.log('db_password', db_password)
+
+        // Compare entered password with the database password
+        const passwordsMatch = await bcrypt.compare(password, db_password);
+        console.log('passwordsMatch', passwordsMatch);
+    
+        if (!user || (!passwordsMatch)) {
+            // Return error if user does not exist or password does not match
+            return res.status(400).json({
+                status: "error",
+                message: "User does not exist"
+            });
+        }
+
+        if (passwordsMatch) {
+            console.log('Passwords match');
+            const old_grade_level = await pool.query("SELECT grade_level, email FROM users WHERE email=?", [email]);
+            console.log('old_grade_level', old_grade_level[0][0].grade_level)   // Log the SQL query
+            
+            // Construct the SQL query to update the grade level
+            var query = "UPDATE users SET grade_level=? WHERE email=?";
+
+            await pool.query(query, [grade_level, email])
+            
+             // Retrieve the updated grade level from the database
+            const new_grade_level = await pool.query("SELECT grade_level, email FROM users WHERE email=?", [email]);
+            console.log('new_grade_level', new_grade_level[0][0].grade_level)
+            return res.status(200).json({ message: "User grade level updated successfully" });
+        }
+
+    } catch (error) {
+        // Handle database query errors
+        console.error('Error updating grade level of user:', error);
+        return res.status(500).json({ message: 'Database error' });
+    }
+}
 
 
 module.exports = authController;

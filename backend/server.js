@@ -16,3 +16,5 @@ const server = http.createServer(app);
 // Listen for incoming HTTP requests on the port specified in the environment variables
 // The 'process.env.PORT' variable is set using 'dotenv' which specifies the port for the server to listen on
 server.listen(process.env.PORT);
+console.log('listening on port:', process.env.PORT);
+

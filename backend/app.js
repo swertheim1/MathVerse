@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 // Import the MySQL database connection exported from the 'connection.js' file
 const pool = require('./pool')
 
-const userRoute = require('./routes/user');
+
 
 // Create an instance of the Express application
 const app = express();
@@ -31,8 +31,19 @@ app.use(express.urlencoded({extended: true}));
 // This middleware parses incoming requests with JSON payloads
 app.use(express.json());
 
-
+const userRoute = require('./routes/auth');
 app.use('/user', userRoute);
+
+// Define error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack); // Log the error stack trace
+    res.status(500).json({ error: 'Internal Server Error' }); // Send an error response
+});
+
+// Error handling for route not found
+app.use((req, res, next) => {
+    res.status(404).json({ error: 'Route not found' });
+});
 
 
 // Export the Express application to be used in other parts of your Node.js application

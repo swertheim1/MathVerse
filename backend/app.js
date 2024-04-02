@@ -3,24 +3,23 @@
 
 // Import the 'express' web application framework for Node.js
 const express = require('express');
+const morgan = require('morgan');
 
 // Import the 'cors' middleware, to enable Cross-Origin Resource Sharing (CORS) in Express
 var cors = require('cors');
 
 const bodyParser = require('body-parser');
+const logger = require('./utils/logger');
 
 // Import the MySQL database connection exported from the 'connection.js' file
 const pool = require('./pool')
 
-
-
 // Create an instance of the Express application
 const app = express();
 
+app.use(morgan('dev'));
 // Use the 'cors' middleware to enable CORS in the Express app
-app.use(cors({
-    
-}));
+app.use(cors());
 
 // Parse incoming request bodies in middleware using 'express.urlencoded' middleware
 // This middleware parses incoming requests with urlencoded payloads
@@ -31,12 +30,12 @@ app.use(express.urlencoded({extended: true}));
 // This middleware parses incoming requests with JSON payloads
 app.use(express.json());
 
-const userRoute = require('./routes/auth');
+const userRoute = require('./routes/users');
 app.use('/user', userRoute);
 
 // Define error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack); // Log the error stack trace
+    console.log(err.stack); // Log the error stack trace
     res.status(500).json({ error: 'Internal Server Error' }); // Send an error response
 });
 

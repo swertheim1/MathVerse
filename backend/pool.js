@@ -3,9 +3,12 @@
 
 // Import the 'mysql' module, which provides an interface for interacting with MySQL databases
 const mysql = require('mysql2/promise');
+const logger = require('./utils/logger');
 
 // Import the 'dotenv' module, which loads environment variables from a '.env' file into 'process.env'
 require('dotenv').config();
+
+const DB_NAME = "process.env.DB_USERNAME"
 
 // Create a connection pool to the MySQL database using the credentials from the environment variables
 var pool = mysql.createPool({
@@ -16,7 +19,7 @@ var pool = mysql.createPool({
     password: process.env.DB_PASSWORD,  // Password for authenticating with the MySQL server
     database: process.env.DB_NAME,      // Name of the MySQL database to connect to
     waitForConnections: true,           // Whether the pool should wait for connections to become available
-    queueLimit: 0                       // Maximum number of connection requests the pool should queue before returning an error
+    queueLimit: 0,                       // Maximum number of connection requests the pool should queue before returning an error
 });
 
 // Establish a connection to the MySQL database

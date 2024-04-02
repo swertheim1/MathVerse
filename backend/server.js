@@ -4,6 +4,9 @@
 // Import the 'dotenv' module, which loads environment variables from a '.env' file into 'process.env'
 require('dotenv').config();
 
+// import winston logger
+const logger = require('./utils/logger');
+
 // Import the 'http' module, which provides functionality for creating HTTP servers
 const http = require('http');
 
@@ -16,5 +19,4 @@ const server = http.createServer(app);
 // Listen for incoming HTTP requests on the port specified in the environment variables
 // The 'process.env.PORT' variable is set using 'dotenv' which specifies the port for the server to listen on
 server.listen(process.env.PORT);
-console.log('listening on port:', process.env.PORT);
 

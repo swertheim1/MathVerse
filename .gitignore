@@ -1,2 +1,4 @@
 **/node_modules
 MathVerse.code-workspace
+*.log
+directory_structure.txt

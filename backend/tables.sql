@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS Users  (
 CREATE TABLE IF NOT EXISTS Topics (
     topic_id INT PRIMARY KEY AUTO_INCREMENT,
     topic_name VARCHAR(50),
+
     UNIQUE (topic_name)
 );
 
@@ -84,3 +85,8 @@ UPDATE Users
 SET status = 'true',
     role = 'admin'
 WHERE user_id = 2;
+
+
+ALTER TABLE topics
+ADD COLUMN grade_level INT,
+ADD CONSTRAINT pk_topics PRIMARY KEY (topic_name, grade_level);

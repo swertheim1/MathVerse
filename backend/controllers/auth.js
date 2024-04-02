@@ -1,15 +1,18 @@
 const pool = require('../pool');
+const jwt = require('jsonwebtoken')
 
 // express-validator used for validating and sanitizing input data
 const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const authController = {}
-const sendEmail = require('../utils/email')
+const authCheck = require('../middleware/check-auth');
+const sendEmail = require('../utils/helper/email');
+const logger = require('../utils/logger');
 
 authController.signup = async (req, res, next) => {
     console.log('Received POST request to /signup');
-    console.log('Request body:', req.body);
+    
     const { first_name, last_name, email, password, age, grade_level, role, status } = req.body;
 
     body('first_name').trim().notEmpty();
@@ -20,13 +23,11 @@ authController.signup = async (req, res, next) => {
 
     try {
         const hash_password = await bcrypt.hash(password, 12);
-
         const [existingRows] = await pool.query('SELECT * FROM users WHERE email =?', [email]);
-
         if (existingRows && existingRows.length > 0) {
             return res.status(400).json({ message: 'Email already exists.' });
         }
-        // If the email does not exist, insert the new user into the database
+        // Since the email does not exist, insert the new user into the database
         // Insert the new user into the database
         const query = 'INSERT INTO users (first_name, last_name, email, password, age, grade_level, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
         await pool.query(query, [first_name, last_name, email, hash_password, age, grade_level, role, status]);
@@ -37,13 +38,14 @@ authController.signup = async (req, res, next) => {
 
     } catch (error) {
         // Handle database query errors
-        console.error('Error adding user to database:', error);
+        console.log('Error adding user to database:', error);
         return res.status(500).json({ message: 'Database error' });
     }
 };
 
 authController.login = async (req, res) => {
     // Check for validation errors
+    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -59,7 +61,7 @@ authController.login = async (req, res) => {
 
         // Check if user with provided email exists
         if (userRows.length === 0) {
-            return res.status(401).json({ message: 'Incorrect email or password.' });
+            return res.status(401).json({ message: 'Authorization failed' });
         }
 
         // Compare the provided password with the hashed password stored in the database
@@ -67,22 +69,30 @@ authController.login = async (req, res) => {
 
         // If passwords don't match, return error response
         if (!passwordMatch) {
-            return res.status(401).json({ message: 'Incorrect email or password.' });
+            return res.status(401).json({ message: 'Authorization failed.' });
         }
 
         // Check if the user is approved (status === 'true')
         if (userRows[0].status === 'false') {
             return res.status(401).json({ message: 'Wait for admin approval' });
         }
+        console.log(userRows[0].email, userRows[0]._id)
+                const token = jwt.sign({ 
+                    email: userRows[0].email,
+                    userId: userRows[0]._id
+                }, 
+                process.env.JWT_KEY, 
+                {
+                    expiresIn: "1h"
+                });
 
-        // Generate and return authentication token if needed (optional step)
-        // const authToken = generateAuthToken(userRows[0]);
-
-        // Respond with success message and token if needed
-        return res.status(200).json({ message: 'Login successful' /*, token: authToken */ });
+        // Respond with success message and token
+        return res.status(200).json({ 
+            message: 'Authorization successful',
+            token: token });
     } catch (error) {
         // Handle database query errors
-        console.error('Error checking user credentials:', error);
+        console.log('Error checking user credentials:', error);
         return res.status(500).json({ message: 'Database error' });
     }
 };
@@ -108,7 +118,7 @@ const createResetPasswordToken = async (email) => {
         return { password_reset_token: originalToken, password_reset_token_expires };
 
     } catch (error) {
-        console.error('Error updating password reset token and expiration date:', error);
+        console.log('Error updating password reset token and expiration date:', error);
         throw error; // Rethrow the error to handle it at a higher level
     }
 };
@@ -125,7 +135,7 @@ authController.forgotPassword = async (req, res, next) => {
 
         // Check if user exists
         if (!user) {
-            console.error('Could not find user with the given email.');
+            console.log('Could not find user with the given email.');
             return res.status(404).json({ message: 'Could not find user with the given email.' });
         }
 
@@ -162,13 +172,13 @@ authController.forgotPassword = async (req, res, next) => {
 
 
         } catch (err) {
-            console.error('Error sending email:', err);
+            console.log('Error sending email:', err);
             // Handle email sending error
             return res.status(500).json({ message: 'Error sending email to user.' });
 
         }
     } catch (error) {
-        console.error('Error in forgotPassword:', error);
+        console.log('Error in forgotPassword:', error);
         // Handle database query error
         res.status(500).json({ message: 'Internal server error.' });
     }
@@ -219,7 +229,7 @@ authController.resetPassword = async (req, res, next) => {
         });
 
     } catch (error) {
-        console.error('Error resetting password:', error);
+        console.log('Error resetting password:', error);
         res.status(500).json({
             status: "error",
             message: "Internal server error"
@@ -228,15 +238,24 @@ authController.resetPassword = async (req, res, next) => {
 };
 
 authController.changePassword = async (req, res) => {
+    console.log('req.body', req.body);
+    console.log('res.header', req.headers);
     const { email, reportedPassword, newPassword, confirmPassword } = req.body;
-    console.log('changePassword', email, reportedPassword, newPassword, confirmPassword)
+    // const token = req.header.JWT_KEY;
+    
+    console.log('changePassword', email, reportedPassword, newPassword, confirmPassword);
 
     try {
-        // Hash the reported password
-        const hash_reportedPassword = await bcrypt.hash(reportedPassword, 12);
-
         // Retrieve the current password from the database
         const db_password = await pool.query("SELECT password FROM users WHERE email=?", [email]);
+
+        if (!db_password[0].length) {
+            return res.status(400).json({
+                status: "error",
+                message: "User not found" 
+            });
+        }
+
         const current_db_password = db_password[0][0].password;
 
         // Compare reported password with the current password
@@ -264,20 +283,23 @@ authController.changePassword = async (req, res) => {
         const updateQuery = 'UPDATE users SET password = ? WHERE email = ?';
         await pool.query(updateQuery, [hash_newPassword, email]);
 
+        // Password update successful
         console.log('Password reset successful');
-        res.status(200).json({
+        return res.status(200).json({
             status: "success",
             message: "Password reset successful"
         });
 
     } catch (error) {
-        console.error('Error resetting password:', error);
+        console.log('Error resetting password:', error);
         res.status(500).json({
             status: "error",
+            error: error, // Include error details in the response
             message: "Internal server error"
         });
     }
-}
+};
+
 
 // Controller method to retrieve students
 authController.getStudents = async (req, res, next) => {
@@ -291,7 +313,7 @@ authController.getStudents = async (req, res, next) => {
         return res.status(200).json(results);
 
     } catch (error) {
-        console.error('Error retrieving users:', error);
+        console.log('Error retrieving users:', error);
         return res.status(500).json({ message: 'Internal server error' });
     }
 };
@@ -371,7 +393,7 @@ authController.updateGradeLevel = async (req, res) => {
 
     } catch (error) {
         // Handle database query errors
-        console.error('Error updating grade level of user:', error);
+        console.log('Error updating grade level of user:', error);
         return res.status(500).json({ message: 'Database error' });
     }
 }

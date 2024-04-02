@@ -4,8 +4,8 @@ require('dotenv').config();
 
 const router = express.Router();
 
-router.route('/getTopics').post(problemController.signup);
-router.route('/getNumberSets').post(problemController.login);
-router.route('/saveResults').post(problemController.forgotPassword);
+router.route('/getTopics').post(problemController.topics);
+router.route('/getNumberSets').post(problemController.getNumberSets);
+router.route('/saveResults').post(problemController.saveResults);
 
 module.exports = router;

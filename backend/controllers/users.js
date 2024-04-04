@@ -68,7 +68,7 @@ userController.login = async (req, res) => {
         // Query the database to find the user by email
         logger.info("Query the database to find the user by email")
         const [userRows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);       
-        const student_grade_level = userRows[0].grade_level
+        const grade_level = userRows[0].grade_level
 
         // Check if a user is returned
         if (userRows.length === 0) {
@@ -100,15 +100,15 @@ userController.login = async (req, res) => {
                 expiresIn: "1h"
             });
         
-        // Respond with success message, token and user"s grade_level
-        logger.info("return user information");
-        logger.debug(token);
-        logger.debug(student_grade_level);
-        return res.status(200).json({
-            message: "Authorization successful",
-            token: token,
-            grade: student_grade_level
-        });
+        // Respond with success message, token and redirection URL
+        // Redirect to the topics endpoint with grade_level as a query parameter
+        
+        res.redirect(`/topics?grade_level=${grade_level}`);
+        // return res.status(200).json({
+        //     message: "Authorization successful",
+        //     token: token,
+        //     grade: grade_level
+        // });
     } catch (error) {
         // Handle database query errors
         console.log("Error checking user credentials:", error);

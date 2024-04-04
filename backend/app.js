@@ -32,9 +32,11 @@ app.use(express.json());
 
 const userRoute = require('./routes/users');
 const problemRoute = require('./routes/problems')
+const topicsRoute = require('./routes/topics')
 
-app.use('/user', userRoute);
-app.use('/problem', problemRoute)
+app.use('/mathverse/user', userRoute);
+app.use('/mathverse/topics', topicsRoute)
+app.use('/mathverse/problem', problemRoute)
 
 // Define error handling middleware
 app.use((err, req, res, next) => {

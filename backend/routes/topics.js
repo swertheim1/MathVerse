@@ -1,12 +1,12 @@
 const express = require('express');
-const problemController = require('../controllers/problems'); // Importing the object, not just the module
+const topicsController = require('../controllers/topics'); 
 require('dotenv').config();
 
-
+// create a route instance
 const topicsRouter = express.Router();
 
-topicsRouter.route('/Topics').post(problemController.Topics);
-
+// topicsRouter.route('/updateTopics').post(topicsController.updateTopics);
+topicsRouter.route('/').get(topicsController.getTopicsByGradeLevel);
 
 
 

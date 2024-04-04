@@ -1,29 +1,26 @@
-CREATE TABLE IF NOT EXISTS Users  (
+CREATE TABLE IF NOT EXISTS Users (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(255),
     last_name VARCHAR(255),
-    email VARCHAR(255),
+    email VARCHAR(255) UNIQUE,
     password VARCHAR(255),
     age INT,
     grade_level VARCHAR(25),
-    role varchar(20),
-    status varchar(20),
+    role VARCHAR(20),
+    status VARCHAR(20),
     password_reset_token VARCHAR(255),
     password_reset_token_expires DATE
-    UNIQUE (email)
 );
 
 CREATE TABLE IF NOT EXISTS Topics (
     topic_id INT PRIMARY KEY AUTO_INCREMENT,
-    topic_name VARCHAR(50),
-
-    UNIQUE (topic_name)
+    topic_name VARCHAR(50) 
+    grade_level VARCHAR(10) 
 );
 
 CREATE TABLE IF NOT EXISTS Operations (
     operation_id INT PRIMARY KEY AUTO_INCREMENT,
-    operation_name VARCHAR(50),
-    UNIQUE (operation_name)
+    operation_name VARCHAR(50) UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Results (
@@ -39,42 +36,15 @@ CREATE TABLE IF NOT EXISTS Results (
     FOREIGN KEY (operation_id) REFERENCES Operations(operation_id)
 );
 
-insert into users
-    (first_name, last_name, email, password, age, grade_level, status, role) 
-values
-    ('Jane', 'Doe',  'jane_doe@example.com', 'password', 8, '4th grade', 'student', 'true');
-    ('John', 'Smith',  'admin@example.com', 'password', , , 'admin', 'true');
-
-insert into users
-    (first_name, last_name, email, password, status, role) 
-values
-    ('John', 'Smith',  'admin@example.com', password, 'admin', 'true');
-
-ALTER TABLE Users
-DROP COLUMN age,
-DROP COLUMN grade_level,
-DROP COLUMN role,
-DROP COLUMN status;
-
-ALTER TABLE Users
-ADD COLUMN password VARCHAR(255),
-ADD COLUMN age INT,
-ADD COLUMN grade_level VARCHAR(25),
-ADD COLUMN role VARCHAR(20),
-ADD COLUMN status VARCHAR(20);
+INSERT INTO Users
+    (first_name, last_name, email, password, age, grade_level, role, status) 
+VALUES
+    ('Jane', 'Doe',  'jane_doe@example.com', 'password', 8, '4th grade', 'student', 'true'),
+    ('John', 'Smith',  'admin@example.com', 'password', null, null, 'admin', 'true');
 
 UPDATE Users
 SET password = '1234567890'
 WHERE user_id = 1;
-
-ALTER TABLE Users
-ADD COLUMN password_reset_token VARCHAR(255),
-ADD COLUMN password_rest_token_expires DATE;
-
-ALTER TABLE Users
-DROP COLUMN password_rest_token,
-DROP COLUMN password_rest_token_expires;
-
 
 UPDATE Users
 SET status = 'true',
@@ -87,6 +57,18 @@ SET status = 'true',
 WHERE user_id = 2;
 
 
-ALTER TABLE topics
-ADD COLUMN grade_level INT,
-ADD CONSTRAINT pk_topics PRIMARY KEY (topic_name, grade_level);
+INSERT INTO Topics
+    (topic_id, topic_name, grade_level )
+VALUES
+    (1, 'Addition', '4th_grade' ),
+    (2, 'Addition', '5th_grade' ),
+    (3, 'Addition', '6th_grade' ),
+    (4, 'Subtraction', '4th_grade' ),
+    (5, 'Subtraction', '5th_grade' ),
+    (6, 'Subtraction', '6th_grade' ),
+    (7, 'Multiplication', '4th_grade' ),
+    (8, 'Multiplication', '5th_grade' ),
+    (9, 'Multiplication', '6th_grade' ),
+    (10, 'Division', '4th_grade' ),
+    (11, 'Division', '5th_grade' ),
+    (12, 'Division', '6th_grade' );

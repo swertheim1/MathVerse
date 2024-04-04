@@ -9,7 +9,7 @@ const morgan = require('morgan');
 var cors = require('cors');
 
 const bodyParser = require('body-parser');
-const logger = require('./utils/logger');
+const logger = require('./utils/logging/logger');
 
 // Import the MySQL database connection exported from the 'connection.js' file
 const pool = require('./pool')
@@ -31,7 +31,10 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 const userRoute = require('./routes/users');
+const problemRoute = require('./routes/problems')
+
 app.use('/user', userRoute);
+app.use('/problem', problemRoute)
 
 // Define error handling middleware
 app.use((err, req, res, next) => {

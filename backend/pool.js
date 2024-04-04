@@ -3,7 +3,7 @@
 
 // Import the 'mysql' module, which provides an interface for interacting with MySQL databases
 const mysql = require('mysql2/promise');
-const logger = require('./utils/logger');
+const logger = require('./utils/logging/logger');
 
 // Import the 'dotenv' module, which loads environment variables from a '.env' file into 'process.env'
 require('dotenv').config();

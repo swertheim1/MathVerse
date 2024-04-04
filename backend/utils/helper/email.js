@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const logger = require('../logger');
+const logger = require('../logging/logger');
 
 const sendEmail = async (options) => {
     // Log SMTP configuration details

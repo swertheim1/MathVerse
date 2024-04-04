@@ -1,11 +1,10 @@
-
 // Import Sequelize
-const { DataTypes, Sequelize } = require('sequelize');
+import { DataTypes, Sequelize } from 'sequelize';
 
 // Initialize Sequelize with your database connection
 const sequelize = new Sequelize('DB_NAME', 'DB_USERNAME', 'DB_PASSWORD', {
   host: 'DB_HOST',
-  dialect: 'mysql', // or any other dialect
+  dialect: 'mysql', 
 });
 
 // Define the User model
@@ -63,4 +62,4 @@ sequelize.sync()
   });
 
 // Export the User model
-module.exports = User;
+export default User;

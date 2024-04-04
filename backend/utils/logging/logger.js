@@ -1,9 +1,11 @@
-const {createLogger, format, transports} = require("winston");
+const winston = require('winston');
 
-const logger = createLogger({
-  level: "debug",
-  format: format.json(),
-  transports: [new transports.Console()],
+const logger = winston.createLogger({
+  level: 'debug',
+  format: winston.format.json(),
+  transports: [
+    new winston.transports.Console(),
+  ],
 });
 
 module.exports = logger;

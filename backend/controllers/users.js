@@ -9,6 +9,8 @@ const userController = {}
 const authCheck = require("../middleware/check-auth");
 const sendEmail = require("../utils/helper/email");
 const logger = require("../utils/logging/logger");
+const fetchTopics = require("../services/topicService");
+
 
 
 userController.signup = async (req, res, next) => {
@@ -32,7 +34,6 @@ userController.signup = async (req, res, next) => {
         // Insert the new user into the database
         const query = "INSERT INTO users (first_name, last_name, email, password, age, grade_level, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         await pool.query(query, [first_name, last_name, email, hash_password, age, grade_level, role, status]);
-
 
         // Respond with success message
         return res.status(201).json({ message: "User registered!" });
@@ -67,8 +68,7 @@ userController.login = async (req, res) => {
     try {
         // Query the database to find the user by email
         logger.info("Query the database to find the user by email")
-        const [userRows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);       
-        const grade_level = userRows[0].grade_level
+        const [userRows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
 
         // Check if a user is returned
         if (userRows.length === 0) {
@@ -76,6 +76,7 @@ userController.login = async (req, res) => {
             return res.status(401).json({ message: "Authorization failed" });
         }
 
+        const grade_level = userRows[0].grade_level
         // Compare the provided password with the hashed password stored in the database
         const passwordMatch = await bcrypt.compare(password, userRows[0].password);
         logger.debug(passwordMatch)
@@ -90,7 +91,7 @@ userController.login = async (req, res) => {
             return res.status(401).json({ message: "Wait for admin approval" });
         }
         logger.info("Create token with email");
-        logger.debug(userRows[0].email);
+        logger.info(userRows[0].email);
         const token = jwt.sign({
             email: userRows[0].email,
             password: userRows[0].password
@@ -99,16 +100,22 @@ userController.login = async (req, res) => {
             {
                 expiresIn: "1h"
             });
-        
-        // Respond with success message, token and redirection URL
-        // Redirect to the topics endpoint with grade_level as a query parameter
-        
-        res.redirect(`/topics?grade_level=${grade_level}`);
-        // return res.status(200).json({
-        //     message: "Authorization successful",
-        //     token: token,
-        //     grade: grade_level
-        // });
+       
+        topics = await fetchTopics(grade_level);
+        logger.debug('returned topics from fetchTopics')
+        logger.debug(topics)
+
+        // Respond with success message, token and redirection URL       
+        const topicNames = topics.map(topic => topic.topic_name);
+        logger.info(topicNames);
+
+        // res.json({ topicNames });
+        return res.status(200).json({
+            message: "Authorization successful",
+            token: token,
+            grade: grade_level,
+            topics: topicNames
+        });
     } catch (error) {
         // Handle database query errors
         console.log("Error checking user credentials:", error);
@@ -126,7 +133,7 @@ const createResetPasswordToken = async (email) => {
         console.log("originalToken: ", originalToken);
         const hashedToken = crypto.createHash("sha256").update(originalToken).digest("hex");
         console.log("hashedToken: ", hashedToken);
-        const password_reset_token_expires = new Date(Date.now() + 10 * 60 * 10000); // Reset token expires in 10 hours
+        const password_reset_token_expires = new Date(Date.now() + 10 * 60 * 10000); // Reset token expires in 10 minutes
         console.log("password_reset_token_expires: ", password_reset_token_expires)
 
         // UPDATE the user"s password reset token and expiration date in the database
@@ -162,17 +169,12 @@ userController.forgotPassword = async (req, res, next) => {
         const token = await createResetPasswordToken(email);
         console.log("token:", token)
 
-        // Log SMTP configuration details
-        console.log("SMTP Configuration in ForgotPassword function:");
-        console.log("Host:", process.env.EMAIL_HOST);
-        console.log("Port:", process.env.EMAIL_PORT);
-        console.log("Username:", process.env.EMAIL_USER);
-        console.log("Password:", process.env.EMAIL_PASSWORD);
-
-
         // Send email to user with reset token
-        const resetUrl = `${req.protocol}://${req.get("host")}/users/resetPassword/${token.resetToken}`;
-        console.log("resetUrl: ", resetUrl)
+        // const resetUrl = `${req.protocol}://${req.get("host")}/users/resetPassword/${token.resetToken}`;
+        const resetUrl = `${req.protocol}://${req.get("host")}/users/resetPassword/${token.password_reset_token}`;
+
+        logger.debug(resetUrl);
+        // logger.debug("resetUrl: ", resetUrl)
         const message = `We have received a password reset request. Please use the below link to reset your password \n\n${resetUrl}\n\n
                         This reset password link will be valid for only 10 minutes.`;
         try {

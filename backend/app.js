@@ -8,6 +8,8 @@ const morgan = require('morgan');
 // Import the 'cors' middleware, to enable Cross-Origin Resource Sharing (CORS) in Express
 var cors = require('cors');
 
+
+
 const bodyParser = require('body-parser');
 const logger = require('./utils/logging/logger');
 
@@ -33,10 +35,14 @@ app.use(express.json());
 const userRoute = require('./routes/users');
 const problemRoute = require('./routes/problems')
 const topicsRoute = require('./routes/topics')
+const numberSetRoute = require('./routes/numbersets')
 
-app.use('/mathverse/user', userRoute);
-app.use('/mathverse/topics', topicsRoute)
-app.use('/mathverse/problem', problemRoute)
+
+app.use('/', userRoute);
+app.use('/', topicsRoute)
+app.use('/', problemRoute)
+app.use('/', numberSetRoute)
+
 
 // Define error handling middleware
 app.use((err, req, res, next) => {

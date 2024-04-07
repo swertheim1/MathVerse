@@ -6,8 +6,6 @@ require('dotenv').config();
 const topicsRouter = express.Router();
 
 // topicsRouter.route('/updateTopics').post(topicsController.updateTopics);
-topicsRouter.route('/').get(topicsController.getTopicsByGradeLevel);
+topicsRouter.route('/').get(topicsController.getTopics);
 
-
-
-module.exports = topicsRouter
+module.exports = topicsRouter;

@@ -1,1 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
+body {
+    font-family: Grandstander, Arial, Helvetica, sans-serif;
+}
+
+label {
+    font-size: medium;
+    font-weight: 600;
+}
+
+.frame {
+    border: 1px solid #ccc; /* Set border style */
+    border-radius: 10px; /* Add rounded corners */
+    padding: 10px; /* Add padding around the content */
+    // display: inline-block; /* Display frame inline */
+  }
+
+  .frame-container {
+    // padding: 10px; /* Add padding around the frame */
+    display: inline-block; /* Display frame-container inline */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+  }
+
+  .custom-row {
+    height: 400px; /* Set the desired height for the row */
+    display: flex;
+    justify-content: center; /* Horizontally center the content */
+    align-items: center; /* Vertically center the content */
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: space-between; /* Distribute space between the buttons */
+    margin-top: 20px; /* Adjust the margin as needed */
+  }
+
+  
+
+#login img{
+    margin: 10px 0;
+  }
+  #login .center {
+    text-align: center;
+  }
+  
+  #login .login {
+    max-width: 300px;
+    margin: 35px auto;
+  }
+  
+  #login .login-form{
+    padding:0px 25px;
+  }
+  
+  

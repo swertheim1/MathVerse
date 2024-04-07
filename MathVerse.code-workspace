@@ -7,7 +7,9 @@
 	"settings": {
 		"cSpell.words": [
 			"forgotpassword",
-			"mathverse"
-		]
+			"mathverse",
+			"numberset"
+		],
+		"liveServer.settings.multiRootWorkspaceName": "MathVerse"
 	}
 }

@@ -8,11 +8,19 @@ export const routes: Routes = [
         redirectTo: 'topics',
         pathMatch: 'full'
     },
+
     {
         path: 'topics',
-        loadChildren: () => import('./home_page/topics.component').then( m => m.TopicsComponent)
-    }
-
+        loadChildren: () => import('./topics/topics.module').then(m => m.TopicsModule)
+    },
+    {
+        path: 'login',
+        loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+    },
+    {
+        path: '**',
+        redirectTo: 'fallback'
+    },
 ];
 
 @NgModule({

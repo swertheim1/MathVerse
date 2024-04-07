@@ -18,9 +18,10 @@ CREATE TABLE IF NOT EXISTS Topics (
     grade_level VARCHAR(10) 
 );
 
-CREATE TABLE IF NOT EXISTS Operations (
-    operation_id INT PRIMARY KEY AUTO_INCREMENT,
-    operation_name VARCHAR(50) UNIQUE
+CREATE TABLE IF NOT EXISTS numbersets (
+    numberset_id INT PRIMARY KEY AUTO_INCREMENT,
+    numberset_name VARCHAR(50) UNIQUE
+    grade_level VARCHAR(10)
 );
 
 CREATE TABLE IF NOT EXISTS Results (
@@ -72,3 +73,22 @@ VALUES
     (10, 'Division', '4th_grade' ),
     (11, 'Division', '5th_grade' ),
     (12, 'Division', '6th_grade' );
+
+INSERT INTO NumberSets
+    (numberSet_id, numberSet_name, grade_level )
+VALUES
+    (1, 'Positive Whole Numbers', '4th_grade' ),
+    (2, 'Positive Whole Numbers', '5th_grade' ),
+    (3, 'Positive Whole Numbers', '6th_grade' ),
+    (4, 'Decimals', '4th_grade' ),
+    (5, 'Decimals', '5th_grade' ),
+    (6, 'Decimals', '6th_grade' ),
+    (7, 'Fractions', '4th_grade' ),
+    (8, 'Fractions', '5th_grade' ),
+    (9, 'Fractions', '6th_grade' ),
+    (10, 'Integers', '5th_grade' ),
+    (11, 'Integers', '6th_grade' );
+
+ALTER TABLE numberSets
+RENAME COLUMN operation_id TO numberSet_id
+RENAME COLUMN operation_name to numberSet_name;

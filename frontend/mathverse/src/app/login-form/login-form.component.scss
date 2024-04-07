@@ -1,0 +1,33 @@
+.row-content {
+    padding-bottom: 5%;
+    padding-top: 5%;
+}
+
+.custom-row {
+    height: 200px;
+    display: flex;
+    align-items: center; /* Vertically center the content */
+    justify-content: center;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between; /* Distribute space between the buttons */
+    margin-top: 20px; /* Adjust the margin as needed */
+    align-items: center; /* Vertically center the content */
+    justify-content: center;
+  }
+
+  .button-container button {
+    margin-right: 5px; /* Add margin between the buttons */
+  }
+
+  /* Ensure buttons have equal width */
+  .button-container .btn {
+    flex: 1; /* Make buttons take equal space */
+  }
+
+  h1 {
+    font-weight: 900;
+  }
+

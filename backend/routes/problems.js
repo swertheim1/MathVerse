@@ -4,8 +4,8 @@ require('dotenv').config();
 
 const problemRouter = express.Router();
 
-problemRouter.route('/getTopics').post(problemController.getTopics);
-problemRouter.route('/getNumberSets').post(problemController.getNumberSets);
+// problemRouter.route('/getTopics').post(problemController.getTopics);
+// problemRouter.route('/getNumberSets').post(problemController.getNumberSets);
 problemRouter.route('/saveResults').post(problemController.saveResults);
 
 module.exports = problemRouter;

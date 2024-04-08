@@ -8,53 +8,69 @@ const morgan = require('morgan');
 // Import the 'cors' middleware, to enable Cross-Origin Resource Sharing (CORS) in Express
 var cors = require('cors');
 
-
-
+const verifyToken = require('./middleware/verify-token')
 const bodyParser = require('body-parser');
 const logger = require('./utils/logging/logger');
-
+const userController = require('./controllers/users');
+const topicsController = require('./controllers/topics')
 // Import the MySQL database connection exported from the 'connection.js' file
 const pool = require('./pool')
 
 // Create an instance of the Express application
 const app = express();
-
 app.use(morgan('dev'));
+
 // Use the 'cors' middleware to enable CORS in the Express app
-app.use(cors());
+app.use(cors({
+    exposedHeaders: ['Authorization']
+}));
 
 // Parse incoming request bodies in middleware using 'express.urlencoded' middleware
 // This middleware parses incoming requests with urlencoded payloads
 app.use(express.urlencoded({extended: true}));
 
-
 // Parse incoming request bodies in middleware using 'express.json' middleware
 // This middleware parses incoming requests with JSON payloads
 app.use(express.json());
+
+// Log incoming requests before they reach the router
+app.use((req, res, next) => {
+    logger.debug(`Incoming request before it reaches the router: ${req.method} ${req.url}`);
+    next(); // Call next to pass control to the next middleware or route handler
+});
 
 const userRoute = require('./routes/users');
 const problemRoute = require('./routes/problems')
 const topicsRoute = require('./routes/topics')
 const numberSetRoute = require('./routes/numbersets')
 
-
 app.use('/', userRoute);
 app.use('/', topicsRoute)
 app.use('/', problemRoute)
 app.use('/', numberSetRoute)
 
+// routes using controller functions
+app.get('/topics', topicsController.getTopics);
+app.get('/topics/:grade_level', topicsController.getTopicsByGrade);
+
+
+
 
 // Define error handling middleware
 app.use((err, req, res, next) => {
-    console.log(err.stack); // Log the error stack trace
+    logger.debug(err.stack); // Log the error stack trace
     res.status(500).json({ error: 'Internal Server Error' }); // Send an error response
 });
 
 // Error handling for route not found
-app.use((req, res, next) => {
+app.use((err, req, res, next) => {
+    logger.debug('Error occurred:', err);
     res.status(404).json({ error: 'Route not found' });
 });
 
+
+// Middleware for the changePassword handler
+app.post('/changePassword', verifyToken, userController.changePassword);
 
 // Export the Express application to be used in other parts of your Node.js application
 module.exports = app;

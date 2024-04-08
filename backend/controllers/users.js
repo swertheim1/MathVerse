@@ -72,7 +72,7 @@ userController.login = async (req, res) => {
 
         // Check if a user is returned
         if (userRows.length === 0) {
-            logger.info("user exists")
+            logger.info("User does not exist")
             return res.status(401).json({ message: "Authorization failed" });
         }
 
@@ -110,11 +110,13 @@ userController.login = async (req, res) => {
         logger.info(topicNames);
 
         // res.json({ topicNames });
-        return res.status(200).json({
+        return res.status(200)
+        .header('Authorization', `Bearer ${token}`)
+        .json({
             message: "Authorization successful",
-            token: token,
             grade: grade_level,
-            topics: topicNames
+            topics: topicNames,
+            token: token
         });
     } catch (error) {
         // Handle database query errors

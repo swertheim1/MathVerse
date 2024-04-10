@@ -14,6 +14,7 @@ export class LoginFormComponent implements OnInit {
   constructor(private fb: FormBuilder, private httpClient: HttpClient) { }
 
   ngOnInit(): void {
+    console.log('LoginFormComponent initialized.');
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -21,6 +22,7 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSubmit(): void {
+    
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       console.log("Form is valid. Submitting:", email, password);

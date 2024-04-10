@@ -1,5 +1,6 @@
 const pool = require("../pool");
 const jwt = require("jsonwebtoken")
+// const ValidateTokenService = require('./ValidateTokenService')
 
 // express-validator used for validating and sanitizing input data
 const { body, validationResult } = require("express-validator");
@@ -92,14 +93,6 @@ userController.login = async (req, res) => {
         }
         logger.info("Create token with email");
         logger.info(userRows[0].email);
-        const token = jwt.sign({
-            email: userRows[0].email,
-            password: userRows[0].password
-        },
-            process.env.JWT_KEY,
-            {
-                expiresIn: "1h"
-            });
        
         topics = await fetchTopics(grade_level);
         logger.debug('returned topics from fetchTopics')
@@ -109,14 +102,26 @@ userController.login = async (req, res) => {
         const topicNames = topics.map(topic => topic.topic_name);
         logger.info(topicNames);
 
-        // res.json({ topicNames });
+        
+        const token = jwt.sign({
+            email: userRows[0].email,
+            grade_level: userRows[0].grade_level
+        },
+            process.env.JWT_KEY,
+            {
+                expiresIn: "4h"
+            });
+        
+        
+        
         return res.status(200)
         .header('Authorization', `Bearer ${token}`)
         .json({
             message: "Authorization successful",
             grade: grade_level,
             topics: topicNames,
-            token: token
+            token: token,
+
         });
     } catch (error) {
         // Handle database query errors

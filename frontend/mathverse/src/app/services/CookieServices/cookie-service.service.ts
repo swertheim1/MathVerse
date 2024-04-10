@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
-export class AppCookieService {  
+export class CookieService {  
   private cookieStore: { [key: string]: string } = {};
 
 

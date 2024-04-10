@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import  { jwtDecode as jwt_decode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,7 @@ export class TokenService {
 
   setToken(token: string): void {
     this.token = token;
+    if (token)
     this.cookieService.set('token', token);
     console.log('Token saved successfully:', token);
     this.decodeToken();
@@ -22,26 +23,32 @@ export class TokenService {
   decodeToken() {
     if (this.token) {
       console.log(`this.token, ${this.token}`)
-      this.decodedToken = jwt_decode(this.token);
+      this.decodedToken = jwtDecode(this.token);
+      console.log("grade_level", this.decodedToken['grade_level'])
+      console.log("email", this.decodedToken['email'])
+    
     }
   }
 
-  getToken(): String {
+  getToken(): string {
     if (this.token) {
       return this.token;
     }
-    return this.cookieService.get('token') || ''; // Return empty string if cookie token is null or undefined
+    // Return empty string if cookie token is null or undefined
+    return this.cookieService.get('token') || ''; 
   }
 
-  getUser() {
+  getGradeLevel() {
     if (this.decodedToken) {
-      return this.decodedToken ? this.decodedToken['displayName'] : null;
+      console.log(this.decodedToken['grade_level'])
+      return this.decodedToken ? this.decodedToken['grade_level'] : null;
     }
     return null;
   }
 
-  getEmailId() {
+  getEmail() {
     this.decodeToken();
+    console.log(this.decodedToken['email'])
     return this.decodedToken ? this.decodedToken['email'] : null;
   }
 

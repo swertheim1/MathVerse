@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/AuthorizationServices/auth.service';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenService } from '../services/TokenServices/token.service';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  providers: [FormsModule]
 })
 
 export class LoginComponent {
@@ -15,7 +18,9 @@ export class LoginComponent {
     private authService: AuthService,
     private httpClient: HttpClient,
     private cookieService: CookieService,
-  ) {}
+    private tokenService: TokenService,
+    private router: Router,
+  ) { }
 
   login(email: string, password: string) {
     const credentials = { email, password };
@@ -23,17 +28,19 @@ export class LoginComponent {
 
     this.authService.login(credentials).subscribe(
       (res: HttpResponse<any>) => {
-        console.log('res.body', res.body);
-        console.log('res.headers', res.headers);
-        console.log(res.headers.keys());
         console.log('res.headers.getAll(Authorization)', res.headers.getAll('Authorization'))
-        
+
         // Handle successful login response
-      
+        const tokenArray = res.headers.getAll("Authorization");
+        if (tokenArray && tokenArray.length > 0) {
+          const token = tokenArray[0]; // Get the first element
+          this.tokenService.setToken(token);
+        }
+        this.router.navigate(['/topics']);
 
       },
       (error: any) => {
-        console.error('Error', error );
+        console.error('Error', error);
         // Handle login error
       }
     );

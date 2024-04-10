@@ -1,32 +1,39 @@
+
+
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; // Import HttpClientModule
+import { RouterModule } from '@angular/router';
+
+import { AppRoutingModule } from './app.routes';
+import { AppComponent } from './app.component';
+
+import { CookieService } from './services/CookieServices/cookie-service.service';
 import { AuthService } from './services/AuthorizationServices/auth.service';
-import { TopicsComponent } from '../app/topics/topics.component';
-import { LoginModule } from './login/login.module';
-import { TokenInterceptor as TokenInterceptor } from './services/TokenServices/token.interceptor';
-import { CookieService } from 'ngx-cookie-service';
+import { TokenInterceptor } from './services/TokenServices/token.interceptor';
+import { LocalStorageService } from './services/LocalStorageServices/local-storage-service.service';
+
+
 
 @NgModule({
-  declarations: [TopicsComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
-    HttpClientModule, 
+    AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule,
-    FormsModule,
-    LoginModule
+    ReactiveFormsModule, 
+    RouterModule.forRoot([])
   ],
+
   providers: [
-    AuthService, 
-    HttpClient, 
-    HttpClientModule, 
+    AuthService,
     CookieService,
-    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
+    LocalStorageService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
-  bootstrap: [TopicsComponent] 
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

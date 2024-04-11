@@ -1,11 +1,7 @@
 // import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-// import { DataService } from '../services/data.service';
-// import { Router } from '@angular/router'
-// import { ActivatedRoute } from '@angular/router';
-// import { NgZone } from '@angular/core';
-
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-topics',
@@ -15,13 +11,10 @@ import { Component } from '@angular/core';
 })
 
 export class TopicsComponent {
-  constructor (private httpClient: HttpClient) {}
-  // email: string = '';
-  // password: string = '';
-  // gradeLevel: string = '';
-  // topics: string [] = [];
+  message: string | null;
 
-  // constructor(private router: Router, private route: ActivatedRoute, private ngZone: NgZone) {}
-
- 
+  constructor(private route: ActivatedRoute) {
+    // Retrieve the message from query parameters
+    this.message = this.route.snapshot.queryParamMap.get('message');
+  }
 }

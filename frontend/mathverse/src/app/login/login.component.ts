@@ -35,8 +35,10 @@ export class LoginComponent {
         if (tokenArray && tokenArray.length > 0) {
           const token = tokenArray[0]; // Get the first element
           this.tokenService.setToken(token);
+          this.saveTokenToCookie(token);
         }
-        this.router.navigate(['/topics']);
+          console.log("User being redirect to topics page")
+          this.router.navigate(['/topics']);
 
       },
       (error: any) => {
@@ -48,5 +50,6 @@ export class LoginComponent {
 
   saveTokenToCookie(token: string) {
     this.cookieService.set('authToken', token);
+    console.log('token saved to cookie')
   }
 }

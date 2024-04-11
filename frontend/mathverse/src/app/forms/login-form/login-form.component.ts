@@ -29,6 +29,14 @@ export class LoginFormComponent implements OnInit {
       this.loginClicked.emit({ email, password });
     } else {
       console.log("Form is invalid. Please fill in all fields correctly.");
+      
     }
   }
+
+  ForgotPasswordClick(): void {
+    // Implement your logic here:
+    // Show a modal, navigate to a password reset page, etc.
+    console.log("Forgot Password button clicked!");
+  }
 }
+

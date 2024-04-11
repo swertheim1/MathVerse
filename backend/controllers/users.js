@@ -109,10 +109,8 @@ userController.login = async (req, res) => {
         },
             process.env.JWT_KEY,
             {
-                expiresIn: "4h"
+                expiresIn: "30s"         // 30 seconds for testing
             });
-        
-        
         
         return res.status(200)
         .header('Authorization', `Bearer ${token}`)

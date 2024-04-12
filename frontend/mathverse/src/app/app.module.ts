@@ -1,6 +1,6 @@
 
 
-import { NgModule } from '@angular/core';
+import { ApplicationRef, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
@@ -14,11 +14,11 @@ import { CookieService } from './services/CookieServices/cookie-service.service'
 import { AuthService } from './services/AuthorizationServices/auth.service';
 import { TokenInterceptor } from './services/TokenServices/token.interceptor';
 import { LocalStorageService } from './services/LocalStorageServices/local-storage-service.service';
-
+// import { bootstrapApplication } from '@angular/platform-browser';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -34,6 +34,11 @@ import { LocalStorageService } from './services/LocalStorageServices/local-stora
     LocalStorageService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: []
 })
-export class AppModule { }
+export class AppModule { 
+  ngDoBootstrap(appRef: ApplicationRef) {
+    // Bootstrap your root component programmatically
+    appRef.bootstrap(AppComponent);
+  }
+}

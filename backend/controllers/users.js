@@ -105,11 +105,12 @@ userController.login = async (req, res) => {
         
         const token = jwt.sign({
             email: userRows[0].email,
-            grade_level: userRows[0].grade_level
+            grade_level: userRows[0].grade_level,
+            topics: topicNames
         },
             process.env.JWT_KEY,
             {
-                expiresIn: "30s"         // 30 seconds for testing
+                expiresIn: "1h"         // 30 seconds for testing
             });
         
         return res.status(200)

@@ -19,7 +19,7 @@ const verifyToken = (req, res, next) => {
     // } else {
     //   return res.status(401).json({ message: 'Invalid token' });
     // }
-    // For testing purposes, let's assume the token is valid
+
     next();
   };
   

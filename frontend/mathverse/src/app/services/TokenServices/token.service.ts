@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from "jwt-decode";
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +11,8 @@ import { jwtDecode } from "jwt-decode";
 export class TokenService {
   token: string | null = null;
   decodedToken!: { [key: string]: string };
+  private cachedTopics: any[] = [];
+
   
   constructor(private cookieService: CookieService) {}
 
@@ -28,6 +32,7 @@ export class TokenService {
       console.log("email", this.decodedToken['email']);
       console.log("exp", this.decodedToken['exp']);
       console.log("iat", this.decodedToken['iat']);
+      console.log("topics", this.decodedToken['topics']);
       
     }
   }
@@ -50,6 +55,28 @@ export class TokenService {
     this.decodeToken();
     console.log(this.decodedToken['email'])
     return this.decodedToken ? this.decodedToken['email'] : null;
+  }
+
+  cacheTopics(topics: any[]): void {
+    this.cachedTopics = topics;
+  }
+
+  getCachedTopics(): any[] {
+    console.log(`TOPICS from GET CACHED TOPICS:  ${this.getCachedTopics()}`);
+    return this.cachedTopics;
+  }
+
+  getTopics(): Observable<any> {
+    this.decodeToken();
+    const topics = this.decodedToken && this.decodedToken['topics'];
+    if (Array.isArray(topics)) {
+      console.log(`TOPICS from GET TOPICS: ${topics}`);
+      this.cacheTopics(topics)
+      return of(topics);
+    } else {
+      console.error('Topics property not found or is not an array in decoded token.');
+      return of(null);
+    }
   }
 
   getExpiryTime() {

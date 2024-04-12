@@ -27,6 +27,7 @@
   "scripts": {
     "test": "jest --watchAll",
     "start": "nodemon server.js"
+    
   },
   "author": "",
   "license": "ISC",

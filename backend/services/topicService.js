@@ -3,16 +3,18 @@ const pool = require("../pool");
 
 
 async function fetchTopics(grade_level) {
-    // logger.log('Fetching Topics function called');
+    console.log('FetchingTopics function in topicsService called');
     try {
         // Validate input parameters
         if (!grade_level) {
+            logger.debug(`Grade level parameter: ${grade_level}`);
             throw new Error('Grade level parameter is required');
         }
 
         // Fetch topics based on grade_level from the database
         const topics = await pool.query("SELECT * FROM topics WHERE grade_level = ?", [grade_level]);
-        const rows = topics[0]; // Assuming MySQL returns an array where the first element contains the result       
+        logger.info(`Fetched topics: ${JSON.stringify(topics[0])}`);
+        const rows = topics[0];        
 
         // Check if any rows are returned
         if (rows.length === 0) {

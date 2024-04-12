@@ -9,13 +9,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class ForgotPasswordComponent {
   @Output() forgotPasswordClicked: EventEmitter<{ email: string }> = new EventEmitter<{ email: string }>();
-  forgotPasswordForm!: FormGroup;
+  forgotPassword!: FormGroup;
   
   constructor(private fb: FormBuilder, private httpClient: HttpClient) { }
   
 
+
   onSubmit(): void {
-    this.forgotPasswordForm = this.fb.group({
+    this.forgotPassword = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       
     });

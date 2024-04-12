@@ -12,7 +12,8 @@ const verifyToken = require('./middleware/verify-token')
 const bodyParser = require('body-parser');
 const logger = require('./utils/logging/logger');
 const userController = require('./controllers/users');
-const topicsController = require('./controllers/topics')
+const topicsController = require('./controllers/topics');
+const numberSetsController = require('./controllers/numbersets');
 // Import the MySQL database connection exported from the 'connection.js' file
 const pool = require('./pool')
 
@@ -39,27 +40,32 @@ app.use((req, res, next) => {
     next(); // Call next to pass control to the next middleware or route handler
 });
 
-const userRoute = require('./routes/users');
-const problemRoute = require('./routes/problems')
-const topicsRoute = require('./routes/topics')
-const numberSetRoute = require('./routes/numbersets')
+const userRouter = require('./routes/users');
+const problemRouter = require('./routes/problems');
+const topicsRouter = require('./routes/topics');
+const numberSetsRouter = require('./routes/numbersets');
+// const numberSetsRouter = require('./routes/numbersets');
 
-app.use('/', userRoute);
-app.use('/', topicsRoute)
-app.use('/', problemRoute)
-app.use('/', numberSetRoute)
+app.use((req, res, next) => {
+    logger.debug(`incoming requests after it reaches the router`);
+    next();
+    });
+
 
 // routes using controller functions
-app.get('/topics', topicsController.getTopics);
 app.get('/topics/:grade_level', topicsController.getTopicsByGrade);
+app.get('/numberSets', numberSetsController.getNumberSets)    
 
-
-
+app.use('/', userRouter);
+app.use('/', topicsRouter);
+app.use('/', problemRouter);
+app.use('/', numberSetsRouter);
 
 // Define error handling middleware
 app.use((err, req, res, next) => {
     logger.debug(err.stack); // Log the error stack trace
     res.status(500).json({ error: 'Internal Server Error' }); // Send an error response
+    next(err);
 });
 
 // Error handling for route not found

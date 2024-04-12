@@ -4,12 +4,14 @@ import { LoginComponent } from './login/login.component';
 import { TopicsComponent } from './topics/topics.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthGuardService } from './services/AuthGuardService/auth-guard.service';
+import { NumberSetsComponent } from './number-sets/number-sets.component';
 
 export const routes: Routes = [
 
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'topics', component: TopicsComponent, canActivate: [AuthGuardService] },
+    { path: 'numberSets', component: NumberSetsComponent, canActivate: [AuthGuardService]},
     { path: 'forgotPassword', component: ForgotPasswordComponent},
     { path: '**', redirectTo: 'fallback' },
 ];

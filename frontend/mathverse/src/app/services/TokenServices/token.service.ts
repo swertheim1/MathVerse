@@ -23,7 +23,7 @@ export class TokenService {
     this.token = token;
     if (token)
       this.cookieService.set('authToken', token); 
-    console.log('Token saved successfully:', token);
+    
     this.decodeToken();
   }
   
@@ -32,11 +32,6 @@ export class TokenService {
     if (this.token) {
       console.log(`this.token, ${this.token}`)
       this.decodedToken = jwtDecode(this.token);
-      console.log("grade_level", this.decodedToken['grade_level']);
-      console.log("email", this.decodedToken['email']);
-      console.log("exp", this.decodedToken['exp']);
-      console.log("iat", this.decodedToken['iat']);
-      console.log("topics", this.decodedToken['topics']);
     }
   }
 
@@ -78,7 +73,6 @@ export class TokenService {
     console.log(`GetCached Topics has been called:  ${this.cachedTopics}`);
     const cachedTopicsString = localStorage.getItem('cachedTopics');
     return cachedTopicsString ? JSON.parse(cachedTopicsString) : [];
-    
   }
 
   getTopics(): Observable<any> {

@@ -5,18 +5,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  imports: [
-    ReactiveFormsModule,
-    CommonModule,
-    FormsModule,
-    HttpClientModule,
-
-  ],
   declarations: [
     TopicsComponent
   ], 
   exports: [
     TopicsComponent
+  ],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
   ],
 
 })

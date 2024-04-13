@@ -2,22 +2,26 @@
   {{ message }}
 </div>
 
-<h1>TOPICS PAGE</h1> 
+<div class="frame-container">
+  <div class="frame"> <!-- Added frame class to wrap the content -->
+    <div class="row">
+      <div class="col text-center">
+        <h1 style="margin-top: 5%; margin-bottom: 5%;">MathVerse Topics</h1>
+      </div>
+    </div>
+    <div class="container d-flex justify-content-center">
+      <div class="image-grid">
+        <div *ngIf="topics && topics.length > 0">
+          <h2>Topics</h2>
+          <ul>
+            <li *ngFor="let topic of topics">{{ topic }}</li>
+          </ul>
+        </div>
+        <div *ngIf="!topics || topics.length === 0">
+          <p>No topics available.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<form class="dropdown-menu p-4">
-  <div class="form-group">
-    <label for="exampleDropdownFormEmail2">Email address</label>
-    <input type="email" class="form-control" id="exampleDropdownFormEmail2" placeholder="email@example.com">
-  </div>
-  <div class="form-group">
-    <label for="exampleDropdownFormPassword2">Password</label>
-    <input type="password" class="form-control" id="exampleDropdownFormPassword2" placeholder="Password">
-  </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="dropdownCheck2">
-    <label class="form-check-label" for="dropdownCheck2">
-      Remember me
-    </label>
-  </div>
-  <button type="submit" class="btn btn-primary">Sign in</button>
-</form>
+

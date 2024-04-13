@@ -6,24 +6,47 @@ body {
     font-family: Grandstander, Arial, Helvetica, sans-serif;
 }
 
-label {
-    font-size: medium;
-    font-weight: 600;
+.frame-container {
+  padding: 40px; /* Add padding around the frame */
+  display: flex;
+  justify-content: center; /* Center horizontally */
 }
 
 .frame {
-    border: 1px solid #ccc; /* Set border style */
-    border-radius: 10px; /* Add rounded corners */
-    padding: 10px; /* Add padding around the content */
-    // display: inline-block; /* Display frame inline */
+  border: 1px solid #ccc; /* Set border style */
+  border-radius: 10px; /* Add rounded corners */
+  padding: 20px; /* Add padding around the content */
+  
+}
+@media (min-width: 576px) { /* Medium screens and above */
+  .frame {
+    width: 50%; /* Set width to 75% for medium screens and above */
   }
+}
 
-  .frame-container {
-    // padding: 10px; /* Add padding around the frame */
-    display: inline-block; /* Display frame-container inline */
-    display: flex;
-    justify-content: center; /* Center horizontally */
-  }
+h1 {
+  font-weight: 900;
+  font-size: 36px;
+}
+
+label {
+    font-size: large;
+    font-weight: 600;
+}
+
+// .frame {
+//     border: 1px solid #ccc; /* Set border style */
+//     border-radius: 10px; /* Add rounded corners */
+//     padding: 10px; /* Add padding around the content */
+//     // display: inline-block; /* Display frame inline */
+//   }
+
+//   .frame-container {
+//     // padding: 10px; /* Add padding around the frame */
+//     display: inline-block; /* Display frame-container inline */
+//     display: flex;
+//     justify-content: center; /* Center horizontally */
+//   }
 
   .custom-row {
     height: 400px; /* Set the desired height for the row */

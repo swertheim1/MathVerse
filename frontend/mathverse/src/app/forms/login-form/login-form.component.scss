@@ -1,20 +1,4 @@
-.frame-container {
-  padding: 40px; /* Add padding around the frame */
-  display: flex;
-  justify-content: center; /* Center horizontally */
-}
 
-.frame {
-  border: 1px solid #ccc; /* Set border style */
-  border-radius: 10px; /* Add rounded corners */
-  padding: 20px; /* Add padding around the content */
-  
-}
-@media (min-width: 576px) { /* Medium screens and above */
-  .frame {
-    width: 50%; /* Set width to 75% for medium screens and above */
-  }
-}
 
 .row-content {
   padding-bottom: 5%;
@@ -43,9 +27,4 @@
 /* Ensure buttons have equal width */
 .button-container .btn {
   flex: 1; /* Make buttons take equal space */
-}
-
-h1 {
-  font-weight: 900;
-  font-size: 28px;
 }

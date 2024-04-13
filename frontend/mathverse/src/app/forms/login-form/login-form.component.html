@@ -1,4 +1,4 @@
-<div class="container"> <!-- New container for padding -->
+
   <div class="row justify-content-center"> <!-- Center the frame-container -->
     <div class="frame-container"> <!-- Container with padding around the frame -->
       <div class="frame"> <!-- Added frame class to wrap the content -->
@@ -11,7 +11,7 @@
 
           <div class="row justify-content-center custom-row"> <!-- Added custom-row class -->
             <div class="col-12"> 
-              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" (ngSubmit)="forgotPasswordClick()" (ngSubmit)="needToRegisterClick()">
                 <div class="mb-3 row">
                   <label for="emailInput" class="col-sm-3 col-form-label">Email address:</label>
                   <div class="col-sm-9"> <!-- Adjusted column size to occupy 9 columns on screens larger than small -->
@@ -28,13 +28,15 @@
   
                 <div class="mb-3 row button-container"> <!-- Moved button container within the same grid -->
                   <div class="col-sm-9 offset-sm-3 d-flex"> <!-- Adjusted column layout to align buttons with inputs -->
-                    <button type="submit" class="btn btn-primary me-2">Login</button> <!-- Added me-2 class for margin between buttons -->
-                    <button type="button" class="btn btn-outline-dark">Forgot Password</button>
+                    <button type="submit" class="btn btn-primary me-2" aria-pressed="true">Login</button> <!-- Added me-2 class for margin between buttons -->
+                    <a href="#" button type="button" role='button' class="btn btn-light btn-outline-dark" aria-pressed="true">Forgot Password</a>
                   </div>
                 </div>
                 <div class="mb-3 row button-container"> <!-- Moved button container within the same grid -->
                   <div class="col-sm-9 offset-sm-3 d-flex"> <!-- Adjusted column layout to align buttons with inputs -->
-                    <button type="button" class="btn btn-light">Need to Register?</button>
+                    <a routerLink="/signup" class="btn btn-light btn-outline-dark">
+                      Need to Register?
+                    </a>
                   </div>
                 </div>
               </form>
@@ -44,4 +46,3 @@
       </div>
     </div>
   </div>
-</div>

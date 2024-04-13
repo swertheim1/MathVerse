@@ -22,7 +22,6 @@ export class LoginFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       console.log("Form is valid. Submitting:", email, password);
@@ -33,10 +32,15 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
-  ForgotPasswordClick(): void {
+  forgotPasswordClick(): void {
     // Implement your logic here:
     // Show a modal, navigate to a password reset page, etc.
     console.log("Forgot Password button clicked!");
   }
+
+  needToRegisterClick(): void {
+    console.log("Need to register button clicked")
+  }
+
 }
 

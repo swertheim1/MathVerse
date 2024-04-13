@@ -2,75 +2,49 @@
     <div class="frame"> <!-- Added frame class to wrap the content -->
         <div class="row">
             <div class="col text-center">
-                <h1>Sign Up</h1>
+                <h1 style="margin-top: 5%; margin-bottom: 5%;">Sign Up</h1>
             </div>
         </div>
         <div class="container d-flex justify-content-center">
-            <form class="d-flex" id="signUpForm" style="width:50vw" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+            <form class="d-flex" id="signUpForm" style="width:25vw" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
                 <div class="col">
-                    <div class="form-group row mb-3">
-                        <label for="inputFirstName" class="col-sm-2 col-form-label col-form-label-lg">First Name</label>
-                        <div class="col">
-                            <input type="text" class="form-control " id="inputFirstName"
-                                placeholder="First Name">
-                        </div>
+                    <div class="form-group mb-3">
+                        <label for="inputFirstName" class="col-form-label col-form-label-lg">First Name</label>
+                        <input type="text" class="form-control " id="inputFirstName" placeholder="First Name">
                     </div>
-                    <div class="form-group row mb-3">
-                        <label for="inputLastName" class="col-sm-2 col-form-label col-form-label-lg">Last Name</label>
-                        <div class="col">
-                            <input type="text" class="form-control " id="inputLastName"
-                                placeholder="Last Name">
-                        </div>
+                    <div class="form-group mb-3">
+                        <label for="inputLastName" class="col-form-label col-form-label-lg">Last Name</label>
+                        <input type="text" class="form-control " id="inputLastName" placeholder="Last Name">
                     </div>
-                    <div class="form-group row mb-3">
-                        <label for="inputEmail" class="col-sm-2 col-form-label col-form-label-lg">Parent's Email</label>
-                        <div class="col">
-                            <input type="email" class="form-control " id="inputEmail"
-                                placeholder="Parent's Email">
-                        </div>
+                    <div class="form-group mb-3">
+                        <label for="inputEmail" class="col-form-label col-form-label-lg">Parent's Email</label>
+                        <input type="email" class="form-control " id="inputEmail" placeholder="Parent's Email">
                     </div>
-                    <div class="form-group row mb-3">
-                        <label for="inputPassword" class="col-sm-2 col-form-label col-form-label-lg">Password</label>
-                        <div class="col">
-                            <input type="password" class="form-control " id="inputPassword"
-                                placeholder="Password">
-                        </div>
+                    <div class="form-group mb-3">
+                        <label for="inputPassword" class="col-form-label col-form-label-lg">Password</label>
+                        <input type="password" class="form-control " id="inputPassword" placeholder="Password">
                     </div>
-                    <div class="form-group row mb-3">
-                        <label for="inputRepeatPassword" class="col-sm-2 col-form-label col-form-label-lg">Repeat
-                            Password</label>
-                        <div class="col">
-                            <input type="password" class="form-control " id="inputRepeatPassword"
-                                placeholder="Password">
-                        </div>
+                    <div class="form-group mb-3">
+                        <label for="inputRepeatPassword" class="col-form-label col-form-label-lg">Repeat Password</label>
+                        <input type="password" class="form-control " id="inputRepeatPassword" placeholder="Password">
                     </div>
-                    <div class="form-group row mb-3">
-                        <label for="inputRepeatPassword" class="col-sm-2 col-form-label col-form-label-lg">Grade
-                            Level</label>
-                        <div class="col">
-                            <select [(ngModel)]="selectedGradeLevel" (change)="handleGradeLevelChange()"
-                                id="inputGradeLevel" class="form-control ">
-                                <option>Select ...</option>
-                                <option>4th Grade</option>
-                                <option>5th Grade</option>
-                                <option>6th Grade</option>
-                            </select>
-                        </div>
+                    <div class="form-group mb-3">
+                        <label for="inputGradeLevel" class="col-form-label col-form-label-lg">Grade Level</label>
+                        <select [(ngModel)]="selectedGradeLevel" (change)="handleGradeLevelChange()" id="inputGradeLevel" class="form-control ">
+                            <option>Select ...</option>
+                            <option>4th Grade</option>
+                            <option>5th Grade</option>
+                            <option>6th Grade</option>
+                        </select>
                     </div>
-                    <div class="form-group row mb-3">
-                        <label for="age" class="col-sm-2 col-form-label col-form-label-lg">Age</label>
-                        <div class="col">
-                            <input type="text" class="form-control " id="age"
-                                placeholder="Enter a number">
-                        </div>
+                    <div class="form-group mb-3">
+                        <label for="age" class="col-form-label col-form-label-lg">Age</label>
+                        <input type="text" class="form-control " id="age" placeholder="Enter a number">
                     </div>
 
                     <div class="form-group row">
-                        <button type="button" class="btn btn-primary btn-lg btn-block mb-3">Sign Up</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block">Sign Up</button>
                         <p class="text-center">Already have an account? <button class="btn btn-link"><a href="sign-in.html">Sign In</a></button></p>
-                    </div>
-                    <div class="form-group-row">
-                        
                     </div>
                 </div>
             </form>

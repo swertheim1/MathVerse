@@ -1,48 +1,34 @@
-
-  <div class="row justify-content-center"> <!-- Center the frame-container -->
-    <div class="frame-container"> <!-- Container with padding around the frame -->
-      <div class="frame"> <!-- Added frame class to wrap the content -->
-        <div class="container">
-          <div class="row text-center" id="LoginHeading">
-            <div class="row-content">
-              <h1>Login</h1>
-            </div>
-          </div>
-
-          <div class="row justify-content-center custom-row"> <!-- Added custom-row class -->
-            <div class="col-12"> 
-              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" (ngSubmit)="forgotPasswordClick()" (ngSubmit)="needToRegisterClick()">
-                <div class="mb-3 row">
-                  <label for="emailInput" class="col-sm-3 col-form-label">Email address:</label>
-                  <div class="col-sm-9"> <!-- Adjusted column size to occupy 9 columns on screens larger than small -->
-                    <input type="email" class="form-control" id="emailInput" name="email" formControlName="email" placeholder="name@example.com" required>
-                  </div>
-                </div>
-  
-                <div class="mb-3 row">
-                  <label for="passwordInput" class="col-sm-3 col-form-label">Password:</label>
-                  <div class="col-sm-9"> <!-- Adjusted column size to occupy 9 columns on screens larger than small -->
-                    <input type="password" class="form-control" id="passwordInput" name="password" formControlName="password" placeholder="password" required>
-                  </div>
-                </div>
-  
-                <div class="mb-3 row button-container"> <!-- Moved button container within the same grid -->
-                  <div class="col-sm-9 offset-sm-3 d-flex"> <!-- Adjusted column layout to align buttons with inputs -->
-                    <button type="submit" class="btn btn-primary me-2" aria-pressed="true">Login</button> <!-- Added me-2 class for margin between buttons -->
-                    <a href="#" button type="button" role='button' class="btn btn-light btn-outline-dark" aria-pressed="true">Forgot Password</a>
-                  </div>
-                </div>
-                <div class="mb-3 row button-container"> <!-- Moved button container within the same grid -->
-                  <div class="col-sm-9 offset-sm-3 d-flex"> <!-- Adjusted column layout to align buttons with inputs -->
-                    <a routerLink="/signup" class="btn btn-light btn-outline-dark">
-                      Need to Register?
-                    </a>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+<div class="frame-container">
+  <div class="frame"> <!-- Added frame class to wrap the content -->
+    <div class="row">
+      <div class="col text-center">
+        <h1 style="margin-top: 5%; margin-bottom: 5%;">Login In</h1>
       </div>
     </div>
+
+    <div class="container d-flex justify-content-center">
+      <form class="d=flex" id="loginForm" style="width:25vw" [formGroup]="loginForm" (ngSubmit)="onSubmit()" (ngSubmit)="forgotPasswordClick()"
+        (ngSubmit)="needToRegisterClick()">
+        <div class="col">
+          <div class="form-group mb-4">
+            <label for="inputEmail" class="col-form-label col-form-label-lg">Email</label>
+            <input type="email" class="form-control " id="inputEmail" placeholder="Email">
+          </div>
+
+          <div class="form-group mb-4">
+            <label for="inputPassword" class="col-form-label col-form-label-lg">Password</label>
+            <input type="password" class="form-control " id="inputPassword" placeholder="Password">
+          </div>
+
+          <div class="form-group row">
+            <button type="button" class="btn btn-primary btn-lg btn-block mt-3 mb-3">Login Up</button>
+          </div>
+          <div class="form-group row">
+            <button type="button" class="btn btn-primary btn-lg mt-3 mb-3">Forgot Password?</button>
+            <p class="text-center">New To MathVerse? <button class="btn btn-link">Signup</button></p>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
+</div>

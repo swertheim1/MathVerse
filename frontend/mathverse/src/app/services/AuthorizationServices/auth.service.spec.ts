@@ -1,19 +1,57 @@
-import { TestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { TestBed, inject } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from './auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AuthService', () => {
   let service: AuthService;
+  let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
-      providers: [AuthService]
+      imports: [HttpClientModule, HttpClientTestingModule],
+      providers: [
+        AuthService, 
+        
+      ]
     });
+
     service = TestBed.inject(AuthService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify(); // Verifies that no requests are outstanding after each test
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should send a POST request when login is called', () => {
+    const dummyCredentials = { email: 'test@example.com', password: 'password123' };
+    const mockResponse = { token: 'mockToken' };
+
+    service.login(dummyCredentials).subscribe(response => {
+      expect(response.body).toEqual(mockResponse); // Assuming the response contains a token
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/login');
+    expect(req.request.method).toBe('POST');
+    req.flush(mockResponse);
+  });
+
+  it('should send a GET request with proper authorization header when getHeaders is called', () => {
+    const dummyToken = 'mockToken';
+    const mockUserData = { /* mock user data */ };
+
+    service.getHeaders(dummyToken).subscribe(response => {
+      expect(response).toEqual(mockUserData); // Assuming the response contains user data
+    });
+
+    const req = httpMock.expectOne('http://localhost:3000/user-data');
+    expect(req.request.method).toBe('GET');
+    expect(req.request.headers.get('Authorization')).toBe(dummyToken);
+    req.flush(mockUserData);
   });
 });

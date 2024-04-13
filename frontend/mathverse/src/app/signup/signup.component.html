@@ -6,31 +6,31 @@
             </div>
         </div>
         <div class="container d-flex justify-content-center">
-            <form class="d-flex" id="signUpForm" style="width:25vw" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+            <form class="d-flex" id="signUpForm" style="width:25vw" [formGroup]="signUpForm">
                 <div class="col">
                     <div class="form-group mb-3">
-                        <label for="inputFirstName" class="col-form-label col-form-label-lg">First Name</label>
-                        <input type="text" class="form-control " id="inputFirstName" placeholder="First Name">
+                        <label for="inputFirstName" class="col-form-label col-form-label-lg">First Name<span style="color: lightsalmon">*</span></label>
+                        <input type="text" class="form-control " id="inputFirstName" placeholder="First Name" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="inputLastName" class="col-form-label col-form-label-lg">Last Name</label>
-                        <input type="text" class="form-control " id="inputLastName" placeholder="Last Name">
+                        <label for="inputLastName" class="col-form-label col-form-label-lg">Last Name<span style="color: lightsalmon">*</span></label>
+                        <input type="text" class="form-control " id="inputLastName" placeholder="Last Name" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="inputEmail" class="col-form-label col-form-label-lg">Parent's Email</label>
-                        <input type="email" class="form-control " id="inputEmail" placeholder="Parent's Email">
+                        <label for="inputEmail" class="col-form-label col-form-label-lg">Parent's Email<span style="color: lightsalmon">*</span></label>
+                        <input type="email" class="form-control " id="inputEmail" placeholder="Parent's Email" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="inputPassword" class="col-form-label col-form-label-lg">Password</label>
-                        <input type="password" class="form-control " id="inputPassword" placeholder="Password">
+                        <label for="inputPassword" class="col-form-label col-form-label-lg">Password<span style="color: lightsalmon">*</span></label>
+                        <input type="password" class="form-control " id="inputPassword" placeholder="Password" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="inputRepeatPassword" class="col-form-label col-form-label-lg">Repeat Password</label>
-                        <input type="password" class="form-control " id="inputRepeatPassword" placeholder="Password">
+                        <label for="inputRepeatPassword" class="col-form-label col-form-label-lg">Repeat Password<span style="color: lightsalmon">*</span></label>
+                        <input type="password" class="form-control " id="inputRepeatPassword" placeholder="Password" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="inputGradeLevel" class="col-form-label col-form-label-lg">Grade Level</label>
-                        <select [(ngModel)]="selectedGradeLevel" (change)="handleGradeLevelChange()" id="inputGradeLevel" class="form-control ">
+                        <label for="inputGradeLevel" class="col-form-label col-form-label-lg">Grade Level<span style="color: lightsalmon">*</span></label>
+                        <select formControlName="gradeLevel" (change)="handleGradeLevelChange()" id="inputGradeLevel" class="form-control " required>
                             <option>Select ...</option>
                             <option>4th Grade</option>
                             <option>5th Grade</option>
@@ -43,8 +43,9 @@
                     </div>
 
                     <div class="form-group row">
-                        <button type="button" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+                        <button type="button" class="btn btn-primary btn-lg btn-block mb-3">Sign Up</button>
                         <p class="text-center">Already have an account? <button class="btn btn-link"><a href="sign-in.html">Sign In</a></button></p>
+                        <p class="text-center"><span style="color: lightsalmon">*</span> Required items.</p>
                     </div>
                 </div>
             </form>

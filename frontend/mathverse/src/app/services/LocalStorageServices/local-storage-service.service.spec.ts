@@ -6,15 +6,29 @@ describe('LocalStorageService', () => {
   let service: LocalStorageService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [HttpClientModule],
-      providers: [LocalStorageService]
-    });
-    service = TestBed.inject(LocalStorageService);
-    
+    service = new LocalStorageService();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should set and get item from local storage', () => {
+    const key = 'testKey';
+    const value = 'testValue';
+
+    service.set(key, value);
+
+    expect(service.get(key)).toBe(value);
+  });
+
+  it('should remove item from local storage', () => {
+    const key = 'testKey';
+    const value = 'testValue';
+
+    service.set(key, value);
+    service.remove(key);
+
+    expect(service.get(key)).toBeNull();
   });
 });

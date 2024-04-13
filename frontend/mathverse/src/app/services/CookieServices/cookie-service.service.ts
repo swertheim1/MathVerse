@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class CookieService {  
   private cookieStore: { [key: string]: string } = {};
-
 
   constructor() {
     this.parseCookies(document.cookie);
@@ -14,12 +12,14 @@ export class CookieService {
 
   public parseCookies(cookies = document.cookie) {
     this.cookieStore = {}; // Initialize as empty object
-    if (!cookies) return;
-
+    if (!cookies) 
+      {
+        return;
+      }
     const cookiesArray = cookies.split(';');
     for (const cookie of cookiesArray) {
       const [key, value] = cookie.split('=').map(part => part.trim());
-      console.log(key, value)
+      console.log('Parsed set of cookies: ', key, value)
       this.cookieStore[key] = decodeURIComponent(value);
     }
   }
@@ -34,7 +34,6 @@ export class CookieService {
     document.cookie = `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
     delete this.cookieStore[key];
   }
-
 
   set(key: string, value: string, expires?: Date) {
     let cookieString = `${key}=${encodeURIComponent(value || '')}`;

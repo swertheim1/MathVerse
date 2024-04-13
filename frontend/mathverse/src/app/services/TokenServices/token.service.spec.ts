@@ -1,23 +1,34 @@
 import { TestBed } from '@angular/core/testing';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenService } from './token.service';
-import { TokenInterceptor } from './token.interceptor';
+import { TokenInterceptor } from './token.interceptor'; // Import TokenInterceptor
+import { HttpTestingController, HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TokenService', () => {
   let service: TokenService;
   let mockToken: string;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
+      imports: [HttpClientModule, HttpClientTestingModule],
       declarations: [],
       providers: [
-        TokenService, 
-        { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+        TokenService,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: TokenInterceptor, // Provide the actual TokenInterceptor class
+          multi: true
+        }
       ]
     });
     service = TestBed.inject(TokenService);
+    httpTestingController = TestBed.inject(HttpTestingController);
     mockToken = 'mock-token';
+  });
+
+  afterEach(() => {
+    httpTestingController.verify();
   });
 
   it('should be created', () => {

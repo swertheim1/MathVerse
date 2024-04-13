@@ -16,7 +16,6 @@ export class TokenInterceptor implements HttpInterceptor {
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
-    
       });
     }
     console.log('TokenInterceptor after SetHeaders', token);

@@ -12,11 +12,14 @@ export class TokenService {
   token: string | null = null;
   decodedToken!: { [key: string]: string };
   private cachedTopics: any[] = [];
-
   
-  constructor(private cookieService: CookieService) {}
+  constructor(
+    private cookieService: CookieService,
+    private httpClient: HttpClient
+  ) {}
 
   setToken(token: string): void {
+    console.log('SetToken has been called');
     this.token = token;
     if (token)
       this.cookieService.set('authToken', token); 
@@ -25,6 +28,7 @@ export class TokenService {
   }
   
   decodeToken() {
+    console.log('DecodeToken has been called');
     if (this.token) {
       console.log(`this.token, ${this.token}`)
       this.decodedToken = jwtDecode(this.token);
@@ -33,7 +37,6 @@ export class TokenService {
       console.log("exp", this.decodedToken['exp']);
       console.log("iat", this.decodedToken['iat']);
       console.log("topics", this.decodedToken['topics']);
-      
     }
   }
 
@@ -44,6 +47,7 @@ export class TokenService {
 }
 
   getGradeLevel() {
+    console.log('Get Grade level has been called');
     if (this.decodedToken) {
       console.log(this.decodedToken['grade_level'])
       return this.decodedToken ? this.decodedToken['grade_level'] : null;
@@ -52,26 +56,38 @@ export class TokenService {
   }
 
   getEmail() {
+    console.log('Get Email has been called');
     this.decodeToken();
-    console.log(this.decodedToken['email'])
-    return this.decodedToken ? this.decodedToken['email'] : null;
+    if (this.decodedToken && this.decodedToken['email']) {
+      console.log(this.decodedToken['email']);
+      return this.decodedToken['email'];
+    } else {
+      console.error('Email not found in decoded token.');
+      return null; // or handle it in a way appropriate for your application
+    }
   }
 
   cacheTopics(topics: any[]): void {
+    localStorage.setItem('cachedTopics', JSON.stringify(topics));
+    console.log('CacheTopics has been called');
+    console.log("topics being cached", topics);
     this.cachedTopics = topics;
   }
 
   getCachedTopics(): any[] {
-    console.log(`TOPICS from GET CACHED TOPICS:  ${this.getCachedTopics()}`);
-    return this.cachedTopics;
+    console.log(`GetCached Topics has been called:  ${this.cachedTopics}`);
+    const cachedTopicsString = localStorage.getItem('cachedTopics');
+    return cachedTopicsString ? JSON.parse(cachedTopicsString) : [];
+    
   }
 
   getTopics(): Observable<any> {
+    console.log('GetTopics has been called');
     this.decodeToken();
     const topics = this.decodedToken && this.decodedToken['topics'];
     if (Array.isArray(topics)) {
-      console.log(`TOPICS from GET TOPICS: ${topics}`);
-      this.cacheTopics(topics)
+      console.log('TOPICS from GET TOPICS:', topics);
+      this.cacheTopics(topics);
       return of(topics);
     } else {
       console.error('Topics property not found or is not an array in decoded token.');
@@ -80,6 +96,7 @@ export class TokenService {
   }
 
   getExpiryTime() {
+    console.log('getExpiryTime has been called');
     this.decodeToken();
     console.log('Decoded token:', this.decodedToken);
     const expiryTime = this.decodedToken ? parseInt(this.decodedToken['exp']) * 1000 : null;
@@ -88,6 +105,7 @@ export class TokenService {
   }
 
   isTokenExpired(): boolean {
+    console.log('IsTokenExpired has been called');
     const expiryTime: number | null = this.getExpiryTime();
     if (expiryTime !== null) {
       console.log('is expiry time expired? ', expiryTime * 1000 < Date.now())
@@ -98,6 +116,7 @@ export class TokenService {
   }
 
   isTokenValid(token: string): boolean {
+    console.log('IsTokenValid has been called');
     try {
       const decodedToken: any = jwtDecode(token);
       const expirationTime = decodedToken.exp * 1000; // Convert seconds to milliseconds

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
 import { ForgotPasswordComponent} from './forgot-password.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { ForgotPasswordComponent} from './forgot-password.component';
   imports: [
     CommonModule,
     ReactiveFormsModule, 
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   exports: [
     ForgotPasswordComponent

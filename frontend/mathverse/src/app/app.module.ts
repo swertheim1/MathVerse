@@ -15,6 +15,7 @@ import { CookieService } from './services/CookieServices/cookie-service.service'
 import { AuthService } from './services/AuthorizationServices/auth.service';
 import { TokenInterceptor } from './services/TokenServices/token.interceptor';
 import { LocalStorageService } from './services/LocalStorageServices/local-storage-service.service';
+import { AuthGuardService } from './services/AuthGuardService/auth-guard.service';
 // import { bootstrapApplication } from '@angular/platform-browser';
 
 
@@ -31,6 +32,7 @@ import { LocalStorageService } from './services/LocalStorageServices/local-stora
   ],
 
   providers: [
+    AuthGuardService,
     AuthService,
     CookieService,
     LocalStorageService,

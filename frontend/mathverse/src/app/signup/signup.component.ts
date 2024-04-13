@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,7 +22,7 @@ export class SignupComponent {
   email: string = '';
   password: string = '';
   repeatPassword: string = '';
-  selectedGradeLevel: string = "";
+  gradeLevel: string = "";
   age: number = 0;
 
 
@@ -48,7 +47,7 @@ export class SignupComponent {
   
     signUpForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClient) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
     console.log('LoginFormComponent initialized.');
@@ -72,7 +71,7 @@ export class SignupComponent {
   handleGradeLevelChange(): void {
     // Map selected grade level to the appropriate value
     let gradeLevelValue: string;
-    switch (this.selectedGradeLevel) {
+    switch (this.gradeLevel) {
       case '4th':
         gradeLevelValue = '4th_grade';
         break;
@@ -96,6 +95,13 @@ export class SignupComponent {
       age: this.age
     });
     
+    console.log(this.firstName),
+    console.log(this.lastName),
+    console.log(this.email),
+    console.log(this.password),
+    console.log(this.repeatPassword)
+    console.log(this.gradeLevel),
+    console.log(this.age)
 
   }
 }
@@ -104,7 +110,6 @@ export class SignupComponent {
 function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password')?.value;
   const repeatPassword = control.get('repeatPassword')?.value;
-
   return password === repeatPassword ? null : { passwordMismatch: true };
 }
 

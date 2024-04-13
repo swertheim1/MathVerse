@@ -1,5 +1,36 @@
+<div class="frame-container">
+  <div class="frame"> <!-- Added frame class to wrap the content -->
+    <div class="row">
+      <div class="col text-center">
+        <h1 style="margin-top: 5%; margin-bottom: 5%;">Login</h1>
+      </div>
+    </div>
 
+    <div class="container d-flex justify-content-center">
+      <form class="d=flex" id="loginForm" style="width:25vw" [formGroup]="loginForm" (ngSubmit)="login()" >
+        <div class="col">
+          <div class="form-group mb-4">
+            <label for="inputEmail" class="col-form-label col-form-label-lg">Email<span style="color: lightsalmon">*</span></label>
+            <input type="email" class="form-control " id="inputEmail" placeholder="Email" formControlName="email">
+          </div>
 
-<div>
-  <app-login-form (loginClicked)="login($event.email, $event.password)"></app-login-form>
+          <div class="form-group mb-4">
+            <label for="inputPassword" class="col-form-label col-form-label-lg">Password<span style="color: lightsalmon">*</span></label>
+            <input type="password" class="form-control " id="inputPassword" placeholder="Password" formControlName="password">
+          </div>
+
+          <div class="form-group row">
+            <button type="submit" class="btn btn-primary btn-lg btn-block mt-3 mb-3" >Login</button>
+            <p>Form validity: {{ loginForm.valid }}</p>
+          </div>
+          <div class="form-group row">
+            <button type="submit" class="btn btn-primary btn-lg mt-3 mb-3" (click)="forgotPasswordClick()">Forgot Password?</button>
+            <p class="text-center">New to MathVerse? <button class="btn btn-link" (click)="needToSignUpClick()">Signup</button></p>
+            <p class="text-center"><span style="color: lightsalmon">*</span> Required items.</p>
+          </div>
+          
+        </div>
+      </form>
+    </div>
+  </div>
 </div>

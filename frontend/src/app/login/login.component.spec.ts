@@ -7,7 +7,7 @@ import { CookieService } from "ngx-cookie-service";
 import { of } from "rxjs";
 import { AuthService } from "../services/AuthorizationServices/auth.service";
 import { LoginComponent } from "./login.component";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -55,12 +55,45 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call AuthService.login on login', () => {
-    
+  it('should call AuthService.login on login when form is valid', () => {
+    // Arrange
+    const email = 'test@example.com';
+    const password = 'password';
+
+    // Set form values
+    component.loginForm.setValue({
+      email: email,
+      password: password
+    });
+
+    // Act - call the login method
     component.login();
-    fixture.detectChanges(); // Ensure change detection is triggered if needed
-    expect(authService.login).toHaveBeenCalled();
+
+    // Assert - check if AuthService.login is called
+    expect(authServiceMock.login).toHaveBeenCalled();
   });
+  
+  it('should not call AuthService.login on login when form is invalid', () => {
+    // Arrange
+    const fixture = TestBed.createComponent(LoginComponent);
+    const component = fixture.componentInstance;
+  
+    // Manually set the form values to simulate an invalid form
+    component.loginForm.setValue({
+      email: '', // Invalid email
+      password: '' // Invalid password
+    });
+  
+    // Ensure change detection is triggered after setting form values
+    fixture.detectChanges();
+  
+    // Act - call the login method
+    component.login();
+  
+    // Assert - check if AuthService.login is not called
+    expect(authServiceMock.login).not.toHaveBeenCalled();
+  });
+  
 
   it('should call CookieService.set on saveTokenToCookie', () => {
     component.saveTokenToCookie('token');

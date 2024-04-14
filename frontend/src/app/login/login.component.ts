@@ -44,6 +44,8 @@ export class LoginComponent {
           console.log('res.headers.getAll(Authorization)', res.headers.getAll('Authorization'))
   
           // Handle successful login response
+          console.log('Login successful');
+          this.router.navigate(['/topics']);
           const tokenArray = res.headers.getAll("Authorization");
           if (tokenArray && tokenArray.length > 0) {
             const token = tokenArray[0]; // Get the first element

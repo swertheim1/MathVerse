@@ -42,7 +42,6 @@ describe('LoginComponent', () => {
         { provide: Router, useValue: routerSpy }
       ]
     }).compileComponents();
-  
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
@@ -76,14 +75,19 @@ describe('LoginComponent', () => {
 
   it('should navigate to topics page after successful login', () => {
     // Set up the login form with valid credentials
-    component.loginForm.setValue({ email: 'test@test.com', password: 'password' });
+    // component.loginForm.setValue({ email: 'test@test.com', password: 'password' });
   
-    // Call the login method
-    console.log('before calling login method')
+    // // Call the login method
+    // console.log('before calling login method')
+    // component.login();
+    // console.log('after calling login method')
+  
+    // Arrange
+    const fixture = TestBed.createComponent(LoginComponent);
+    const component = fixture.componentInstance;
+
+    // Act - call the method that should trigger navigation
     component.login();
-    console.log('after calling login method')
-  
-    
     // assert that the navigate method is called with ['/topics']
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/topics']);
   

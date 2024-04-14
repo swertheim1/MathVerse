@@ -3,4 +3,4 @@ MathVerse.code-workspace
 *.log
 directory_structure.txt
 filestructure.txt
-.env
+backend/.env

@@ -8,14 +8,14 @@ const morgan = require('morgan');
 // Import the 'cors' middleware, to enable Cross-Origin Resource Sharing (CORS) in Express
 var cors = require('cors');
 
-const verifyToken = require('./backend/middleware/verify-token')
+const verifyToken = require('./middleware/verify-token')
 const bodyParser = require('body-parser');
-const logger = require('./backend/utils/logging/logger');
-const userController = require('./backend/controllers/users');
-const topicsController = require('./backend/controllers/topics');
-const numberSetsController = require('./backend/controllers/numbersets');
+const logger = require('./utils/logging/logger');
+const userController = require('./controllers/users');
+const topicsController = require('./controllers/topics');
+const numberSetsController = require('./controllers/numbersets');
 // Import the MySQL database connection exported from the 'connection.js' file
-const pool = require('./backend/pool')
+const pool = require('./pool')
 
 // Create an instance of the Express application
 const app = express();
@@ -40,10 +40,10 @@ app.use((req, res, next) => {
     next(); // Call next to pass control to the next middleware or route handler
 });
 
-const userRouter = require('./backend/routes/users');
-const problemRouter = require('./backend/routes/problems');
-const topicsRouter = require('./backend/routes/topics');
-const numberSetsRouter = require('./backend/routes/numbersets');
+const userRouter = require('./routes/users');
+const problemRouter = require('./routes/problems');
+const topicsRouter = require('./routes/topics');
+const numberSetsRouter = require('./routes/numbersets');
 // const numberSetsRouter = require('./routes/numbersets');
 
 app.use((req, res, next) => {

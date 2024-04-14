@@ -5,7 +5,7 @@
 require('dotenv').config();
 
 // import winston logger
-const logger = require('./backend/utils/logging/logger');
+const logger = require('./utils/logging/logger');
 
 // Import the 'http' module, which provides functionality for creating HTTP servers
 const http = require('http');

@@ -6,10 +6,12 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { AuthGuardService } from './services/AuthGuardService/auth-guard.service';
 import { NumberSetsComponent } from './number-sets/number-sets.component';
 import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
 
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: 'home', component: HomeComponent},
     { path: 'login', component: LoginComponent },
     { path: 'topics', component: TopicsComponent, canActivate: [AuthGuardService] },
     { path: 'numberSets', component: NumberSetsComponent, canActivate: [AuthGuardService]},

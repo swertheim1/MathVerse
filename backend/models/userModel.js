@@ -8,7 +8,7 @@ const sequelize = new Sequelize('DB_NAME', 'DB_USERNAME', 'DB_PASSWORD', {
 });
 
 // Define the User model
-const User = sequelize.define('User', {
+const User = sequelize.define('Users', {
   user_id: {
     type: DataTypes.INTEGER,
     primaryKey: true,

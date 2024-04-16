@@ -5,3 +5,5 @@ directory_structure.txt
 filestructure.txt
 /backend/.env
 .env
+
+ca-certificate.crt

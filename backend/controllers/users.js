@@ -12,18 +12,19 @@ const sendEmail = require("../utils/helper/email");
 const logger = require("../utils/logging/logger");
 const fetchTopics = require("../services/topicService");
 
-
-
 userController.signup = async (req, res, next) => {
     logger.debug("Received POST request to /signup");
 
-    const { first_name, last_name, email, password, age, grade_level, role, status } = req.body;
+    const { firstName, lastName, email, password, age, gradeLevel, role, status } = req.body;
 
-    body("first_name").trim().notEmpty();
-    body("last_name").trim().notEmpty();
+    body("firstName").trim().notEmpty();
+    body("lastName").trim().notEmpty();
     body("email").isEmail().normalizeEmail();
     body("password").isLength({ min: 8 });
     body("age").isInt();
+    body("gradeLevel").notEmpty
+    body("role").notEmpty;
+    body("status").notEmpty;
 
     try {
         const hash_password = await bcrypt.hash(password, 12);
@@ -34,7 +35,7 @@ userController.signup = async (req, res, next) => {
         // Since the email does not exist, insert the new user into the database
         // Insert the new user into the database
         const query = "INSERT INTO users (first_name, last_name, email, password, age, grade_level, role, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        await pool.query(query, [first_name, last_name, email, hash_password, age, grade_level, role, status]);
+        await pool.query(query, [firstName, lastName, email, hash_password, age, gradeLevel, role, status]);
 
         // Respond with success message
         return res.status(201).json({ message: "User registered!" });

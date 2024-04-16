@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { SignupService } from '../services/SignupService/signup.service';
+import { Router } from '@angular/router'; 
 
 
 @Component({
@@ -43,69 +45,67 @@ export class SignupComponent {
     gradeLevel: string;
     age: number;
   }>();
-  
-  
-    signUpForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
 
-  ngOnInit(): void {
-    console.log('LoginFormComponent initialized.');
+  signUpForm!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private signupService: SignupService,
+    private router: Router,
+  ) {
+
     this.signUpForm = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email, Validators.minLength(8)]],
-      password: ['', Validators.required, {validators: passwordMatchValidator}],
-      repeatPassword: ['', Validators.required, {validators: passwordMatchValidator}],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      repeatPassword: ['', Validators.required],
       gradeLevel: ['', Validators.required],
-      age: ['', Validators.maxLength(2)]
+      age: ['', Validators.maxLength(2)],
+      role: ['student', Validators.required],
+      status: ['true']
 
-    });
+    }, { validator: passwordMatchValidator });
   }
 
   onSubmit(): void {
+    if (this.signUpForm.valid) {
+      console.log("Form is valid. Submitting:", );
+      
+      console.log(this.signUpForm.errors)
+      const formData = { ...this.signUpForm.value };
+      // remove the repeatPassword from the property
+      console.log('FormData Object:', formData)
+      delete formData.repeatPassword;
+      console.log('FormData after delete repeatPassword Object:', formData)
 
-  }
+      // Emit the modified form data
+      this.signUpClicked.emit(formData);
 
-
-  handleGradeLevelChange(): void {
-    // Map selected grade level to the appropriate value
-    let gradeLevelValue: string;
-    switch (this.gradeLevel) {
-      case '4th':
-        gradeLevelValue = '4th_grade';
-        break;
-      case '5th':
-        gradeLevelValue = '5th_grade';
-        break;
-      case '6th':
-        gradeLevelValue = '6th_grade';
-        break;
-      default:
-        gradeLevelValue = ''; // Set a default value if needed
+      // call the signup function to make the request
+      this.signup();
     }
-    // Emit the updated value
-    this.signUpClicked.emit({
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
-      password: this.password,
-      repeatPassword: this.repeatPassword,
-      gradeLevel: gradeLevelValue,
-      age: this.age
-    });
-    
-    console.log(this.firstName),
-    console.log(this.lastName),
-    console.log(this.email),
-    console.log(this.password),
-    console.log(this.repeatPassword)
-    console.log(this.gradeLevel),
-    console.log(this.age)
-
   }
-}
+  signup(): void {
+    console.log('Signup data being transmitted if it is valid.')
+    if (this.signUpForm.valid) {
+      this.signupService.saveSignupData(this.signUpForm.value).subscribe(
+        response => {
+          console.log('Signup successful:', response);
+          this.router.navigate(['/login']);
+        },
+        error => {
+          console.error('Error during signup:', error);
+          // Optionally, handle the error and provide feedback to the user
+        }
+      );
+    } else {
+      console.log('Form is invalid. Cannot submit.');
+    }
+  }
 
+}
 
 function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
   const password = control.get('password')?.value;

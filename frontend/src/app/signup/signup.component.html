@@ -6,31 +6,31 @@
             </div>
         </div>
         <div class="container d-flex justify-content-center">
-            <form class="d-flex" id="signUpForm" style="width:25vw" [formGroup]="signUpForm">
+            <form class="d-flex" id="signUpForm" style="width:25vw" [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
                 <div class="col">
                     <div class="form-group mb-3">
                         <label for="inputFirstName" class="col-form-label col-form-label-lg">First Name<span style="color: lightsalmon">*</span></label>
-                        <input type="text" class="form-control " id="inputFirstName" placeholder="First Name" required>
+                        <input type="text" class="form-control " id="inputFirstName" placeholder="First Name" required formControlName="firstName">
                     </div>
                     <div class="form-group mb-3">
                         <label for="inputLastName" class="col-form-label col-form-label-lg">Last Name<span style="color: lightsalmon">*</span></label>
-                        <input type="text" class="form-control " id="inputLastName" placeholder="Last Name" required>
+                        <input type="text" class="form-control " id="inputLastName" placeholder="Last Name" required formControlName="lastName">
                     </div>
                     <div class="form-group mb-3">
                         <label for="inputEmail" class="col-form-label col-form-label-lg">Parent's Email<span style="color: lightsalmon">*</span></label>
-                        <input type="email" class="form-control " id="inputEmail" placeholder="Parent's Email" required>
+                        <input type="email" class="form-control " id="inputEmail" placeholder="Parent's Email" required formControlName="email">
                     </div>
                     <div class="form-group mb-3">
                         <label for="inputPassword" class="col-form-label col-form-label-lg">Password<span style="color: lightsalmon">*</span></label>
-                        <input type="password" class="form-control " id="inputPassword" placeholder="Password" required>
+                        <input type="password" class="form-control " id="inputPassword" placeholder="Password" required formControlName="password">
                     </div>
                     <div class="form-group mb-3">
                         <label for="inputRepeatPassword" class="col-form-label col-form-label-lg">Repeat Password<span style="color: lightsalmon">*</span></label>
-                        <input type="password" class="form-control " id="inputRepeatPassword" placeholder="Password" required>
+                        <input type="password" class="form-control " id="inputRepeatPassword" placeholder="Password" required formControlName="repeatPassword">
                     </div>
                     <div class="form-group mb-3">
                         <label for="inputGradeLevel" class="col-form-label col-form-label-lg">Grade Level<span style="color: lightsalmon">*</span></label>
-                        <select formControlName="gradeLevel" (change)="handleGradeLevelChange()" id="inputGradeLevel" class="form-control " required>
+                        <select formControlName="gradeLevel"  id="inputGradeLevel" class="form-control " required >
                             <option>Select ...</option>
                             <option>4th Grade</option>
                             <option>5th Grade</option>
@@ -39,11 +39,11 @@
                     </div>
                     <div class="form-group mb-3">
                         <label for="age" class="col-form-label col-form-label-lg">Age</label>
-                        <input type="text" class="form-control " id="age" placeholder="Enter a number">
+                        <input type="text" class="form-control " id="age" placeholder="Enter a number" formControlName="age">
                     </div>
 
                     <div class="form-group row">
-                        <button type="button" class="btn btn-primary btn-lg btn-block mb-3">Sign Up</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mb-3">Sign Up</button>
                         <p class="text-center">Already have an account? <button class="btn btn-link"><a href="sign-in.html">Sign In</a></button></p>
                         <p class="text-center"><span style="color: lightsalmon">*</span> Required items.</p>
                     </div>

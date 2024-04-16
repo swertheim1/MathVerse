@@ -8,7 +8,8 @@ const logger = require('./utils/logging/logger');
 // Import the 'dotenv' module, which loads environment variables from a '.env' file into 'process.env'
 require('dotenv').config();
 
-const DB_NAME = "process.env.DB_USERNAME"
+console.log('username is: ', process.env.DB_USERNAME);
+console.log('password is: ', process.env.DB_PASSWORD)
 
 // Create a connection pool to the MySQL database using the credentials from the environment variables
 var pool = mysql.createPool({
@@ -21,6 +22,8 @@ var pool = mysql.createPool({
     waitForConnections: true,           // Whether the pool should wait for connections to become available
     queueLimit: 0,                       // Maximum number of connection requests the pool should queue before returning an error
 });
+
+
 
 // Establish a connection to the MySQL database
 // Log a message when the pool is created

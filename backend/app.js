@@ -106,7 +106,7 @@ app.use((req, res, next) => {
 
 // Define the route handler for all routes that aren't explicitly defined
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './frontend/src/', 'index.html'));
+    res.sendFile(path.join(__dirname, 'frontend', 'src', 'app', 'index.html'));
 });
 
 // Define error handling middleware

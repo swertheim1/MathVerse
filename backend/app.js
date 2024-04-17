@@ -106,7 +106,8 @@ app.use((req, res, next) => {
 
 // Define the route handler for all routes that aren't explicitly defined
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/src/app', 'index.html'));
+    // Serve the Angular index.html file for all routes
+    res.sendFile(path.join(__dirname, '../frontend/src/', 'index.html'));
 });
 
 // Define error handling middleware

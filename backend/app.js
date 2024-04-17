@@ -1,25 +1,24 @@
 // This code sets up an Express application with CORS support, middleware for parsing incoming request bodies, 
 // and imports the database connection from connection.js to be used within the application.
 
-// Import the 'express' web application framework for Node.js
+// required modules
 const express = require('express');
 const morgan = require('morgan');
-
-// Import the 'cors' middleware, to enable Cross-Origin Resource Sharing (CORS) in Express
+const path = require('path');
 var cors = require('cors');
 
+// import other modules
 const verifyToken = require('./middleware/verify-token')
 const bodyParser = require('body-parser');
 const logger = require('./utils/logging/logger');
 const userController = require('./controllers/users');
 const topicsController = require('./controllers/topics');
 const numberSetsController = require('./controllers/numbersets');
-// Import the MySQL database connection exported from the 'connection.js' file
 const pool = require('./pool')
 
 // Create an instance of the Express application
 const app = express();
-app.use(morgan('dev'));
+
 
 // Use the 'cors' middleware to enable CORS in the Express app
 app.use(cors({
@@ -29,15 +28,19 @@ app.use(cors({
 // Parse incoming request bodies in middleware using 'express.urlencoded' middleware
 // This middleware parses incoming requests with urlencoded payloads
 app.use(express.urlencoded({extended: true}));
-
-// Parse incoming request bodies in middleware using 'express.json' middleware
-// This middleware parses incoming requests with JSON payloads
 app.use(express.json());
+app.use(morgan('dev'));
+
 
 // Log incoming requests before they reach the router
 app.use((req, res, next) => {
-    logger.debug(`Incoming request before it reaches the router: ${req.method} ${req.url}`);
-    next(); // Call next to pass control to the next middleware or route handler
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    console.log('Headers:', req.headers);
+    console.log('Query Params:', req.query);
+    if (req.body) {
+        console.log('Body:', req.body);
+    }
+    next();
 });
 
 const userRouter = require('./routes/users');
@@ -49,8 +52,8 @@ const homeRoute = require('./routes/home');
 
 app.use((req, res, next) => {
  // Log request method, URL, and timestamp
- console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
-    
+ console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`); 
+
  // Log request headers
  console.log('Headers:', req.headers);
 
@@ -97,6 +100,14 @@ app.use((req, res, next) => {
 
     next(); // Call next to pass control to the next middleware or route handler
 }); 
+
+// Serve static files from the Angular build directory
+app.use(express.static(path.join(__dirname, './frontend/dist')));
+
+// Define the route handler for all routes that aren't explicitly defined
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './frontend/dist', 'index.html'));
+});
 
 // Define error handling middleware
 app.use((err, req, res, next) => {

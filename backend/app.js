@@ -47,9 +47,22 @@ const numberSetsRouter = require('./routes/numbersets');
 // const numberSetsRouter = require('./routes/numbersets');
 
 app.use((req, res, next) => {
-    logger.debug(`incoming requests after it reaches the router`);
-    next();
-    });
+ // Log request method, URL, and timestamp
+ console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    
+ // Log request headers
+ console.log('Headers:', req.headers);
+
+ // Log request query parameters
+ console.log('Query Params:', req.query);
+
+ // Log request body (if present and not too large)
+ if (req.body) {
+     console.log('Body:', req.body);
+ }
+
+ next(); // Call next to pass control to the next middleware or route handler
+});
 
 // routes using controller functions
 app.use('/', userRouter);
@@ -58,8 +71,30 @@ app.use('/', problemRouter);
 app.use('/', numberSetsRouter);
 
 
-// app.get('/topics/:grade_level', topicsController.getTopicsByGrade);
-// app.get('/numberSets', numberSetsController.getNumberSets)    
+// Log outgoing responses after they are sent to the client
+app.use((req, res, next) => {
+    // Store reference to original res.send function
+    const originalSend = res.send;
+
+    // Override res.send function to log response details before sending
+    res.send = function(data) {
+        // Log response status code
+        console.log(`[${new Date().toISOString()}] Response Status Code: ${res.statusCode}`);
+        
+        // Log response headers
+        console.log('Headers:', res.getHeaders());
+
+        // Log response body (if present)
+        if (data) {
+            console.log('Body:', data);
+        }
+
+        // Call original res.send function to send response to client
+        originalSend.call(this, data);
+    };
+
+    next(); // Call next to pass control to the next middleware or route handler
+}); 
 
 // Define error handling middleware
 app.use((err, req, res, next) => {

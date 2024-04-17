@@ -89,7 +89,10 @@ export class SignupComponent {
   }
   signup(): void {
     console.log('Signup data being transmitted if it is valid.')
+    
     if (this.signUpForm.valid) {
+      
+
       this.signupService.saveSignupData(this.signUpForm.value).subscribe(
         response => {
           console.log('Signup successful:', response);

@@ -83,10 +83,11 @@ export class LoginComponent {
     // Show a modal, navigate to a password reset page, etc.
     console.log("Forgot Password button clicked!");
     console.log("User being redirected to topics page")
-    this.router.navigate(['/signup']);
+    
   }
 
   needToSignUpClick(): void {
     console.log("Need to register button clicked")
+    this.router.navigate(['/signup']);
   }
 }

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { LoginModule } from './login/login.module';
 import { TopicsModule } from './topics/topics.module';
-import { HttpClient } from '@angular/common/http';
+import { HomeModule } from './home/home.module';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +14,9 @@ import { HttpClient } from '@angular/common/http';
     RouterLink, 
     RouterLinkActive,
     LoginModule,
-    TopicsModule
+    TopicsModule,
+    HomeModule
+    
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

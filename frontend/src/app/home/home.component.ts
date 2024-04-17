@@ -24,4 +24,9 @@ export class HomeComponent {
     private fb: FormBuilder
   ) { }
 
+  ngOnInit(): void {
+    console.info('HomeComponent initialized');
+    
+  }
+
 }

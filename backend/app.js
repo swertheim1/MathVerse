@@ -44,6 +44,7 @@ const userRouter = require('./routes/users');
 const problemRouter = require('./routes/problems');
 const topicsRouter = require('./routes/topics');
 const numberSetsRouter = require('./routes/numbersets');
+const homeRoute = require('./routes/home');
 // const numberSetsRouter = require('./routes/numbersets');
 
 app.use((req, res, next) => {
@@ -64,11 +65,12 @@ app.use((req, res, next) => {
  next(); // Call next to pass control to the next middleware or route handler
 });
 
-// routes using controller functions
+// Mount the routes file to the base URL path
 app.use('/', userRouter);
 app.use('/', topicsRouter);
 app.use('/', problemRouter);
 app.use('/', numberSetsRouter);
+app.use('/', homeRoute);
 
 
 // Log outgoing responses after they are sent to the client

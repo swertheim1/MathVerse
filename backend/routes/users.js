@@ -1,5 +1,5 @@
 const express = require('express');
-const userController = require('../controllers/users'); // Importing the object, not just the module
+const userController = require('../controllers/users'); 
 const checkAuth = require('../middleware/check-auth');
 require('dotenv').config();
 

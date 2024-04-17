@@ -11,17 +11,19 @@ require('dotenv').config();
 
 // Create a connection pool to the MySQL database using the credentials from the environment variables
 var pool = mysql.createPool({
-    connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,    // Maximum number of connections in the pool
-    port: process.env.DB_PORT,              // Port number of the MySQL server
-    host: process.env.DB_HOST,              // Hostname or IP address of the MySQL server
-    user: process.env.DB_USERNAME,          // Username for authenticating with the MySQL server
-    password: process.env.DB_PASSWORD, // Password for authenticating with the MySQL server
-    database: process.env.DB_NAME,      // Name of the MySQL database to connect to
-    waitForConnections: true,                                 // Whether the pool should wait for connections to become available
-    queueLimit: 0,                                            // Maximum number of connection requests the pool should queue before returning an error
+    connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,     // Maximum number of connections in the pool
+    port: process.env.DB_PORT,                                  // Port number of the MySQL server
+    host: process.env.DB_HOST,                                  // Hostname or IP address of the MySQL server
+    user: process.env.DB_USERNAME,                              // Username for authenticating with the MySQL server
+    password: process.env.DB_PASSWORD,                          // Password for authenticating with the MySQL server
+    database: process.env.DB_NAME,                              // Name of the MySQL database to connect to
+    waitForConnections: true,                                   // Whether the pool should wait for connections to become available
+    queueLimit: 0,                                              // Maximum number of connection requests the pool should queue before returning an error
 });
 
+// const user = process.env.DB_USERNAME;
 
+// logger.debug(user);
 
 // Establish a connection to the MySQL database
 // Log a message when the pool is created

@@ -51,15 +51,15 @@ app.use((req, res, next) => {
     next();
     });
 
-
 // routes using controller functions
-app.get('/topics/:grade_level', topicsController.getTopicsByGrade);
-app.get('/numberSets', numberSetsController.getNumberSets)    
-
 app.use('/', userRouter);
 app.use('/', topicsRouter);
 app.use('/', problemRouter);
 app.use('/', numberSetsRouter);
+
+
+// app.get('/topics/:grade_level', topicsController.getTopicsByGrade);
+// app.get('/numberSets', numberSetsController.getNumberSets)    
 
 // Define error handling middleware
 app.use((err, req, res, next) => {

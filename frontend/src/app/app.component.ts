@@ -20,8 +20,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor (private httpClient: HttpClient) {}
-  title = 'mathverse';
-  authentication = true;
+  // constructor (private httpClient: HttpClient) {}
+  // title = 'mathverse';
+  // authentication = true;
 }
 

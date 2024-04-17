@@ -16,7 +16,7 @@ export const routes: Routes = [
     { path: 'numberSets', component: NumberSetsComponent, canActivate: [AuthGuardService]},
     { path: 'signup', component: SignupComponent},
     { path: 'forgotPassword', component: ForgotPasswordComponent},
-    { path: '**', redirectTo: 'fallback' },
+    { path: '**', redirectTo: 'status-404' },
 ];
 
 @NgModule({

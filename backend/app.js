@@ -34,6 +34,7 @@ app.use(morgan('dev'));
 
 // Log incoming requests before they reach the router
 app.use((req, res, next) => {
+    console.log('INCOMING REQUEST BEFORE IT REACHES THE ROUTER')
     console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
     console.log('Headers:', req.headers);
     console.log('Query Params:', req.query);
@@ -52,6 +53,7 @@ const homeRoute = require('./routes/home');
 
 app.use((req, res, next) => {
  // Log request method, URL, and timestamp
+ console.log('REQUEST METHOD, URL AND TIMESTAMP')
  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`); 
 
  // Log request headers
@@ -77,6 +79,7 @@ app.use('/', homeRoute);
 
 
 // Log outgoing responses after they are sent to the client
+console.log('OUTGOING RESPONSE BEFORE IT IS SENT TO THE CLIENT')
 app.use((req, res, next) => {
     // Store reference to original res.send function
     const originalSend = res.send;

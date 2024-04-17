@@ -10,7 +10,7 @@ const topicsRouter = express.Router();
 
 
 // endpoint to get topics by grade level
-topicsRouter.route('/:grade_level').get(topicsController.getTopicsByGrade);
+topicsRouter.route('/topics').get(topicsController.getTopicsByGrade);
 
 // endpoint to get all topics - NOT IMPLEMENTED YET
 // topicsRouter.route('/').get(topicsController.getTopics);

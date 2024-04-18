@@ -8,7 +8,8 @@ homeController.getHomePage = async (req, res, next) => {
     try {
         logger.info("Home Controller");
         // Your logic for rendering the home page goes here
-        res.sendFile(path.join(__dirname, '../frontend/src/'));
+        logger.info(__dirname)
+        res.sendFile(path.join(__dirname, '../../frontend/src/index.html'));
         // res.send("Welcome to the home page");
 
     } catch (error) {

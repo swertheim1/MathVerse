@@ -72,7 +72,8 @@ app.use((req, res, next) => {
 });
 
 // Serve static files from the Angular build folder
-app.use(express.static(path.join(__dirname, '../../frontend/dist')));
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
+console.log(__dirname)
 
 // Mount the routes to the base URL path
 app.use('/', userRouter);
@@ -83,7 +84,7 @@ app.use('/', homeRoute);
 
 // Define catch-all route
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../frontend/src/index.html'));
+    res.sendFile(path.join(__dirname, '../frontend/src/index.html'));
   });
 
 // Log outgoing responses after they are sent to the client

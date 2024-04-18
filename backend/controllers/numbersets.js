@@ -11,7 +11,7 @@ numberSetsController.getNumberSets = async (req, res, next) => {
 
         if (!grade_level) {
             logger.warn('Grade level parameter is missing');
-            return res.status(400).json({ error: 'Grade level parameter is supposed to be there' });
+            return res.status(400).json({ error: 'Grade level parameter is required' });
         }
 
         // Proceed with fetching number sets using the grade_level parameter

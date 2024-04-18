@@ -74,13 +74,17 @@ app.use((req, res, next) => {
 // Serve static files from the Angular build folder
 app.use(express.static(path.join(__dirname, 'frontend/dist')));
 
-// Mount the routes file to the base URL path
+// Mount the routes to the base URL path
 app.use('/', userRouter);
 app.use('/', topicsRouter);
 app.use('/', problemRouter);
 app.use('/', numberSetsRouter);
 app.use('/', homeRoute);
 
+// Define catch-all route
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/src/index.html'));
+  });
 
 // Log outgoing responses after they are sent to the client
 console.log('OUTGOING RESPONSE BEFORE IT IS SENT TO THE CLIENT')
@@ -108,8 +112,6 @@ app.use((req, res, next) => {
     next(); // Call next to pass control to the next middleware or route handler
 }); 
 
-
-
 // Define error handling middleware
 app.use((err, req, res, next) => {
     logger.debug(err.stack); // Log the error stack trace
@@ -122,7 +124,6 @@ app.use((err, req, res, next) => {
     logger.debug('Error occurred:', err);
     res.status(404).json({ error: 'Route not found' });
 });
-
 
 // Middleware for the changePassword handler
 app.post('/changePassword', verifyToken, userController.changePassword);

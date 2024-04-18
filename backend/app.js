@@ -71,6 +71,9 @@ app.use((req, res, next) => {
  next(); // Call next to pass control to the next middleware or route handler
 });
 
+// Serve static files from the Angular build folder
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
+
 // Mount the routes file to the base URL path
 app.use('/', userRouter);
 app.use('/', topicsRouter);
@@ -105,14 +108,7 @@ app.use((req, res, next) => {
     next(); // Call next to pass control to the next middleware or route handler
 }); 
 
-// // Serve static files from the Angular build directory
-// app.use(express.static(path.join(__dirname, './frontend/dist', 'index.ht')));
 
-// Define the route handler for all routes that aren't explicitly defined
-app.get('*', (req, res) => {
-    // Serve the Angular index.html file for all routes
-    res.sendFile(path.join(__dirname, '../frontend/src/', 'index.html'));
-});
 
 // Define error handling middleware
 app.use((err, req, res, next) => {

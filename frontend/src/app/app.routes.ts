@@ -17,6 +17,8 @@ export const routes: Routes = [
     { path: 'numbersets', component: NumberSetsComponent, canActivate: [AuthGuardService] }, //
     { path: 'signup', component: SignupComponent},
     { path: 'forgotPassword', component: ForgotPasswordComponent},
+    { path: 'status-404', component: Status404Component }, // Corrected route for handling unknown routes
+    { path: 'home', redirectTo: '', pathMatch: 'full' }, // Redirect /home to /
     { path: '**', redirectTo: 'status-404' },
 ];
 

@@ -6,7 +6,7 @@ const logger = require('../utils/logging/logger'); // Import logger module
 const homeRouter = express.Router();
 
 // Define the route handler for the home page
-homeRouter.get('/home', homeController.home);
+homeRouter.get('/home', homeController.getHomePage);
 
 
 // Export the router to make it available to other parts of the application

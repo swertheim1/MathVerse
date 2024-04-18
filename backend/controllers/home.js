@@ -1,5 +1,6 @@
 const pool = require("../pool");
 const jwt = require("jsonwebtoken")
+const logger = require('../utils/logging/logger');
 const homeController = {};
 
 homeController.getHomePage = async (req, res, next) => {
@@ -7,7 +8,7 @@ homeController.getHomePage = async (req, res, next) => {
         logger.info("Home Controller");
         // Your logic for rendering the home page goes here
         res.send("Welcome to the home page");
-        
+
     } catch (error) {
         next(error); // Pass the error to the error handling middleware
     }

@@ -9,7 +9,7 @@ async function fetchNumberSets(grade_level) {
     // Validate input parameters
     if (!grade_level) {
         logger.warn("Grade level parameter is missing")
-        throw new Error('Grade level parameter is required');
+        // throw new Error('Grade level parameter is required');
     }
 
     // Fetch numbersets based on grade_level from the database

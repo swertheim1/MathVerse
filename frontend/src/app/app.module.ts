@@ -14,9 +14,6 @@ import { AuthService } from './services/AuthorizationServices/auth.service';
 import { TokenInterceptor } from './services/TokenServices/token.interceptor';
 import { LocalStorageService } from './services/LocalStorageServices/local-storage-service.service';
 import { AuthGuardService } from './services/AuthGuardService/auth-guard.service';
-import { HomeComponent } from './home/home.component';
-// import { bootstrapApplication } from '@angular/platform-browser';
-
 
 @NgModule({
   declarations: [
@@ -32,7 +29,6 @@ import { HomeComponent } from './home/home.component';
 
     RouterModule.forRoot([])
   ],
-
   providers: [
     AuthGuardService,
     AuthService,

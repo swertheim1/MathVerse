@@ -8,6 +8,7 @@ import { HomeModule } from './home/home.module';
 import { HttpClient } from '@angular/common/http';
 import { NumberSetsModule } from './number-sets/number-sets.module';
 import { SignupModule } from './signup/signup.module';
+import { NavbarModule } from './navbar/navbar.module';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,8 @@ import { SignupModule } from './signup/signup.module';
     HomeModule,
     Status404Module, 
     NumberSetsModule,
-    SignupModule 
+    SignupModule,
+    NavbarModule
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

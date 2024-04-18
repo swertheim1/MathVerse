@@ -7,13 +7,14 @@ import { AuthGuardService } from './services/AuthGuardService/auth-guard.service
 import { NumberSetsComponent } from './number-sets/number-sets.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
+import { Status404Component } from './status-404/status-404.component';
 
 export const routes: Routes = [
 
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'topics', component: TopicsComponent,  }, //canActivate: [AuthGuardService]
-    { path: 'numberSets', component: NumberSetsComponent, }, //canActivate: [AuthGuardService]
+    { path: 'topics', component: TopicsComponent, canActivate: [AuthGuardService] }, //
+    { path: 'numbersets', component: NumberSetsComponent, canActivate: [AuthGuardService] }, //
     { path: 'signup', component: SignupComponent},
     { path: 'forgotPassword', component: ForgotPasswordComponent},
     { path: '**', redirectTo: 'status-404' },

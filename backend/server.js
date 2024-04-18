@@ -17,9 +17,9 @@ const app = require('./app');
 const server = http.createServer(app);
 
 // remove the display: none once the page is fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    document.body.style.display = 'block';
-  });
+// document.addEventListener('DOMContentLoaded', function() {
+//     document.body.style.display = 'block';
+//   });
 
 // Listen for incoming HTTP requests on the port specified in the environment variables
 // The 'process.env.PORT' variable is set using 'dotenv' which specifies the port for the server to listen on

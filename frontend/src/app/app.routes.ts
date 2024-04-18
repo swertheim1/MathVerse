@@ -12,8 +12,8 @@ export const routes: Routes = [
 
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'topics', component: TopicsComponent, canActivate: [AuthGuardService] }, //
-    { path: 'numberSets', component: NumberSetsComponent, canActivate: [AuthGuardService] }, //
+    { path: 'topics', component: TopicsComponent,  }, //canActivate: [AuthGuardService]
+    { path: 'numberSets', component: NumberSetsComponent, }, //canActivate: [AuthGuardService]
     { path: 'signup', component: SignupComponent},
     { path: 'forgotPassword', component: ForgotPasswordComponent},
     { path: '**', redirectTo: 'status-404' },

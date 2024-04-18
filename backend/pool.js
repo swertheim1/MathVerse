@@ -5,6 +5,7 @@
 const mysql = require('mysql2/promise');
 const logger = require('./utils/logging/logger');
 
+
 // Import the 'dotenv' module, which loads environment variables from a '.env' file into 'process.env'
 require('dotenv').config();
 
@@ -12,21 +13,30 @@ require('dotenv').config();
 // Create a connection pool to the MySQL database using the credentials from the environment variables
 var pool = mysql.createPool({
     connectionLimit: process.env.DB_CONNECTION_LIMIT || 10,     // Maximum number of connections in the pool
-    port: process.env.DB_PORT,                                  // Port number of the MySQL server
-    host: process.env.DB_HOST,                                  // Hostname or IP address of the MySQL server
-    user: process.env.DB_USERNAME,                              // Username for authenticating with the MySQL server
-    password: process.env.DB_PASSWORD,                          // Password for authenticating with the MySQL server
-    database: process.env.DB_NAME,                              // Name of the MySQL database to connect to
-    waitForConnections: true,                                   // Whether the pool should wait for connections to become available
-    queueLimit: 0,                                              // Maximum number of connection requests the pool should queue before returning an error
+    port: process.env.DB_PORT, 
+    host: process.env.DB_HOST,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    // waitForConnections: true , 
+    // queueLimit: 0, 
 });
 
-// const user = process.env.DB_USERNAME;
+// Test the database connection
+async function testConnection() {
+    try {
+        const connection = await pool.getConnection();
+        const [rows] = await connection.query('SELECT NOW()');
+        console.log('Connected to the database:', rows[0]);
+        connection.release(); // Release the connection back to the pool
+    } catch (error) {
+        console.error('Error connecting to the database:', error);
+    }
+}
 
-// logger.debug(user);
+// Call the testConnection function
+testConnection();
 
-// Establish a connection to the MySQL database
-// Log a message when the pool is created
 console.log('Database pool created');
 
 // Export the MySQL database connection to be used in other parts of the Node.js application

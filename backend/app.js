@@ -14,6 +14,7 @@ const logger = require('./utils/logging/logger');
 const userController = require('./controllers/users');
 const topicsController = require('./controllers/topics');
 const numberSetsController = require('./controllers/numbersets');
+const homeController = require('./controllers/home')
 const pool = require('./pool')
 
 // Create an instance of the Express application

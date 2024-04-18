@@ -30,7 +30,7 @@ async function fetchTopics(grade_level) {
         // topicsData.forEach(topic => {
         //     logger.debug(`Topic: ${topic.topic_name}`);
         // });
-        // return topicsData;
+        return topicsData;
 
     } catch (error) {
         // Log the error

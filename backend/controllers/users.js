@@ -54,114 +54,89 @@ userController.signup = async (req, res, next) => {
 };
 
 userController.login = async (req, res) => {
-    // Check for validation errors
-
-    // Destructure email and password and grade from request body
-    logger.info("Destructure email and password and grade from request body")
-    const { email, password } = req.body;
-    logger.info(email);
-    logger.info(password);
-
-    body("email").isEmail().normalizeEmail();
-    
-    
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     try {
+        logger.info("Received login request");
+
+        // Check for validation errors
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            logger.error("Validation errors:", errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        // Destructure email and password from request body
+        const { email, password } = req.body;
+        logger.info("User email:", email);
+
+        // Validate email format
+        body("email").isEmail().normalizeEmail();
+
         // Query the database to find the user by email
-        logger.info("Query the database to find the user by email")
+        logger.info("Executing database query to find user by email:", email);
         const [userRows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
 
         // Check if a user is returned
         if (userRows.length === 0) {
-            logger.info("User does not exist")
+            logger.info("User does not exist for email:", email);
             return res.status(401).json({ message: "Authorization failed" });
         }
 
-        const grade_level = userRows[0].grade_level
         // Compare the provided password with the hashed password stored in the database
         const passwordMatch = await bcrypt.compare(password, userRows[0].password);
-        logger.debug(passwordMatch)
+        logger.info("Password match:", passwordMatch);
 
-        // If passwords don"t match, return error response
-        if (passwordMatch === false) {
+        // If passwords don't match, return error response
+        if (!passwordMatch) {
+            logger.info("Passwords don't match for email:", email);
             return res.status(401).json({ message: "Authorization failed." });
         }
 
         // Check if the user is approved for access (status)
         if (userRows[0].status === "false") {
+            logger.info("User not approved for access:", email);
             return res.status(401).json({ message: "Wait for admin approval" });
         }
-        logger.info("Create token with email");
-        logger.info(userRows[0].email);
-       
-        topics = await fetchTopics(grade_level);
-        if (!topics || !Array.isArray(topics)){
+
+        // Fetch topics based on user's grade level
+        const grade_level = userRows[0].grade_level;
+        logger.info("User grade level:", grade_level);
+        let topics = await fetchTopics(grade_level);
+        logger.debug("Fetched topics:", topics);
+
+        // If topics is undefined or not an array, log a warning
+        if (!topics || !Array.isArray(topics)) {
             logger.warn("Topics is undefined or not an array", topics);
             topics = [];
         }
-        logger.debug('returned topics from fetchTopics')
-        logger.debug(topics)
 
-        // Respond with success message, token and redirection URL       
+        // Extract topic names from topics array
         const topicNames = topics.map(topic => topic.topic_name);
-        logger.info(topicNames);
+        logger.info("Topic names:", topicNames);
 
-        
+        // Generate JWT token
         const token = jwt.sign({
             email: userRows[0].email,
             grade_level: userRows[0].grade_level,
             topics: topicNames
-        },
-            process.env.JWT_KEY,
-            {
-                expiresIn: "1h"         // 30 seconds for testing
-            });
-        
-        return res.status(200)
-        .header('Authorization', `Bearer ${token}`)
-        .json({
-            message: "Authorization successful",
-            grade: grade_level,
-            topics: topicNames,
-            token: token,
+        }, process.env.JWT_KEY, { expiresIn: "1h" });
 
-        });
+        // Respond with success message, token, and other data
+        return res.status(200)
+            .header('Authorization', `Bearer ${token}`)
+            .json({
+                message: "Authorization successful",
+                grade: grade_level,
+                topics: topicNames,
+                token: token
+            });
+
     } catch (error) {
         // Handle database query errors
-        console.log("Error checking user credentials:", error);
+        logger.error("Error checking user credentials:", error);
         return res.status(500).json({ message: "Database error" });
     }
 };
 
-// Function to generate a random token that expires in 10 minutes
-const createResetPasswordToken = async (email) => {
-    logger.info("Received call to createResetPasswordToken");
-    logger.debug(email);
-    try {
-        // Generate a random token
-        const originalToken = crypto.randomBytes(32).toString("hex");
-        console.log("originalToken: ", originalToken);
-        const hashedToken = crypto.createHash("sha256").update(originalToken).digest("hex");
-        console.log("hashedToken: ", hashedToken);
-        const password_reset_token_expires = new Date(Date.now() + 10 * 60 * 10000); // Reset token expires in 10 minutes
-        console.log("password_reset_token_expires: ", password_reset_token_expires)
-
-        // UPDATE the user"s password reset token and expiration date in the database
-        const updateQuery = "UPDATE Users SET password_reset_token = ?, password_reset_token_expires = ? WHERE email = ?";
-        await pool.query(updateQuery, [hashedToken, password_reset_token_expires, email]);
-
-        console.log("Password reset token and expiration date updated successfully for user:", email);
-        return { password_reset_token: originalToken, password_reset_token_expires };
-
-    } catch (error) {
-        console.log("Error updating password reset token and expiration date:", error);
-        throw error; // Rethrow the error to handle it at a higher level
-    }
-};
 
 userController.forgotPassword = async (req, res, next) => {
     console.log("Received POST request to /forgotPassword");

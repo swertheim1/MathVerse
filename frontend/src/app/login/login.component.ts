@@ -41,10 +41,10 @@ export class LoginComponent {
   login(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
-      console.log("Form is valid. Submitting:", email, password);
+      console.log("Form is valid. Submitting:", email);
   
       const credentials = { email, password };
-      console.log('Login button clicked');
+      console.log('Login button clicked. Sending credentials:', credentials);
   
       this.authService.login(credentials).subscribe(
         (res: HttpResponse<any>) => {
@@ -56,6 +56,7 @@ export class LoginComponent {
           const tokenArray = res.headers.getAll("Authorization");
           if (tokenArray && tokenArray.length > 0) {
             const token = tokenArray[0]; // Get the first element
+            console.log('Received token:', token);
             
             this.tokenService.setToken(token);
             this.saveTokenToCookie(token);
@@ -71,7 +72,7 @@ export class LoginComponent {
           }
         },
         (error: any) => {
-          console.error('Error', error);
+          console.error('Login failed. Error:', error);
           // Handle login error
         }
       );

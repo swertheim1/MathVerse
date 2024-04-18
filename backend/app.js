@@ -87,7 +87,6 @@ app.get('*', (req, res) => {
   });
 
 // Log outgoing responses after they are sent to the client
-console.log('OUTGOING RESPONSE BEFORE IT IS SENT TO THE CLIENT')
 app.use((req, res, next) => {
     // Store reference to original res.send function
     const originalSend = res.send;

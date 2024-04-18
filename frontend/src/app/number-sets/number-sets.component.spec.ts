@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NumberSetsComponent } from './number-sets.component';
+import { NumberSetsModule } from './number-sets.module';
 
 describe('NumberSetsComponent', () => {
   let component: NumberSetsComponent;
@@ -8,7 +9,9 @@ describe('NumberSetsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NumberSetsComponent]
+      imports: [
+        NumberSetsModule,
+      ]
     })
     .compileComponents();
     

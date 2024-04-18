@@ -13,18 +13,24 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  public router: Router;
 
   constructor(
     private authService: AuthService,
     private httpClient: HttpClient,
     private cookieService: CookieService,
     private tokenService: TokenService,
-    private router: Router,
+    router: Router,
     private fb: FormBuilder
-  ) { }
+  ) { 
+    console.log('Constructor called'); // Log when constructor is called
+    this.router = router
+  }
+
 
   ngOnInit(): void {
-    console.log('LoginFormComponent initialized.');
+    console.log('ngOnInit called'); // Log when ngOnInit lifecycle hook is called
+    
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(3)]]

@@ -6,14 +6,16 @@ import { HomeComponent } from './home.component';
 
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [
+
+  ],
   imports: [
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
   ],
   exports: [
-    HomeComponent
+    
   ]
 })
 export class HomeModule { }

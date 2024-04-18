@@ -1,24 +1,21 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, FormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { SignupService } from '../services/SignupService/signup.service';
 import { Router } from '@angular/router'; 
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
   selector: 'app-signup',
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    RouterLink
-  ],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.scss'
+  styleUrls: [
+    './signup.component.scss'
+  ]
 })
-export class SignupComponent {
-
+export class SignupComponent implements OnInit {
+  signUpForm: FormGroup = new FormGroup({
+    
+  })
   firstName: string = '';
   lastName: string = '';
   email: string = '';
@@ -46,15 +43,17 @@ export class SignupComponent {
     age: number;
   }>();
 
-
-  signUpForm!: FormGroup;
-
   constructor(
     private fb: FormBuilder,
     private signupService: SignupService,
     private router: Router,
+    private snackBar: MatSnackBar,
+    
   ) {
+    
+  }
 
+  ngOnInit(): void {
     this.signUpForm = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -67,6 +66,7 @@ export class SignupComponent {
       status: ['true']
 
     }, { validator: passwordMatchValidator });
+    throw new Error('Method not implemented.');
   }
 
   onSubmit(): void {
@@ -76,9 +76,9 @@ export class SignupComponent {
       console.log(this.signUpForm.errors)
       const formData = { ...this.signUpForm.value };
       // remove the repeatPassword from the property
-      console.log('FormData Object:', formData)
+
       delete formData.repeatPassword;
-      console.log('FormData after delete repeatPassword Object:', formData)
+
 
       // Emit the modified form data
       this.signUpClicked.emit(formData);
@@ -88,26 +88,37 @@ export class SignupComponent {
     }
   }
   signup(): void {
-    console.log('Signup data being transmitted if it is valid.')
-    
+    console.log('Signup data being transmitted if it is valid.');
+  
     if (this.signUpForm.valid) {
-      
-
       this.signupService.saveSignupData(this.signUpForm.value).subscribe(
         response => {
           console.log('Signup successful:', response);
+          this.snackBar.open('Signup successful!', 'Close', { duration: 3000 });
           this.router.navigate(['/login']);
         },
         error => {
           console.error('Error during signup:', error);
-          // Optionally, handle the error and provide feedback to the user
+          // Handle the error appropriately
+          if (error.status === 401) {
+            // Unauthorized error (e.g., invalid credentials)
+            // Provide feedback to the user
+            console.log('Invalid credentials. Please try again.');
+          } else if (error.status === 500) {
+            // Server error
+            // Notify the user about the server issue
+            console.log('Server error. Please try again later.');
+          } else {
+            // Other types of errors
+            // Display a generic error message
+            console.log('An error occurred. Please try again.');
+          }
         }
       );
     } else {
       console.log('Form is invalid. Cannot submit.');
     }
   }
-
 }
 
 function passwordMatchValidator(control: AbstractControl): ValidationErrors | null {

@@ -10,7 +10,9 @@ import { TokenService } from '../services/TokenServices/token.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrls: [
+    './home.component.scss'
+  ]
 })
 export class HomeComponent {
 

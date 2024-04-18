@@ -3,15 +3,13 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HomeComponent } from './home.component';
 
-
-
 @NgModule({
   declarations: [
     HomeComponent
   ],
   imports: [
-    ReactiveFormsModule,
     CommonModule,
+    ReactiveFormsModule,
     FormsModule,
   ],
   exports: [

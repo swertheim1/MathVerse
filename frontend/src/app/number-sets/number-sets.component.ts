@@ -8,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class NumberSetsComponent {
 
+  constructor(
+
+  ) { }
+
+  ngOnInit(): void {
+    console.info('NumberSets Component initialized');
+    
+  }
+
 }

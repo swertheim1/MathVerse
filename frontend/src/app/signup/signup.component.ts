@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { SignupService } from '../services/SignupService/signup.service';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup = new FormGroup({
-    
+
   })
   firstName: string = '';
   lastName: string = '';
@@ -23,7 +22,6 @@ export class SignupComponent implements OnInit {
   repeatPassword: string = '';
   gradeLevel: string = "";
   age: number = 0;
-
 
   @Output() signUpClicked: EventEmitter<{
     firstName: string;
@@ -48,10 +46,7 @@ export class SignupComponent implements OnInit {
     private signupService: SignupService,
     private router: Router,
     private snackBar: MatSnackBar,
-    
-  ) {
-    
-  }
+  ) {}
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
@@ -66,19 +61,17 @@ export class SignupComponent implements OnInit {
       status: ['true']
 
     }, { validator: passwordMatchValidator });
-    throw new Error('Method not implemented.');
   }
 
   onSubmit(): void {
     if (this.signUpForm.valid) {
-      console.log("Form is valid. Submitting:", );
-      
+      console.log("Form is valid. Submitting:",);
+
       console.log(this.signUpForm.errors)
       const formData = { ...this.signUpForm.value };
+
       // remove the repeatPassword from the property
-
       delete formData.repeatPassword;
-
 
       // Emit the modified form data
       this.signUpClicked.emit(formData);
@@ -89,7 +82,7 @@ export class SignupComponent implements OnInit {
   }
   signup(): void {
     console.log('Signup data being transmitted if it is valid.');
-  
+
     if (this.signUpForm.valid) {
       this.signupService.saveSignupData(this.signUpForm.value).subscribe(
         response => {
@@ -106,11 +99,12 @@ export class SignupComponent implements OnInit {
             console.log('Invalid credentials. Please try again.');
           } else if (error.status === 500) {
             // Server error
+            this.snackBar.open('There was a server issue. Please try again later.', 'Close', { duration: 3000 });
             // Notify the user about the server issue
             console.log('Server error. Please try again later.');
           } else {
             // Other types of errors
-            // Display a generic error message
+            this.snackBar.open('An error occurred. Please try again later.', 'Close', { duration: 3000 });
             console.log('An error occurred. Please try again.');
           }
         }

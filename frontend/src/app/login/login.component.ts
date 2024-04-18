@@ -23,13 +23,14 @@ export class LoginComponent {
     router: Router,
     private fb: FormBuilder
   ) { 
-    console.log('Constructor called'); // Log when constructor is called
+    // Log when constructor is called
+    console.log('Constructor called'); 
     this.router = router
   }
 
-
   ngOnInit(): void {
-    console.log('ngOnInit called'); // Log when ngOnInit lifecycle hook is called
+    // Log when ngOnInit lifecycle hook is called
+    console.log('ngOnInit called'); 
     
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

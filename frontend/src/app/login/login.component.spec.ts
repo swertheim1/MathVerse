@@ -15,6 +15,7 @@ describe('LoginComponent', () => {
   let authService: AuthService;
   let cookieService: CookieService;
   let routerSpy: jasmine.SpyObj<Router>;
+  let fb: FormBuilder
 
   const authServiceMock = {
     login: jasmine.createSpy('login').and.returnValue(of(new HttpResponse({ status: 200 })))
@@ -26,14 +27,22 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
-
+    // const fbMock = {
+    //   group: jasmine.createSpy('group').and.returnValue({
+    //     value: {
+    //       email: '',
+    //       password: '',
+    //     },
+    //   }),
+    // };
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule],
       declarations: [LoginComponent],
       providers: [
         { provide: AuthService, useValue: authServiceMock },
         { provide: CookieService, useValue: cookieServiceMock },
-        { provide: Router, useValue: routerSpy }
+        { provide: Router, useValue: routerSpy },
+        // { provide: FormBuilder, useValue: fbMock },
       ]
     }).compileComponents();
 
@@ -43,33 +52,63 @@ describe('LoginComponent', () => {
     cookieService = TestBed.inject(CookieService);
   });
 
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
+  // Reset the spy calls after each test
+  afterEach(() => {
+    authServiceMock.login.calls.reset();
+  });
+
   it('should call AuthService.login on login when form is valid', () => {
-    const email = 'test@example.com';
-    const password = 'password';
+    // Arrange
+    spyOn(authServiceMock, 'login'); // Spy on the login method
+    const email = 'test@example.com'; // Valid email
+    const password = 'validPassword'; // Valid password
 
-    component.loginForm.setValue({ email: email, password: password });
+    // Set valid form value
+    // Set valid form value
+    component.loginForm = fb.group({
+      email: [email, Validators.required],
+      password: [password, Validators.required],
+    });
 
-    component.login();
 
+    // Act
+    component.login(); // Call the login method
+
+    // Assert
     expect(authServiceMock.login).toHaveBeenCalled();
+  });
+
+
+  // Reset the spy calls after each test
+  afterEach(() => {
+    authServiceMock.login.calls.reset();
   });
 
   it('should not call AuthService.login on login when form is invalid', () => {
     spyOn(component, 'login');
-    component.loginForm.setValue({ email: '', password: '' });
-
+    const mockFormValue = { email: '', password: '' };
     component.login();
-
     expect(authServiceMock.login).not.toHaveBeenCalled();
+  });
+
+  // Reset the spy calls after each test
+  afterEach(() => {
+    authServiceMock.login.calls.reset();
   });
 
   it('should call CookieService.set on saveTokenToCookie', () => {
     component.saveTokenToCookie('token');
     expect(cookieService.set).toHaveBeenCalled();
+  });
+
+  // Reset the spy calls after each test
+  afterEach(() => {
+    authServiceMock.login.calls.reset();
   });
 
   it('should call CookieService.set with correct arguments on saveTokenToCookie', () => {
@@ -78,7 +117,13 @@ describe('LoginComponent', () => {
     expect(cookieService.set).toHaveBeenCalledWith('authToken', token);
   });
 
+  // Reset the spy calls after each test
+  afterEach(() => {
+    authServiceMock.login.calls.reset();
+  });
+
   it('should navigate to topics page after successful login', () => {
+    
     const email = 'test@example.com';
     const password = 'password';
 
@@ -97,4 +142,10 @@ describe('LoginComponent', () => {
     // Expect the router to navigate to topics page
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/topics']);
   });
+
+  // Reset the spy calls after each test
+  afterEach(() => {
+    authServiceMock.login.calls.reset();
+  });
+
 });

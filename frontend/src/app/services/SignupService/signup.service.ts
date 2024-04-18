@@ -8,7 +8,9 @@ export class SignupService {
 
   private apiUrl = 'http://localhost:3000/signup';
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) {}
 
   saveSignupData(signupData: any) {
     console.log('Save Signup Function called')

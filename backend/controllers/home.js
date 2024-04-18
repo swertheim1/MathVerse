@@ -9,7 +9,7 @@ homeController.getHomePage = async (req, res, next) => {
         logger.info("Home Controller");
         // Your logic for rendering the home page goes here
         logger.info(__dirname)
-        res.sendFile(path.join(__dirname, '../../frontend/src/index.html'));
+        res.sendFile(path.join(__dirname, '../../frontend/dist/mathverse/browser/index.html'));
         // res.send("Welcome to the home page");
 
     } catch (error) {

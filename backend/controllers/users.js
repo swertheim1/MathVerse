@@ -140,7 +140,7 @@ userController.login = async (req, res) => {
 
 userController.forgotPassword = async (req, res, next) => {
     console.log("Received POST request to /forgotPassword");
-    console.log("Request body:", req.body);
+    // console.log("Request body:", req.body);
     const { email } = req.body;
     try {
         // Get user from database based on email

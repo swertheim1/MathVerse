@@ -40,7 +40,7 @@ app.use((req, res, next) => {
     console.log('Headers:', req.headers);
     console.log('Query Params:', req.query);
     if (req.body) {
-        console.log('Body:', req.body);
+        console.log('A valid request body came in');
     }
     next();
 });
@@ -65,7 +65,7 @@ app.use((req, res, next) => {
 
  // Log request body (if present and not too large)
  if (req.body) {
-     console.log('Body:', req.body);
+     console.log('Request body received' );
  }
 
  next(); // Call next to pass control to the next middleware or route handler
@@ -101,7 +101,7 @@ app.use((req, res, next) => {
 
         // Log response body (if present)
         if (data) {
-            console.log('Body:', data);
+            console.log('Body:' + 'request body is present');
         }
 
         // Call original res.send function to send response to client

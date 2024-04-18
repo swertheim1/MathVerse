@@ -7,7 +7,7 @@ import { HomeComponent } from './home.component';
 
 @NgModule({
   declarations: [
-
+    HomeComponent
   ],
   imports: [
     ReactiveFormsModule,
@@ -15,7 +15,7 @@ import { HomeComponent } from './home.component';
     FormsModule,
   ],
   exports: [
-    
+    HomeComponent
   ]
 })
 export class HomeModule { }

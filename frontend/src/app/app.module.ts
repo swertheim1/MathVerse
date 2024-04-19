@@ -6,7 +6,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; // I
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app.routes';
+import { AppRoutingModule, routes } from './app.routes';
 import { AppComponent } from './app.component';
 
 import { CookieService } from './services/CookieServices/cookie-service.service';
@@ -26,8 +26,9 @@ import { AuthGuardService } from './services/AuthGuardService/auth-guard.service
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-
-    RouterModule.forRoot([])
+    RouterModule,
+    RouterModule.forRoot([]),
+    RouterModule.forRoot(routes, { enableTracing: true })
   ],
   providers: [
     AuthGuardService,

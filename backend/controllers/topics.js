@@ -3,6 +3,23 @@ const logger = require('../utils/logging/logger');
 const fetchTopics = require("../services/topicService");
 const { log } = require('winston');
 
+exports.getTopicsByGrade = async (req, res) => {
+    try {
+        const grade_level = req.params.grade_level;
+        const topics = await fetchTopics(grade_level);
+
+        if (!topics || topics.length === 0) {
+            logger.warn('No topics found for the specified grade level');
+            return res.status(404).json({ error: 'No topics found for the specified grade level' });
+        }
+
+        logger.info('Returning topics');
+        res.json(topics);
+    } catch (error) {
+        logger.error('Error fetching topics:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
 
 exports.updateTopics = async (req, res, next) => {
     // Implement updateTopics logic here
@@ -25,26 +42,3 @@ exports.updateTopics = async (req, res, next) => {
 //         res.status(500).json({ message: error.message }); // Handle errors
 //     }
 // };
-
-exports.getTopicsByGrade = async (req, res) => {
-    logger.info("Received a GET request for topics")
-    try {
-        const grade_level = req.params.grade_level;
-
-        const topics = await fetchTopics(grade_level);
-        logger.debug(`Grade level parameter: ${grade_level}`);
-
-        if (!topics || topics.length === 0) {
-            logger.warn('No topics found for the specified grade level');
-            return res.status(404).json({ error: 'No topics found for the specified grade level' });
-        }
-        else {
-            logger.info(`Returning topics:`);
-            res.json(topics);
-        }
-        
-    } catch (error) {
-        console.error('Error fetching topics:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-}

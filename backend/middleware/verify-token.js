@@ -1,3 +1,5 @@
+const logger = require("../utils/logging/logger");
+
 // Middleware to verify authorization token
 const verifyToken = (req, res, next) => {
     // Get the authorization header

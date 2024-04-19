@@ -1,5 +1,6 @@
 const pool = require("../pool");
 const jwt = require("jsonwebtoken")
+const logger = require("../utils/logging/logger");
 // const ValidateTokenService = require('./ValidateTokenService')
 
 // express-validator used for validating and sanitizing input data
@@ -9,7 +10,6 @@ const crypto = require("crypto");
 const userController = {}
 const authCheck = require("../middleware/check-auth");
 const sendEmail = require("../utils/helper/email");
-const logger = require("../utils/logging/logger");
 const fetchTopics = require("../services/topicService");
 
 userController.signup = async (req, res, next) => {
@@ -132,7 +132,8 @@ userController.login = async (req, res) => {
 
     } catch (error) {
         // Handle database query errors
-        logger.error("Error checking user credentials:", error);
+        console.log(error);
+        logger.error(`Error checking user credentials: ${error}`);
         return res.status(500).json({ message: "Database error" });
     }
 };

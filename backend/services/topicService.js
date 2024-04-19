@@ -1,9 +1,9 @@
-const logger = require("../winston");
+const logger = require("../utils/logging/logger");
 const pool = require("../pool");
 
 
 async function fetchTopics(grade_level) {
-    console.log('FetchingTopics function in topicsService called');
+    logger.debug('FetchingTopics function in topicsService called');
     try {
         // Validate input parameters
         if (!grade_level) {
@@ -26,10 +26,6 @@ async function fetchTopics(grade_level) {
             topic_name: row.topic_name,
         }));
 
-        // Log each topic name for debugging
-        // topicsData.forEach(topic => {
-        //     logger.debug(`Topic: ${topic.topic_name}`);
-        // });
         return topicsData;
 
     } catch (error) {

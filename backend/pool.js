@@ -18,20 +18,32 @@ var pool = mysql.createPool({
     user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    // waitForConnections: true , 
-    // queueLimit: 0, 
+
 });
 
 // Test the database connection
-async function testConnection() {
-    try {
-        const connection = await pool.getConnection();
-        const [rows] = await connection.query('SELECT NOW()');
-        console.log('Connected to the database:', rows[0]);
-        connection.release(); // Release the connection back to the pool
-    } catch (error) {
-        console.error('Error connecting to the database:', error);
-    }
+function testConnection() {
+    pool.getConnection()
+        .then(connection => {
+            return connection.query('SELECT NOW()')
+                .then(([rows]) => {
+                    console.log('Connected to the database:', rows[0]);
+                })
+                .catch(error => {
+                    console.error('Error querying the database:', error);
+                })
+                .finally(() => {
+                    connection.release();
+                });
+        })
+        .catch(error => {
+            console.error('Error connecting to the database:', error);
+        });
+}
+
+if (!pool) {
+    createPool();
+    testConnection();
 }
 
 // Call the testConnection function

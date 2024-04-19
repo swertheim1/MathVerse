@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const logger = require("../utils/logging/logger");
 
 module.exports = (req, res, next) => {
     try{

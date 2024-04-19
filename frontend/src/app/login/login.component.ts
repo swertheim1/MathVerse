@@ -91,7 +91,6 @@ export class LoginComponent {
     // Show a modal, navigate to a password reset page, etc.
     console.log("Forgot Password button clicked!");
     console.log("User being redirected to topics page")
-    
   }
 
   needToSignUpClick(): void {

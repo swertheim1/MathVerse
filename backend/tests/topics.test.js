@@ -1,11 +1,11 @@
 const topicsController = require('../controllers/topics');
-const topicService = require('../services/topicService');
-
+const topicService = require('../services/topicService'); // Import topicService
+const { mockRequest, mockResponse } = require('jest-mock-req-res');
 
 describe('getTopics', () => {
     it('should return topics for a valid grade level', async () => {
-        const req = { query: { grade_level: '5th_grade' } };
-        const res = { json: jest.fn() };
+        const req = mockRequest({ query: { grade_level: '5th_grade' } });
+        const res = mockResponse();
         const mockTopics = [{ topic_name: 'Math' }, { topic_name: 'Science' }];
 
         // Mock the fetchTopics function

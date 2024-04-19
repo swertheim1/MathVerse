@@ -14,9 +14,5 @@ export class NavbarComponent {
     
   }
 
-  signUpClick(): void {
-    console.log("User being redirected to topics page")
-    this.router.navigate(['/signup']);
-  }
 
 }

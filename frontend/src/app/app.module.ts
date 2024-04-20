@@ -26,8 +26,6 @@ import { AuthGuardService } from './services/AuthGuardService/auth-guard.service
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    RouterModule,
-    RouterModule.forRoot([]),
     RouterModule.forRoot(routes, { enableTracing: true })
   ],
   providers: [

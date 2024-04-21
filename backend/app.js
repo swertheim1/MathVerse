@@ -25,7 +25,7 @@ let corsOptions;
 if (process.env.NODE_ENV === 'production') {
   // For production, use deployed frontend URL
   corsOptions = {
-    origin: 'https://mathverse.net',
+    origin: 'https://localhost:3000',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     optionsSuccessStatus: 204

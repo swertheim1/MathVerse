@@ -20,6 +20,15 @@ const pool = require('./pool')
 // Create an instance of the Express application
 const app = express();
 
+// Allow requests from localhost:4200
+// Allow requests from your frontend domain
+const corsOptions = {
+    origin: 'https://mathverse.net', // Replace with your frontend domain
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  };
+  app.use(cors(corsOptions));
+  
+  // Other middleware and routes...
 
 // Use the 'cors' middleware to enable CORS in the Express app
 app.use(cors({

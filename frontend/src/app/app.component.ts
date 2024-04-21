@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 import { NumberSetsModule } from './number-sets/number-sets.module';
 import { SignupModule } from './signup/signup.module';
 import { NavbarModule } from './navbar/navbar.module';
+import { AdditionNumbersetsModule } from './addition-numbersets/addition-numbersets.module';
 
 
 @Component({
@@ -27,7 +28,9 @@ import { NavbarModule } from './navbar/navbar.module';
     Status404Module, 
     NumberSetsModule,
     SignupModule,
-    NavbarModule
+    NavbarModule,
+    AdditionNumbersetsModule
+
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']

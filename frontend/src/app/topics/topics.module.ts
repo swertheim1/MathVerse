@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TopicsComponent } from './topics.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     FormsModule,
     HttpClientModule,
+    RouterLink,
   ],
 
 })

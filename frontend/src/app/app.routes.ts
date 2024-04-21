@@ -8,12 +8,14 @@ import { NumberSetsComponent } from './number-sets/number-sets.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { Status404Component } from './status-404/status-404.component';
+import { AdditionNumbersetsComponent } from './addition-numbersets/addition-numbersets.component';
 
 export const routes: Routes = [
 
     { path: '', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: 'topics', component: TopicsComponent, canActivate: [AuthGuardService] }, //
+    { path: 'addition-numbersets', component: AdditionNumbersetsComponent },
     { path: 'numbersets', component: NumberSetsComponent, canActivate: [AuthGuardService] }, //
     { path: 'signup', component: SignupComponent},
     { path: 'forgotPassword', component: ForgotPasswordComponent},

@@ -11,6 +11,7 @@ const userController = {}
 const authCheck = require("../middleware/check-auth");
 const sendEmail = require("../utils/helper/email");
 const fetchTopics = require("../services/topicService");
+const fetchNumberSets = require("../services/numbersetService");
 
 userController.signup = async (req, res, next) => {
     logger.debug("Received POST request to /signup");
@@ -113,11 +114,28 @@ userController.login = async (req, res) => {
         const topicNames = topics.map(topic => topic.topic_name);
         logger.info("Topic names:", topicNames);
 
+
+        // Fetch numbersets based on user's grade level       
+        let number_sets = await fetchNumberSets(grade_level);
+        logger.debug("Fetched numbersets:", number_sets);
+
+        // If numbersets is undefined or not an array, log a warning
+        if (!number_sets || !Array.isArray(number_sets)) {
+            logger.warn("Numbersets is undefined or not an array", number_sets);
+            number_sets = [];
+        }
+
+        // Extract topic names from topics array
+        const numberSetName = number_sets.map(number_sets => number_sets.number_sets);
+        logger.info("Numberset names:", numberSetName);
+
+
         // Generate JWT token
         const token = jwt.sign({
             email: userRows[0].email,
             grade_level: userRows[0].grade_level,
-            topics: topicNames
+            topics: topicNames,
+            number_sets: number_sets
         }, process.env.JWT_KEY, { expiresIn: "1h" });
 
         // Respond with success message, token, and other data

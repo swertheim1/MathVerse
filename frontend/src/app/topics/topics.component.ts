@@ -7,8 +7,8 @@ interface ImageInfo {
   name: string;
   url: string;
   order: number;
+  routerLinkName: string;
 }
-
 
 @Component({
   selector: 'app-topics',
@@ -16,12 +16,11 @@ interface ImageInfo {
   styleUrls: ['./topics.component.scss']
 })
 
-
 export class TopicsComponent implements OnInit {
   message: string | null = null;
   topics: string[] = [];
   imageUrls: ImageInfo[] = [];
-
+  
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
@@ -32,13 +31,18 @@ export class TopicsComponent implements OnInit {
     console.log("topics page has initialized");
     this.topics = this.tokenService.getCachedTopics();
     console.log(this.topics);
+
     this.imageUrls = this.getImageUrls(this.topics);
-    console.log(this.imageUrls);
-
     console.log('this.imageUrls', this.imageUrls);
-
   }
 
+  constructRouterLink(name: string): string {
+    // Ensure name is converted to lowercase
+    const normalizedName = `${name.toLowerCase()}`;
+    console.log('normalized name', normalizedName)
+    // Construct the router link with the normalized name
+    return `/${normalizedName}-numbersets`;
+}
 
   getImageUrls(topic_list: string[]): ImageInfo[] {
     const imageUrls: ImageInfo[] = [];
@@ -47,42 +51,53 @@ export class TopicsComponent implements OnInit {
       let imageUrl = '';
       let name = '';
       let order = 0;
+      let routerLinkName = '';
 
       switch (topic) {
         case 'Addition':
           {
-            name = topic;
+            name = 'Addition';
+            routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/plus2@300x.png';
             order = 1;
           }
+          console.log('additionNumberset', routerLinkName)
           break;
         case 'Subtraction':
           {
-            name = topic;
+            name = 'Subtraction';
+            routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/minus2@300x.png';
             order = 2;
           }
+          console.log('subtractionNumberset', routerLinkName)
           break;
         case 'Multiplication':
           {
-            name = topic;
+            name = 'Multiplication';
+            routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/times2@300x.png';
             order = 3;
           }
+          console.log('multiplicationNumberset', routerLinkName)
           break;
         case 'Division':
           {
-            name = topic;
+            name = 'Division';
+            routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/divide2@300x.png';
             order = 4;
           }
+          console.log('divisionNumberset', routerLinkName)
           break;
         case 'Ratio':
           {
             name = topic;
-            imageUrl = 'assets/images/ratio@300x.png';
+            routerLinkName = this.constructRouterLink(name)
+            imageUrl = 'assets/images/ratio3@300x.png';
             order = 5;
           }
+          console.log('ratioNumberset', routerLinkName)
           break;
 
         default:
@@ -90,7 +105,7 @@ export class TopicsComponent implements OnInit {
           break;
       }
       if (imageUrl !== '') { // Only push if imageUrl is not empty
-        imageUrls.push({ name, url: imageUrl, order }); // Push imageUrl directly
+        imageUrls.push({ name, url: imageUrl, order, routerLinkName }); // Push imageUrl directly
       }
     }
     // Sort the imageUrls array based on the order property

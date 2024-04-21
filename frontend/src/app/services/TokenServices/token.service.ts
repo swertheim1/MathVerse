@@ -12,6 +12,7 @@ export class TokenService {
   token: string | null = null;
   decodedToken!: { [key: string]: string };
   private cachedTopics: any[] = [];
+  private cachedNumbersets: any[] = [];
   
   constructor(
     private cookieService: CookieService,
@@ -85,6 +86,33 @@ export class TokenService {
       return of(topics);
     } else {
       console.error('Topics property not found or is not an array in decoded token.');
+      return of(null);
+    }
+  }
+
+  cacheNumbersets(numbersets: any[]): void {
+    localStorage.setItem('cacheNumbersets', JSON.stringify(numbersets));
+    console.log('cacheNumbersets has been called');
+    console.log("Numbersets being cached", numbersets);
+    this.cachedNumbersets = numbersets;
+  }
+
+  getCachedNumbersets(): any[] {
+    console.log(`GetCachedNumbersets has been called:  ${this.cacheNumbersets}`);
+    const cachedNumbersetsString = localStorage.getItem('cacheNumbersets');
+    return cachedNumbersetsString ? JSON.parse(cachedNumbersetsString) : [];
+  }
+
+  getNumbersets(): Observable<any> {
+    console.log('GetNumbersets has been called');
+    this.decodeToken();
+    const numbersets = this.decodedToken && this.decodedToken['numbersets'];
+    if (Array.isArray(numbersets)) {
+      console.log('NUMBERSETS from GET NUMBERSETS:', numbersets);
+      this.cacheTopics(numbersets);
+      return of(numbersets);
+    } else {
+      console.error('Numbersets property not found or is not an array in decoded token.');
       return of(null);
     }
   }

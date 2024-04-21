@@ -20,7 +20,7 @@ async function fetchNumberSets(grade_level) {
     if (rows.length === 0) {
         throw new Error('No numberSets found for the given grade level');
     }
-    logger.log('numberSets', numberSets);
+    logger.info('numberSets', numberSets);
 
     // Extract relevant data from the rows
     const numberSetsData = rows.map(row => ({
@@ -32,7 +32,7 @@ async function fetchNumberSets(grade_level) {
         logger.info(numberSet.numberset_name);
     });
 
-    console.log('numberSetsData', numberSetsData);
+    logger.info('numberSetsData', numberSetsData);
     return numberSetsData;
 }
 

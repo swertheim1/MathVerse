@@ -25,7 +25,7 @@ let corsOptions;
 if (process.env.NODE_ENV === 'production') {
   // For production, use deployed frontend URL
   corsOptions = {
-    origin: 'https://localhost:4200',
+    origin: 'https://mathverse.net',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     preflightContinue: false,
     optionsSuccessStatus: 204
@@ -41,9 +41,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(cors(corsOptions));
-  app.use(cors(corsOptions));
-  
-  // Other middleware and routes...
 
 // Use the 'cors' middleware to enable CORS in the Express app
 app.use(cors({

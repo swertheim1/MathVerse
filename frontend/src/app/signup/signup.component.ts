@@ -47,7 +47,7 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private signupService: SignupService,
     private router: Router,
-    private snackBar: MatSnackBar,
+    
   ) {}
 
   ngOnInit(): void {
@@ -89,7 +89,6 @@ export class SignupComponent implements OnInit {
       this.signupService.saveSignupData(this.signUpForm.value).subscribe(
         response => {
           console.log('Signup successful:', response);
-          // this.snackBar.open('Signup successful!', 'Close', { duration: 3000 });
           this.router.navigate(['/login']);
         },
         error => {

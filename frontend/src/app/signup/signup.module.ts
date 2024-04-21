@@ -7,12 +7,14 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     SignupComponent,
-  ], // Declare the component
+  ], 
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule
-  ], // Include any other necessary modules
-  exports: [], // Export any components or modules if needed
+  ], 
+  exports: [
+    SignupComponent
+  ], 
 })
 export class SignupModule { }

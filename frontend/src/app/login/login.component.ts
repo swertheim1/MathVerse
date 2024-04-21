@@ -24,8 +24,8 @@ export class LoginComponent {
     private fb: FormBuilder
   ) { 
     // Log when constructor is called
-    console.log('Constructor called'); 
-    this.router = router
+    console.log('Login App Constructor called'); 
+    this.router = router;
   }
 
   ngOnInit(): void {

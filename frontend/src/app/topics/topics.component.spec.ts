@@ -1,9 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { TopicsComponent } from './topics.component';
-import { AuthService } from '../services/AuthorizationServices/auth.service';
-import { ActivatedRoute, convertToParamMap } from '@angular/router';
-import { TokenInterceptor } from '../services/TokenServices/token.interceptor';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { TokenService } from '../services/TokenServices/token.service';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('TopicsComponent', () => {
   let component: TopicsComponent;
@@ -12,24 +12,29 @@ describe('TopicsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [TopicsComponent],
-      imports: [HttpClientModule],
+      imports: [HttpClientTestingModule], // Import HttpClientTestingModule for HttpClient dependency
       providers: [
-        AuthService,
         {
           provide: ActivatedRoute,
           useValue: {
-            snapshot: { paramMap: convertToParamMap({})}
+            snapshot: {
+              paramMap: new Map().set('key', 'value') // Mock snapshot's paramMap if needed
+            },
+            queryParams: of({}) // Mock queryParams observable if needed
           }
         },
+        // Provide a mock instance of TokenService
         {
-          provide: HTTP_INTERCEPTORS, // Provide TokenInterceptor as HTTP_INTERCEPTORS
-          useClass: TokenInterceptor, // Use the actual TokenInterceptor
-          multi: true // Ensure it's a multi-provider
+          provide: TokenService,
+          useValue: {
+            getCachedTopics: () => ['Addition', 'Subtraction'] // Mock getCachedTopics method
+          }
         }
       ]
-    })
-    .compileComponents();
-    
+    }).compileComponents();
+  });
+
+  beforeEach(() => {
     fixture = TestBed.createComponent(TopicsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -38,4 +43,13 @@ describe('TopicsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should initialize properly', () => {
+    expect(component.topics.length).toBe(2); // Check if topics array is properly initialized with 2 topics
+    expect(component.topics[0]).toEqual('Addition'); // Check if the first topic is 'Addition'
+    expect(component.topics[1]).toEqual('Subtraction'); // Check if the second topic is 'Subtraction'
+    // Add more assertions if needed
+  });
+
+  // Other test cases...
 });

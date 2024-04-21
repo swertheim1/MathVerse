@@ -1,0 +1,16 @@
+.floating-label {
+    position: relative;
+}
+
+.floating-label label.visually-hidden {
+    position: absolute;
+    top: -20px; /* Adjust this value to your preference */
+    left: 0;
+    transition: top 0.2s ease-out;
+    color: #6c757d; /* Adjust label color if needed */
+}
+
+.form-select:valid + label.visually-hidden {
+    top: -40px; /* Adjust this value to your preference */
+    font-size: 0.75rem; /* Adjust font size if needed */
+}

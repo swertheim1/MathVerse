@@ -3,14 +3,16 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators }
 import { SignupService } from '../services/SignupService/signup.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: [
     './signup.component.scss'
-  ]
+  ],
 })
+
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup = new FormGroup({
 
@@ -87,7 +89,7 @@ export class SignupComponent implements OnInit {
       this.signupService.saveSignupData(this.signUpForm.value).subscribe(
         response => {
           console.log('Signup successful:', response);
-          this.snackBar.open('Signup successful!', 'Close', { duration: 3000 });
+          // this.snackBar.open('Signup successful!', 'Close', { duration: 3000 });
           this.router.navigate(['/login']);
         },
         error => {
@@ -99,12 +101,10 @@ export class SignupComponent implements OnInit {
             console.log('Invalid credentials. Please try again.');
           } else if (error.status === 500) {
             // Server error
-            this.snackBar.open('There was a server issue. Please try again later.', 'Close', { duration: 3000 });
             // Notify the user about the server issue
             console.log('Server error. Please try again later.');
           } else {
-            // Other types of errors
-            this.snackBar.open('An error occurred. Please try again later.', 'Close', { duration: 3000 });
+            // Other types of error
             console.log('An error occurred. Please try again.');
           }
         }

@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="container d-flex justify-content-center">
-            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="d-flex" id="signUpForm" style="width:25vw">
+            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="d-flex" id="signUpForm" style="width:75vw">
                 <div class="col">
                     <div class="form-group mb-3">
                         <label for="inputFirstName" class="col-form-label col-form-label-lg">First Name<span style="color: lightsalmon">*</span></label>
@@ -28,15 +28,16 @@
                         <label for="inputRepeatPassword" class="col-form-label col-form-label-lg">Repeat Password<span style="color: lightsalmon">*</span></label>
                         <input type="password" class="form-control " id="inputRepeatPassword" placeholder="Password" required formControlName="repeatPassword">
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="inputGradeLevel" class="col-form-label col-form-label-lg">Grade Level<span style="color: lightsalmon">*</span></label>
-                        <select formControlName="gradeLevel"  id="inputGradeLevel" class="form-control " required >
-                            <option>Select ...</option>
-                            <option>4th Grade</option>
-                            <option>5th Grade</option>
-                            <option>6th Grade</option>
-                        </select>
-                    </div>
+                    <div class="form-floating mb-3">
+                        <div class="floating-label">
+                            <label for="inputGradeLevel" class="col-form-label col-form-label-lg">Grade Level<span style="color: lightsalmon">*</span><span style="font-size:small;">(Select a grade level.)</span></label>
+                            <select class="form-select" id="inputGradeLevel" formControlName="gradeLevel" required>
+                                <option>4th Grade</option>
+                                <option>5th Grade</option>
+                                <option>6th Grade</option>
+                            </select>                           
+                        </div>
+                    </div>                      
                     <div class="form-group mb-3">
                         <label for="age" class="col-form-label col-form-label-lg">Age</label>
                         <input type="text" class="form-control " id="age" placeholder="Enter a number" formControlName="age">

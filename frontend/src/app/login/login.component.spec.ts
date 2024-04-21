@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../services/AuthorizationServices/auth.service';
@@ -8,6 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
+import { By } from '@angular/platform-browser';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -17,103 +18,104 @@ describe('LoginComponent', () => {
   let router: Router;
   let fb: FormBuilder;
 
-  const authServiceMock = {
-    login: jasmine.createSpy('login').and.returnValue(of(new HttpResponse({ status: 200 })))
-  };
-
+  let authServiceLoginSpy: jasmine.SpyObj<AuthService>;
   let cookieServiceSetSpy: jasmine.Spy;
   let routerNavigateSpy: jasmine.Spy;
 
   beforeEach(async () => {
+    const authServiceSpy = jasmine.createSpyObj('AuthService', ['login']);
+  
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule],
       declarations: [LoginComponent],
       providers: [
-        { provide: AuthService, useValue: authServiceMock },
+        { provide: AuthService, useValue: authServiceSpy },
         CookieService
       ]
     }).compileComponents();
-
+  
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
-    authService = TestBed.inject(AuthService);
+    authService = TestBed.inject(AuthService); // No need to inject AuthService again
     cookieService = TestBed.inject(CookieService);
     router = TestBed.inject(Router);
     fb = TestBed.inject(FormBuilder);
-
-    // Initialize spies after services have been injected
-    cookieServiceSetSpy = spyOn(cookieService, 'set');
+  
+    // Initialize loginForm
+    component.loginForm = fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  
+    // Use authServiceSpy directly
+    authServiceLoginSpy = authServiceSpy; // No need to inject and then assign again
+    cookieServiceSetSpy = spyOn(cookieService, 'set').and.callThrough();
     routerNavigateSpy = spyOn(router, 'navigate');
   });
+  
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call AuthService.login on login when form is valid', () => {
-    // Arrange
-    const email = 'test@example.com'; // Valid email
-    const password = 'validPassword'; // Valid password
+  describe('Form Validation', () => {
+    it('should call AuthService.login on login when form is valid', () => {
+      // Arrange
+      const email = 'test@example.com';
+      const password = 'validPassword';
+      component.loginForm.patchValue({ email, password });
 
-    // Set valid form value
-    component.loginForm = fb.group({
-      email: [email, Validators.required],
-      password: [password, Validators.required],
+      // Act
+      component.login();
+
+      // Assert
+      expect(authServiceLoginSpy.login).toHaveBeenCalled();
     });
 
-    // Act
-    component.login(); // Call the login method
+    it('should not call AuthService.login on login when form is invalid', fakeAsync(() => {
+      // Act
+      const form = fixture.debugElement.query(By.css('form'));
+      form.triggerEventHandler('submit', null);
+      tick();
 
-    // Assert
-    expect(authServiceMock.login).toHaveBeenCalled();
+      // Assert
+      expect(authServiceLoginSpy.login).not.toHaveBeenCalled();
+    }));
   });
 
-  it('should not call AuthService.login on login when form is invalid', () => {
-    // Arrange
-    const email = ''; // Invalid email
-    const password = ''; // Invalid password
+  describe('Cookie Service Interaction', () => {
+    it('should call CookieService.set on saveTokenToCookie', () => {
+      // Act
+      component.saveTokenToCookie('token');
 
-    // Initialize the login form with invalid values
-    component.loginForm = fb.group({
-      email: [email, Validators.required],
-      password: [password, Validators.required],
+      // Assert
+      expect(cookieServiceSetSpy).toHaveBeenCalled();
     });
 
-    // Act
-    component.login(); // Call the login method
+    it('should call CookieService.set with correct arguments on saveTokenToCookie', () => {
+      // Arrange
+      const token = 'token';
 
-    // Assert
-    expect(authServiceMock.login).not.toHaveBeenCalled();
-  });
+      // Act
+      component.saveTokenToCookie(token);
 
-  it('should call CookieService.set on saveTokenToCookie', () => {
-    component.saveTokenToCookie('token');
-    expect(cookieServiceSetSpy).toHaveBeenCalled();
-  });
-
-  it('should call CookieService.set with correct arguments on saveTokenToCookie', () => {
-    const token = 'token';
-    component.saveTokenToCookie(token);
-    expect(cookieServiceSetSpy).toHaveBeenCalledWith('authToken', token);
-  });
-
-  it('should navigate to topics page after successful login', () => {
-    const email = 'test@example.com';
-    const password = 'password';
-
-    // Initialize the login form
-    component.loginForm = fb.group({
-      email: [email, Validators.required],
-      password: [password, Validators.required]
+      // Assert
+      expect(cookieServiceSetSpy).toHaveBeenCalledWith('authToken', token);
     });
+  });
 
-    // Simulate a successful login
-    authServiceMock.login.and.returnValue(of(new HttpResponse({ status: 200 })));
+  describe('Navigation', () => {
+    it('should navigate to topics page after successful login', () => {
+      // Arrange
+      const email = 'test@example.com';
+      const password = 'password';
+      component.loginForm.patchValue({ email, password });
 
-    // Call the login method
-    component.login();
+      // Act
+      component.login();
 
-    // Expect the router to navigate to topics page
-    expect(routerNavigateSpy).toHaveBeenCalledWith(['/topics']);
+      // Assert
+      expect(routerNavigateSpy).toHaveBeenCalledWith(['/topics']);
+    });
   });
 });

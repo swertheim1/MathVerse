@@ -2,26 +2,33 @@
   {{ message }}
 </div>
 
-<div class="frame-container">
-  <div class="frame"> <!-- Added frame class to wrap the content -->
-    <div class="row">
-      <div class="col text-center">
-        <h1 style="margin-top: 5%; margin-bottom: 5%;">MathVerse Topics</h1>
-      </div>
+<!-- <div class="frame-container"> -->
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <h1 style="margin-top: 5%; margin-bottom: 5%;">MathVerse Topics</h1>
     </div>
-    <div class="container d-flex justify-content-center">
-      <div class="image-grid">
-        <div *ngIf="topics && topics.length > 0">
-          <h2>Topics</h2>
-          <ul>
-            <li *ngFor="let topic of topics">{{ topic }}</li>
-          </ul>
-        </div>
-        <div *ngIf="!topics || topics.length === 0">
-          <p>No topics available.</p>
-        </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="row">
+        <ng-container *ngFor="let imageUrl of imageUrls">
+          <div class="col-md-5 me-auto my-4">
+            <div class="d-flex flex-column align-items-center">
+              <div class="pseudo-3d-image">
+                <img [src]="imageUrl.url" class="figure-img img-fluid rounded" alt="Topic Image">
+              </div>
+              <figcaption class="figure-caption text-center">{{ imageUrl.name }}</figcaption>
+            </div>
+          </div>
+        </ng-container>
       </div>
     </div>
   </div>
+</div>
 
 

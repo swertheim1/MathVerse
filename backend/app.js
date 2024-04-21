@@ -20,6 +20,9 @@ const pool = require('./pool')
 // Create an instance of the Express application
 const app = express();
 
+app.use('/login', cors({ origin: 'https://mathverse.net' }));
+app.use('/signup', cors({ origin: 'https://mathverse.net' }));
+
 // Define CORS options based on environment
 let corsOptions;
 if (process.env.NODE_ENV === 'production') {
@@ -102,6 +105,8 @@ app.use('/', topicsRouter);
 app.use('/', problemRouter);
 app.use('/', numberSetsRouter);
 app.use('/', homeRoute);
+
+
 
 // Define catch-all route
 app.get('*', (req, res) => {

@@ -129,7 +129,6 @@ userController.login = async (req, res) => {
         const numberSetName = number_sets.map(number_sets => number_sets.number_sets);
         logger.info("Numberset names:", numberSetName);
 
-
         // Generate JWT token
         const token = jwt.sign({
             email: userRows[0].email,

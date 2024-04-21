@@ -22,9 +22,10 @@ export class AdditionNumbersetsComponent {
   ) { }
 
   ngOnInit(): void {
-    console.log("numbersets page has initialized");
+    console.log("Addition Options page has initialized");
+    console.log('getting numbersets from cache')
     this.numbersets = this.tokenService.getCachedNumbersets();
-    console.log(this.numbersets);
+    console.log( 'Numbersets from cache', this.numbersets);
     this.imageUrls = this.getImageUrls(this.numbersets);
     console.log(this.imageUrls);
     console.log('this.imageUrls', this.imageUrls);

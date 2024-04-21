@@ -92,7 +92,7 @@ export class TokenService {
 
   cacheNumbersets(numbersets: any[]): void {
     localStorage.setItem('cacheNumbersets', JSON.stringify(numbersets));
-    console.log('cacheNumbersets has been called');
+    console.log('CacheNumbersets has been called');
     console.log("Numbersets being cached", numbersets);
     this.cachedNumbersets = numbersets;
   }

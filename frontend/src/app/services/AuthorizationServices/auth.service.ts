@@ -21,8 +21,11 @@ export class AuthService {
     const httpHeaders = new HttpHeaders({
       'Authorization': token
     });
-    return this.httpClient.get(`${this.baseUrl}/user-data`, { 
-      headers: httpHeaders
+    return this.httpClient.get(`${this.baseUrl}/login`, { 
+      headers: {
+        'Content-Type': 'application/json',
+        'Origin': environment.apiUrl
+      } 
     });
   }
 }

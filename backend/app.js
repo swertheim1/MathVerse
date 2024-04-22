@@ -20,18 +20,18 @@ const pool = require('./pool')
 // Create an instance of the Express application
 const app = express();
 
-app.use('/login', cors({
-    origin: [
-        'https://mathverse.net',
-        'http://localhost:4200'
-    ]
-}));
-app.use('/signup', cors({
-    origin: [
-        'https://mathverse.net',
-        'http://localhost:4200'
-    ]
-}));
+// app.use('/login', cors({
+//     origin: [
+//         'https://mathverse.net',
+//         'http://localhost:4200'
+//     ]
+// }));
+// app.use('/signup', cors({
+//     origin: [
+//         'https://mathverse.net',
+//         'http://localhost:4200'
+//     ]
+// }));
 
 // Define CORS options based on environment
 let corsOptions;
@@ -59,6 +59,10 @@ app.use(cors(corsOptions));
 app.use(cors({
     exposedHeaders: ['Authorization']
 }));
+
+// Use the 'cors' middleware to enable CORS for specific routes
+app.use('/login', cors());
+app.use('/signup', cors());
 
 // Parse incoming request bodies in middleware using 'express.urlencoded' middleware
 // This middleware parses incoming requests with urlencoded payloads

@@ -2,6 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from './auth.service';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -27,6 +28,23 @@ describe('AuthService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should use correct API URL', () => {
+    // Arrange
+    const expectedUrl = `${environment.apiUrl}/login`; // Assuming login is part of the API route
+
+    // Act
+    service.login({ email: 'test@example.com', password: 'password' }).subscribe(() => {
+      // Assert
+      const httpRequest = httpMock.expectOne(expectedUrl);
+      expect(httpRequest.request.method).toEqual('POST');
+      httpRequest.flush({}); // Mock response
+    });
+
+    // Ensure all HTTP requests are handled
+    httpMock.verify();
+  });
+
 
   it('should send a POST request when login is called', () => {
     const dummyCredentials = { email: 'test@example.com', password: 'password123' };

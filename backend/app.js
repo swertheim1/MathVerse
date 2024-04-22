@@ -40,7 +40,7 @@ if (process.env.NODE_ENV === 'production') {
     corsOptions = {
         origin: 'https://mathverse.net',
         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        preflightContinue: false,
+        preflightContinue: true,
         optionsSuccessStatus: 204
     };
 } else {
@@ -54,6 +54,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(cors(corsOptions));
+
 
 // Use the 'cors' middleware to enable CORS in the Express app
 app.use(cors({

@@ -20,27 +20,37 @@ const pool = require('./pool')
 // Create an instance of the Express application
 const app = express();
 
-app.use('/login', cors({ origin: 'https://mathverse.net' }));
-app.use('/signup', cors({ origin: 'https://mathverse.net' }));
+app.use('/login', cors({
+    origin: [
+        'https://mathverse.net',
+        'http://localhost:4200'
+    ]
+}));
+app.use('/signup', cors({
+    origin: [
+        'https://mathverse.net',
+        'http://localhost:4200'
+    ]
+}));
 
 // Define CORS options based on environment
 let corsOptions;
 if (process.env.NODE_ENV === 'production') {
-  // For production, use deployed frontend URL
-  corsOptions = {
-    origin: 'https://mathverse.net',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 204
-  };
+    // For production, use deployed frontend URL
+    corsOptions = {
+        origin: 'https://mathverse.net',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        preflightContinue: false,
+        optionsSuccessStatus: 204
+    };
 } else {
-  // For development, allow requests from localhost:4200
-  corsOptions = {
-    origin: 'http://localhost:4200',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    preflightContinue: false,
-    optionsSuccessStatus: 204
-  };
+    // For development, allow requests from localhost:4200
+    corsOptions = {
+        origin: 'http://localhost:4200',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        preflightContinue: false,
+        optionsSuccessStatus: 204
+    };
 }
 
 app.use(cors(corsOptions));
@@ -52,7 +62,7 @@ app.use(cors({
 
 // Parse incoming request bodies in middleware using 'express.urlencoded' middleware
 // This middleware parses incoming requests with urlencoded payloads
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(morgan('dev'));
 
@@ -77,22 +87,22 @@ const homeRoute = require('./routes/home');
 // const numberSetsRouter = require('./routes/numbersets');
 
 app.use((req, res, next) => {
- // Log request method, URL, and timestamp
- console.log('REQUEST METHOD, URL AND TIMESTAMP')
- console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`); 
+    // Log request method, URL, and timestamp
+    console.log('REQUEST METHOD, URL AND TIMESTAMP')
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
 
- // Log request headers
- console.log('Headers:', req.headers);
+    // Log request headers
+    console.log('Headers:', req.headers);
 
- // Log request query parameters
- console.log('Query Params:', req.query);
+    // Log request query parameters
+    console.log('Query Params:', req.query);
 
- // Log request body (if present and not too large)
- if (req.body) {
-     console.log('Request body received' );
- }
+    // Log request body (if present and not too large)
+    if (req.body) {
+        console.log('Request body received');
+    }
 
- next(); // Call next to pass control to the next middleware or route handler
+    next(); // Call next to pass control to the next middleware or route handler
 });
 
 // Serve static files from the Angular build folder
@@ -111,7 +121,7 @@ app.use('/', homeRoute);
 // Define catch-all route
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/dist/mathverse/browser/index.html'));
-  });
+});
 
 // Log outgoing responses after they are sent to the client
 app.use((req, res, next) => {
@@ -119,10 +129,10 @@ app.use((req, res, next) => {
     const originalSend = res.send;
 
     // Override res.send function to log response details before sending
-    res.send = function(data) {
+    res.send = function (data) {
         // Log response status code
         console.log(`[${new Date().toISOString()}] Response Status Code: ${res.statusCode}`);
-        
+
         // Log response headers
         console.log('Headers:', res.getHeaders());
 
@@ -136,7 +146,7 @@ app.use((req, res, next) => {
     };
 
     next(); // Call next to pass control to the next middleware or route handler
-}); 
+});
 
 // Define error handling middleware
 app.use((err, req, res, next) => {

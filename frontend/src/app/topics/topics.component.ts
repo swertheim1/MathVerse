@@ -39,7 +39,7 @@ export class TopicsComponent implements OnInit {
   constructRouterLink(name: string): string {
     // Ensure name is converted to lowercase
     const normalizedName = `${name.toLowerCase()}`;
-    console.log('normalized name', normalizedName)
+    // console.log('normalized name', normalizedName)
     // Construct the router link with the normalized name
     return `/${normalizedName}-numbersets`;
 }
@@ -110,7 +110,7 @@ export class TopicsComponent implements OnInit {
     }
     // Sort the imageUrls array based on the order property
     imageUrls.sort((a, b) => a.order - b.order);
-    console.log(imageUrls)
+    // console.log(imageUrls)
     return imageUrls;
   }
 

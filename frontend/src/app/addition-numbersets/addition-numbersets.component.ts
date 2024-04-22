@@ -42,15 +42,15 @@ export class AdditionNumbersetsComponent {
       switch (numberset) {
         case 'Addition':
           {
-            name = 'decimals';
-            imageUrl = 'assets/images/plus2@300x.png';
+            name = 'Positive Whole Numbers';
+            imageUrl = 'assets/images/NumberSets/AddWPWholeNumbers.png';
             order = 1;
           }
           break;
         case 'Subtraction':
           {
-            name = 'subtraction-numbersets';
-            imageUrl = 'assets/images/minus2@300x.png';
+            name = 'Positive Whole Numbers';
+            imageUrl = 'assets/images/NumberSets/AddWPWholeNumbers.png';
             order = 2;
           }
           break;

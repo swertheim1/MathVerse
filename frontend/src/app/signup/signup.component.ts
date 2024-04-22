@@ -2,8 +2,8 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { SignupService } from '../services/SignupService/signup.service';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { trigger, state, style, transition, animate } from '@angular/animations';
+
+
 
 @Component({
   selector: 'app-signup',

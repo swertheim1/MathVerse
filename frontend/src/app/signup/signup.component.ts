@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { SignupService } from '../services/SignupService/signup.service';
 import { Router } from '@angular/router';
-
+import { environment } from '../../environments/environment';
 
 
 @Component({
@@ -14,8 +14,9 @@ import { Router } from '@angular/router';
 })
 
 export class SignupComponent implements OnInit {
+  private apiUrl = environment.apiUrl;
+  
   signUpForm: FormGroup = new FormGroup({
-
   })
   firstName: string = '';
   lastName: string = '';
@@ -51,6 +52,7 @@ export class SignupComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
     this.signUpForm = this.fb.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -67,9 +69,10 @@ export class SignupComponent implements OnInit {
 
   onSubmit(): void {
     if (this.signUpForm.valid) {
+      console.log('SignupComponent', this.apiUrl)
       console.log("Form is valid. Submitting:",);
 
-      console.log(this.signUpForm.errors)
+      console.log('this.signUpForm.errors', this.signUpForm.errors)
       const formData = { ...this.signUpForm.value };
 
       // remove the repeatPassword from the property

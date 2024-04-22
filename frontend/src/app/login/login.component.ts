@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { TokenService } from '../services/TokenServices/token.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router'; 
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,8 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm!: FormGroup;
   public router: Router;
+  private apiUrl = environment.apiUrl;
+  
 
   constructor(
     private authService: AuthService,
@@ -40,6 +43,7 @@ export class LoginComponent {
   
   login(): void {
     if (this.loginForm.valid) {
+      console.log('LOGIN COMPONENT: API URL:', this.apiUrl); 
       const { email, password } = this.loginForm.value;
       console.log("Form is valid. Submitting:", email);
   
@@ -52,6 +56,7 @@ export class LoginComponent {
   
           // Handle successful login response
           console.log('Login successful');
+          console.log('LOGIN COMPONENT: API URL:', this.apiUrl); 
           this.router.navigate(['/topics']);
           const tokenArray = res.headers.getAll("Authorization");
           if (tokenArray && tokenArray.length > 0) {

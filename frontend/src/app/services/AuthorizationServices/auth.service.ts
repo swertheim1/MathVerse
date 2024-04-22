@@ -9,11 +9,12 @@ import { environment } from '../../../environments/environment';
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
-  
+ 
   constructor(private httpClient: HttpClient) {}
 
   login(credentials: { email: string; password: string }): Observable<HttpResponse<any>> {
-    console.log('API URL:', this.apiUrl); 
+    console.debug('AUTH SERVICE LOGIN CALLED' )
+    console.debug('AUTH SERVICE API URL:', this.apiUrl); 
     return this.httpClient.post<HttpResponse<any>>(`${this.apiUrl}/login`, credentials, { observe: 'response' })
       .pipe(
         catchError(this.handleError)

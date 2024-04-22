@@ -54,7 +54,7 @@ describe('AuthService', () => {
       expect(response.body).toEqual(mockResponse); // Assuming the response contains a token
     });
 
-    const req = httpMock.expectOne('http://localhost:3000/login');
+    const req = httpMock.expectOne('${environment.apiUrl}/login');
     expect(req.request.method).toBe('POST');
     req.flush(mockResponse);
   });
@@ -67,7 +67,7 @@ describe('AuthService', () => {
       expect(response).toEqual(mockUserData); // Assuming the response contains user data
     });
 
-    const req = httpMock.expectOne('http://localhost:3000/user-data');
+    const req = httpMock.expectOne('${environment.apiUrl}/user-data');
     expect(req.request.method).toBe('GET');
     expect(req.request.headers.get('Authorization')).toBe(dummyToken);
     req.flush(mockUserData);

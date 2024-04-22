@@ -34,27 +34,28 @@ const app = express();
 // }));
 
 // Define CORS options based on environment
-let corsOptions;
-if (process.env.NODE_ENV === 'production') {
-    // For production, use deployed frontend URL
-    corsOptions = {
-        origin: 'https://mathverse.net',
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        preflightContinue: true,
-        optionsSuccessStatus: 204
-    };
-} else {
-    // For development, allow requests from localhost:4200
-    corsOptions = {
-        origin: 'http://localhost:4200',
-        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-        preflightContinue: false,
-        optionsSuccessStatus: 204
-    };
-}
+// let corsOptions;
+// if (process.env.NODE_ENV === 'production') {
+//     // For production, use deployed frontend URL
+//     corsOptions = {
+//         origin: 'https://mathverse.net',
+//         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//         preflightContinue: true,
+//         optionsSuccessStatus: 204
+//     };
+// } else {
+//     // For development, allow requests from localhost:4200
+//     corsOptions = {
+//         origin: 'http://localhost:4200',
+//         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//         preflightContinue: false,
+//         optionsSuccessStatus: 204
+//     };
+// }
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
+app.use(cors());
 
 // Use the 'cors' middleware to enable CORS in the Express app
 app.use(cors({
@@ -62,8 +63,8 @@ app.use(cors({
 }));
 
 // Use the 'cors' middleware to enable CORS for specific routes
-app.use('/login', cors());
-app.use('/signup', cors());
+// app.use('/login', cors());
+// app.use('/signup', cors());
 
 // Parse incoming request bodies in middleware using 'express.urlencoded' middleware
 // This middleware parses incoming requests with urlencoded payloads

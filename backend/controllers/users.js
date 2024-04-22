@@ -125,16 +125,16 @@ userController.login = async (req, res) => {
             number_sets = [];
         }
 
-        // Extract topic names from topics array
-        const numberSetName = number_sets.map(number_sets => number_sets.number_sets);
-        logger.info("Numberset names:", numberSetName);
+        // Extract numberSet names from numberset array
+        const numbersetNames = number_sets.map(number_sets => number_sets.number_sets);
+        logger.info("Numberset names:", numbersetNames);
 
         // Generate JWT token
         const token = jwt.sign({
             email: userRows[0].email,
             grade_level: userRows[0].grade_level,
             topics: topicNames,
-            number_sets: number_sets
+            number_sets: numbersetNames
         }, process.env.JWT_KEY, { expiresIn: "1h" });
 
         // Respond with success message, token, and other data
@@ -144,6 +144,7 @@ userController.login = async (req, res) => {
                 message: "Authorization successful",
                 grade: grade_level,
                 topics: topicNames,
+                number_sets: numbersetNames,
                 token: token
             });
 

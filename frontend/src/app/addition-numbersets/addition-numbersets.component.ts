@@ -40,35 +40,35 @@ export class AdditionNumbersetsComponent {
       let order = 0;
 
       switch (numberset) {
-        case 'Addition':
+        case 'Positive Whole Numbers':
           {
             name = 'Positive Whole Numbers';
             imageUrl = 'assets/images/NumberSets/AddWPWholeNumbers.png';
             order = 1;
           }
           break;
-        case 'Subtraction':
+        case 'Positive Decimals':
           {
             name = 'Positive Whole Numbers';
-            imageUrl = 'assets/images/NumberSets/AddWPWholeNumbers.png';
+            imageUrl = 'assets/images/NumberSets/AddWPositiveDecimals.png';
             order = 2;
           }
           break;
-        case 'Multiplication':
+        case 'Integers':
           {
             name = 'multiplication-numbersets';
             imageUrl = 'assets/images/times2@300x.png';
             order = 3;
           }
           break;
-        case 'Division':
+        case 'Fractions':
           {
             name = 'division-numbersets';
             imageUrl = 'assets/images/divide2@300x.png';
             order = 4;
           }
           break;
-        case 'Ratio':
+        case 'Real Numbers':
           {
             name = numberset;
             imageUrl = 'assets/images/ratio@300x.png';

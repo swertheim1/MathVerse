@@ -20,11 +20,10 @@ const pool = require('./pool')
 // Create an instance of the Express application
 const app = express();
 
-app.use(cors());
 
 // Use the 'cors' middleware to enable CORS in the Express app
 app.use(cors({
-    origin: 'http://localhost:4200',
+    origin: 'https://mathverse.net',
     exposedHeaders: ['Authorization']
   }));
 

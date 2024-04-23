@@ -23,7 +23,7 @@ const app = express();
 
 // Use the 'cors' middleware to enable CORS in the Express app
 app.use(cors({
-    origin: 'https://mathverse.net',
+    origin: 'https://mathverse-app-d7l6c.ondigitalocean.app',
     exposedHeaders: ['Authorization']
   }));
 

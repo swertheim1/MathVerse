@@ -27,9 +27,7 @@ app.use(cors({
     exposedHeaders: ['Authorization']
   }));
 
-// Use the 'cors' middleware to enable CORS for specific routes
-// app.use('/login', cors());
-// app.use('/signup', cors());
+// use the 'cors' middleware for preflight options
 app.options('/signup', (req, res) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:4200')
     res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');

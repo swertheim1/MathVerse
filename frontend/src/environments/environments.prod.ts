@@ -1,4 +1,5 @@
+// environment.prod.ts
 export const environment = {
   production: true,
-  apiUrl: 'https://mathverse.net'
-}
+  apiUrl: 'https://mathverse-app-d7l6c.ondigitalocean.app'
+};

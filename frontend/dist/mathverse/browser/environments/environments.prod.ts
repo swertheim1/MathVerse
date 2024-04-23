@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://mathverse.net:8080'
+  apiUrl: 'https://localhost:8080'
 }

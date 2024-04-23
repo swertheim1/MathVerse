@@ -20,47 +20,13 @@ const pool = require('./pool')
 // Create an instance of the Express application
 const app = express();
 
-// app.use('/login', cors({
-//     origin: [
-//         'https://mathverse.net',
-//         'http://localhost:4200'
-//     ]
-// }));
-// app.use('/signup', cors({
-//     origin: [
-//         'https://mathverse.net',
-//         'http://localhost:4200'
-//     ]
-// }));
-
-// Define CORS options based on environment
-// let corsOptions;
-// if (process.env.NODE_ENV === 'production') {
-//     // For production, use deployed frontend URL
-//     corsOptions = {
-//         origin: 'https://mathverse.net',
-//         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//         preflightContinue: true,
-//         optionsSuccessStatus: 204
-//     };
-// } else {
-//     // For development, allow requests from localhost:4200
-//     corsOptions = {
-//         origin: 'http://localhost:4200',
-//         methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//         preflightContinue: false,
-//         optionsSuccessStatus: 204
-//     };
-// }
-
-// app.use(cors(corsOptions));
-
 app.use(cors());
 
 // Use the 'cors' middleware to enable CORS in the Express app
 app.use(cors({
+    origin: 'http://localhost:4200',
     exposedHeaders: ['Authorization']
-}));
+  }));
 
 // Use the 'cors' middleware to enable CORS for specific routes
 // app.use('/login', cors());

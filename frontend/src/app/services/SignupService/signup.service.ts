@@ -16,8 +16,9 @@ export class SignupService {
   ) {}
   
   saveSignupData(signupData: any) {
-    console.log('API URL:', this.apiUrl); 
+    const signupUrl = `${this.apiUrl}/signup`;
+    console.log('API URL:', `${this.apiUrl}/signup`); 
     console.log('Save Signup Function called');
-    return this.http.post(this.apiUrl, signupData);
+    return this.http.post(`${this.apiUrl}/signup`, signupData);
   }
 }

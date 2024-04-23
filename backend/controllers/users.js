@@ -24,9 +24,9 @@ userController.signup = async (req, res, next) => {
     body("email").isEmail().normalizeEmail();
     body("password").isLength({ min: 8 });
     // body("age").isInt();
-    body("gradeLevel").notEmpty
-    body("role").notEmpty;
-    body("status").notEmpty;
+    body("gradeLevel").notEmpty();
+    body("role").notEmpty();
+    body("status").notEmpty();
 
     const ageValue = age ? parseInt(age) : null;
 

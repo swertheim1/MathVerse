@@ -69,7 +69,7 @@ export class SignupComponent implements OnInit {
 
   onSubmit(): void {
     if (this.signUpForm.valid) {
-      console.log('SignupComponent', this.apiUrl);
+      console.log('SignupComponent API_URL', `${this.apiUrl}/login`);
       console.log("Form is valid. Submitting:",);
 
       console.log('this.signUpForm.errors', this.signUpForm.errors)

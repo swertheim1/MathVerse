@@ -30,6 +30,12 @@ app.use(cors({
 // Use the 'cors' middleware to enable CORS for specific routes
 // app.use('/login', cors());
 // app.use('/signup', cors());
+app.options('/signup', (req, res) => {
+    res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.status(200).end();
+  });
+
 
 // Parse incoming request bodies in middleware using 'express.urlencoded' middleware
 // This middleware parses incoming requests with urlencoded payloads

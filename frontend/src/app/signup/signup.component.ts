@@ -86,7 +86,7 @@ export class SignupComponent implements OnInit {
     }
   }
   signup(): void {
-    console.log('Signup data being transmitted if it is valid.');
+    console.log('Signup COMPONENT: API URL:', this.apiUrl); 
 
     if (this.signUpForm.valid) {
       this.signupService.saveSignupData(this.signUpForm.value).subscribe(

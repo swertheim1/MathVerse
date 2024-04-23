@@ -31,6 +31,7 @@ app.use(cors({
 // app.use('/login', cors());
 // app.use('/signup', cors());
 app.options('/signup', (req, res) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:4200')
     res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     res.status(200).end();

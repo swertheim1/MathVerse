@@ -136,6 +136,14 @@ app.use((err, req, res, next) => {
 // Middleware for the changePassword handler
 app.post('/changePassword', verifyToken, userController.changePassword);
 
+
+//  Log environment variables
+// console.log('Environment variables from .env file:');
+for (let key in process.env) {
+  logger.info(`${key}: ${process.env[key]}`);
+}
+
+
 // Export the Express application to be used in other parts of your Node.js application
 module.exports = app;
 

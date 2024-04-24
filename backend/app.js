@@ -24,13 +24,18 @@ app.use(cors());
 
 // Use the 'cors' middleware to enable CORS in the Express app
 app.use(cors({
-
-    origin: 'http://localhost:4200',
     exposedHeaders: ['Authorization']
   }));
 
-// app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', '*'); 
+  const corsOptions = {
+    origin: 'http://localhost:4200', // or your frontend app's origin
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  };
+  
+  app.use(cors(corsOptions));
+
+  // app.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000/login'); 
 //     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
 //     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 //     res.header('Access-Control-Allow-Credentials', true);

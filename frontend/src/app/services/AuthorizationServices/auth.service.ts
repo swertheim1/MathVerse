@@ -52,6 +52,7 @@ export class AuthService {
         return throwError('The requested resource was not found.');
       } else {
         // Other server-side errors
+        console.error('Server-side error occurred:', error);
         return throwError('An unexpected server-side error occurred. Please try again later.');
       }
     }

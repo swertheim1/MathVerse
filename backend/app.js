@@ -28,7 +28,7 @@ app.use(cors({
   }));
 
   const corsOptions = {
-    origin: 'http://localhost:4200', // or your frontend app's origin
+    origin: ['http://localhost:4200', 'https://mathverse.net', 'https://mathverse-app-d7l6c.ondigitalocean.app' ], 
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   };
   

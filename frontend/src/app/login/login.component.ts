@@ -17,7 +17,6 @@ export class LoginComponent {
   public router: Router;
   private apiUrl = environment.apiUrl;
   
-
   constructor(
     private authService: AuthService,
     private httpClient: HttpClient,
@@ -25,14 +24,18 @@ export class LoginComponent {
     private tokenService: TokenService,
     router: Router,
     private fb: FormBuilder
+    
   ) { 
     // Log when constructor is called
     console.log('Login App Constructor called'); 
+    
     this.router = router;
   }
 
   ngOnInit(): void {
     // Log when ngOnInit lifecycle hook is called
+    console.log('Is production:', environment.production);
+    console.debug(environment.apiUrl)
     console.log('ngOnInit called'); 
     
     this.loginForm = this.fb.group({

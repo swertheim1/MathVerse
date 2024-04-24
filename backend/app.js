@@ -23,24 +23,24 @@ const app = express();
 
 // Use the 'cors' middleware to enable CORS in the Express app
 app.use(cors({
-    origin: 'https://mathverse-app-d7l6c.ondigitalocean.app',
+    // origin: 'https://mathverse-app-d7l6c.ondigitalocean.app',
     exposedHeaders: ['Authorization']
   }));
 
-// use the 'cors' middleware for preflight options
-app.options('/signup', (req, res) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:4200')
-    res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.status(200).end();
-  });
+// // use the 'cors' middleware for preflight options
+// app.options('/signup', (req, res) => {
+//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+//     res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
+//     res.status(200).end();
+//   });
 
-  app.options('/login', (req, res) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:4200')
-    res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.status(200).end();
-  });
+//   app.options('/login', (req, res) => {
+//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+//     res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
+//     res.status(200).end();
+//   });
 
 
 // Parse incoming request bodies in middleware using 'express.urlencoded' middleware

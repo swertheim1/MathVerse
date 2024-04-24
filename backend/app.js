@@ -23,16 +23,16 @@ const app = express();
 app.use(cors());
 
 // Use the 'cors' middleware to enable CORS in the Express app
-app.use(cors({
-    exposedHeaders: ['Authorization']
-  }));
+// app.use(cors({
+//     exposedHeaders: ['Authorization']
+//   }));
 
-  const corsOptions = {
-    origin: ['http://localhost:4200', 'https://mathverse.net', 'https://mathverse-app-d7l6c.ondigitalocean.app' ], 
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  };
+//   const corsOptions = {
+//     origin: ['http://localhost:4200', 'https://mathverse.net', 'https://mathverse-app-d7l6c.ondigitalocean.app' ], 
+//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+//   };
   
-  app.use(cors(corsOptions));
+//   app.use(cors(corsOptions));
 
   // app.use((req, res, next) => {
 //     res.header('Access-Control-Allow-Origin', 'http://localhost:3000/login'); 

@@ -34,8 +34,8 @@ export class LoginComponent {
 
   ngOnInit(): void {
     // Log when ngOnInit lifecycle hook is called
+    console.log('IS PRODUCTION:', environment.production);
     
-    console.debug(environment.apiUrl)
     console.log('ngOnInit called'); 
     
     this.loginForm = this.fb.group({
@@ -45,6 +45,7 @@ export class LoginComponent {
   }
   
   login(): void {
+    console.log('IS PRODUCTION:', environment.production);
     if (this.loginForm.valid) {
       console.log('LOGIN COMPONENT: API URL:', this.apiUrl); 
       console.log('IS PRODUCTION:', environment.production);

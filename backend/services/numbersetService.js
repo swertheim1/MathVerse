@@ -4,7 +4,7 @@ const pool = require("../pool");
 
 async function fetchNumberSets(grade_level) {
     logger.info('FetchingNumberSets function in numberSetService called');
-    logger.debug(grade_level);
+    logger.info(grade_level);
 
     // Validate input parameters
     if (!grade_level) {
@@ -14,13 +14,16 @@ async function fetchNumberSets(grade_level) {
 
     // Fetch numbersets based on grade_level from the database
     const numberSets = await pool.query("SELECT * FROM numbersets WHERE grade_level = ?", [grade_level]);
+    logger.info(`Fetched numbersets: ${JSON.stringify(numberSets[0])}`);
     const rows = numberSets[0];      
+    logger.debug('Fetch numbersets based on grade_level from the database', rows)
+
 
     // Check if any rows are returned
     if (rows.length === 0) {
         throw new Error('No numberSets found for the given grade level');
     }
-    logger.info('numberSets', numberSets);
+    logger.info('numberSets:', numberSets[0]);
 
     // Extract relevant data from the rows
     const numberSetsData = rows.map(row => ({

@@ -31,8 +31,9 @@ export class TokenService {
   decodeToken() {
     console.log('DecodeToken has been called');
     if (this.token) {
-      console.log(`this.token, ${this.token}`)
+      // console.log(`this.token, ${this.token}`)           // for debugging purposes only
       this.decodedToken = jwtDecode(this.token);
+      console.log('THE DecodedToken is:', this.decodedToken)
     }
   }
 
@@ -65,7 +66,6 @@ export class TokenService {
 
   cacheTopics(topics: any[]): void {
     localStorage.setItem('cachedTopics', JSON.stringify(topics));
-    console.log('CacheTopics has been called');
     console.log("topics being cached", topics);
     this.cachedTopics = topics;
   }

@@ -34,7 +34,7 @@ export class LoginComponent {
 
   ngOnInit(): void {
     // Log when ngOnInit lifecycle hook is called
-    console.log('Is production:', environment.production);
+    
     console.debug(environment.apiUrl)
     console.log('ngOnInit called'); 
     
@@ -47,6 +47,7 @@ export class LoginComponent {
   login(): void {
     if (this.loginForm.valid) {
       console.log('LOGIN COMPONENT: API URL:', this.apiUrl); 
+      console.log('IS PRODUCTION:', environment.production);
       const { email, password } = this.loginForm.value;
       console.log("Form is valid. Submitting:", email);
   
@@ -73,6 +74,11 @@ export class LoginComponent {
             this.tokenService.decodeToken();
             this.tokenService.getTopics().subscribe((topics: any[]) => {
               this.tokenService.cacheTopics(topics);
+            });
+
+            this.tokenService.getNumbersets().subscribe((topics: any[]) => {
+              this.tokenService.cacheNumbersets(topics);
+              console.debug('Print Cached NumberSets: ', this.tokenService.getCachedNumbersets)
             });
   
             console.log("User being redirected to topics page")

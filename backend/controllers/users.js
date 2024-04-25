@@ -1,17 +1,19 @@
 const pool = require("../pool");
 const jwt = require("jsonwebtoken")
 const logger = require("../utils/logging/logger");
-// const ValidateTokenService = require('./ValidateTokenService')
+const ValidationService = require("../services/validation");
+const AuthenticationService = require("../services/authentication");
+const AuthorizationService = require("../services/authorization");
+const DataFetchingService = require("../services/data-fetching");
+const TokenService = require("../services/token");
 
-// express-validator used for validating and sanitizing input data
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const userController = {}
 const authCheck = require("../middleware/check-auth");
 const sendEmail = require("../utils/helper/email");
-const fetchTopics = require("../services/topicService");
-const fetchNumberSets = require("../services/numbersetService");
+
 
 userController.signup = async (req, res, next) => {
     logger.debug("Received POST request to /signup");
@@ -58,104 +60,61 @@ userController.login = async (req, res) => {
     try {
         logger.info("Received login request");
 
-        // Check for validation errors
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            logger.error("Validation errors:", errors.array());
-            return res.status(400).json({ errors: errors.array() });
+        // Validate request body
+        const validationErrors = ValidationService.validateLogin(req);
+        if (validationErrors.length > 0) {
+            logger.error("Validation errors:", validationErrors);
+            return res.status(400).json({ errors: validationErrors });
         }
 
-        // Destructure email and password from request body
+        // Authenticate user
         const { email, password } = req.body;
-        logger.info("User email:", email);
-
-        // Validate email format
-        body("email").isEmail().normalizeEmail();
-
-        // Query the database to find the user by email
-        logger.info("Executing database query to find user by email:", email);
-        const [userRows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
-
-        // Check if a user is returned
-        if (userRows.length === 0) {
+        const { userExists, passwordMatch, user } = await AuthenticationService.authenticateUser(email, password);
+        if (!userExists) {
             logger.info("User does not exist for email:", email);
             return res.status(401).json({ message: "Authorization failed" });
         }
-
-        // Compare the provided password with the hashed password stored in the database
-        const passwordMatch = await bcrypt.compare(password, userRows[0].password);
-        logger.info("Password match:", passwordMatch);
-
-        // If passwords don't match, return error response
         if (!passwordMatch) {
             logger.info("Passwords don't match for email:", email);
             return res.status(401).json({ message: "Authorization failed." });
         }
 
-        // Check if the user is approved for access (status)
-        if (userRows[0].status === "false") {
+        // Check if user is approved for access
+        if (!AuthorizationService.isApprovedForAccess(user)) {
             logger.info("User not approved for access:", email);
             return res.status(401).json({ message: "Wait for admin approval" });
         }
 
-        // Fetch topics based on user's grade level
-        const grade_level = userRows[0].grade_level;
-        logger.info("User grade level:", grade_level);
-        let topics = await fetchTopics(grade_level);
-        logger.debug("Fetched topics:", topics);
-
-        // If topics is undefined or not an array, log a warning
-        if (!topics || !Array.isArray(topics)) {
-            logger.warn("Topics is undefined or not an array", topics);
-            topics = [];
-        }
-
-        // Extract topic names from topics array
-        const topicNames = topics.map(topic => topic.topic_name);
-        logger.info("Topic names:", topicNames);
-
-
-        // Fetch numbersets based on user's grade level       
-        let number_sets = await fetchNumberSets(grade_level);
-        logger.debug("Fetched numbersets:", number_sets);
-
-        // If numbersets is undefined or not an array, log a warning
-        if (!number_sets || !Array.isArray(number_sets)) {
-            logger.warn("Numbersets is undefined or not an array", number_sets);
-            number_sets = [];
-        }
-
-        // Extract numberSet names from numberset array
-        const numbersetNames = number_sets.map(number_sets => number_sets.number_sets);
-        logger.info("Numberset names:", numbersetNames);
+        // Fetch topics and number sets
+        const { topics, numberSets } = await DataFetchingService.fetchUserData(user.grade_level);
 
         // Generate JWT token
         const token = jwt.sign({
-            email: userRows[0].email,
-            grade_level: userRows[0].grade_level,
-            topics: topicNames,
-            number_sets: numbersetNames
-        }, process.env.JWT_KEY, { expiresIn: "1h" });
+            email: user.email,
+            grade_level: user.grade_level,
+            topics: topics.map(topic => topic.topic_name),
+            numbersets: numberSets.map(set => set.number_sets)
+        }, process.env.JWT_KEY, {expiresIn: "4h"});;
+      
 
-        // Respond with success message, token, and other data
+        // Set Authorization header and respond with success message, token, and other data
+        res.setHeader('Authorization', `Bearer ${token}`);
+        // logger.debug('Response object with Authorization header:', res); // for debugging
         return res.status(200)
-            .header('Authorization', `Bearer ${token}`)
-            .json({
-                message: "Authorization successful",
-                grade: grade_level,
-                topics: topicNames,
-                number_sets: numbersetNames,
-                token: token
-            });
-
+        .header('Authorization', `Bearer ${token}`)
+        .json({
+            message: "Authorization successful",
+            grade_level: user.grade_level,
+            topics: topics,
+            numbersets: numberSets,
+            token: token
+        });
     } catch (error) {
-        // Handle database query errors
-        console.log(error);
-        logger.error(`Error checking user credentials: ${error}`);
-        return res.status(500).json({ message: "Database error" });
+        // Handle errors
+        console.error('Error in login:', error);
+        return res.status(500).json({ message: 'Database error' });
     }
 };
-
 
 userController.forgotPassword = async (req, res, next) => {
     console.log("Received POST request to /forgotPassword");
@@ -177,8 +136,6 @@ userController.forgotPassword = async (req, res, next) => {
         const token = await createResetPasswordToken(email);
         console.log("token:", token)
 
-        // Send email to user with reset token
-        // const resetUrl = `${req.protocol}://${req.get("host")}/users/resetPassword/${token.resetToken}`;
         const resetUrl = `${req.protocol}://${req.get("host")}/users/resetPassword/${token.password_reset_token}`;
 
         logger.debug(resetUrl);
@@ -328,7 +285,6 @@ userController.changePassword = async (req, res) => {
         });
     }
 };
-
 
 // Controller method to retrieve students
 userController.getStudents = async (req, res, next) => {

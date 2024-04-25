@@ -15,6 +15,7 @@ export class AuthGuardService {
     const token = this.TokenService.getToken(); 
     const isTokenValid = this.TokenService.isTokenValid(token); 
     
+    
     if (isTokenValid) {
       // User's token is valid - allow access to the route
       console.log('Token is valid - routing to topics page.');

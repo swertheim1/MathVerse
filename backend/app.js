@@ -20,43 +20,9 @@ const pool = require('./pool')
 // Create an instance of the Express application
 const app = express();
 
-app.use(cors());
-
-// Use the 'cors' middleware to enable CORS in the Express app
-// app.use(cors({
-//     exposedHeaders: ['Authorization']
-//   }));
-
-//   const corsOptions = {
-//     origin: ['http://localhost:4200', 'https://mathverse.net', 'https://mathverse-app-d7l6c.ondigitalocean.app' ], 
-//     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-//   };
-  
-//   app.use(cors(corsOptions));
-
-  // app.use((req, res, next) => {
-//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000/login'); 
-//     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
-//     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     res.header('Access-Control-Allow-Credentials', true);
-//     res.head
-// })
-
-// // use the 'cors' middleware for preflight options
-// app.options('/signup', (req, res) => {
-//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
-//     res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
-//     res.header('Access-Control-Allow-Headers', 'Content-Type');
-//     res.status(200).end();
-//   });
-
-//   app.options('/login', (req, res) => {
-//     res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
-//     res.header('Access-Control-Allow-Methods', 'POST, OPTIONS');
-//     res.header('Access-Control-Allow-Headers', 'Content-Type');
-//     res.status(200).end();
-//   });
-
+app.use(cors({
+    exposedHeaders: ['Authorization']
+}));
 
 // Parse incoming request bodies in middleware using 'express.urlencoded' middleware
 // This middleware parses incoming requests with urlencoded payloads
@@ -105,7 +71,7 @@ app.use((req, res, next) => {
 
 // Serve static files from the Angular build folder
 app.use(express.static(path.join(__dirname, '../frontend/dist/mathverse/browser')));
-console.log(__dirname)
+// console.log(__dirname)
 
 // Mount the routes to the base URL path
 app.use('/', userRouter);
@@ -122,40 +88,40 @@ app.get('*', (req, res) => {
 });
 
 // Log outgoing responses after they are sent to the client
-app.use((req, res, next) => {
-    // Store reference to original res.send function
-    const originalSend = res.send;
+// app.use((req, res, next) => {
+//     // Store reference to original res.send function
+//     const originalSend = res.send;
 
-    // Override res.send function to log response details before sending
-    res.send = function (data) {
-        // Log response status code
-        console.log(`[${new Date().toISOString()}] Response Status Code: ${res.statusCode}`);
+//     // Override res.send function to log response details before sending
+//     res.send = function (data) {
+//         // Log response status code
+//         console.log(`[${new Date().toISOString()}] Response Status Code: ${res.statusCode}`);
 
-        // Log response headers
-        console.log('Headers:', res.getHeaders());
+//         // Log response headers
+//         console.log('Headers:', res.getHeaders());
 
-        // Log response body (if present)
-        if (data) {
-            console.log('Body:' + 'request body is present');
-        }
+//         // Log response body (if present)
+//         if (data) {
+//             console.log('Body:' + 'request body is present');
+//         }
 
-        // Call original res.send function to send response to client
-        originalSend.call(this, data);
-    };
+//         // Call original res.send function to send response to client
+//         originalSend.call(this, data);
+//     };
 
-    next(); // Call next to pass control to the next middleware or route handler
-});
+//     next(); // Call next to pass control to the next middleware or route handler
+// });
 
 // Define error handling middleware
 app.use((err, req, res, next) => {
-    logger.debug(err.stack); // Log the error stack trace
+    // logger.debug(err.stack); // Log the error stack trace
     res.status(500).json({ error: 'Internal Server Error' }); // Send an error response
     next(err);
 });
 
 // Error handling for route not found
 app.use((err, req, res, next) => {
-    logger.debug('Error occurred:', err);
+    // logger.debug('Error occurred:', err);
     res.status(404).json({ error: 'Route not found' });
 });
 
@@ -163,11 +129,11 @@ app.use((err, req, res, next) => {
 app.post('/changePassword', verifyToken, userController.changePassword);
 
 
-//  Log environment variables
-// console.log('Environment variables from .env file:');
-for (let key in process.env) {
-  logger.info(`${key}: ${process.env[key]}`);
-}
+//  Log environment variables // debugging only
+
+// for (let key in process.env) {
+//   logger.debug(`${key}: ${process.env[key]}`);
+// }
 
 
 // Export the Express application to be used in other parts of your Node.js application

@@ -4,6 +4,6 @@ const logger = require('../utils/logging/logger')
 
 const numberSetsRouter = express.Router();
 
-numberSetsRouter.route('/numbersets').get(numberSetsController.getNumberSets);
+numberSetsRouter.route('/numbersets').get(numberSetsController.getNumberSetsByGrade);
 
 module.exports = numberSetsRouter;

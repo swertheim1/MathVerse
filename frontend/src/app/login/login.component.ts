@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/AuthorizationServices/auth.service';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { TokenService } from '../services/TokenServices/token.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -47,55 +47,64 @@ export class LoginComponent {
   login(): void {
     console.log('IS PRODUCTION:', environment.production);
     if (this.loginForm.valid) {
-      console.log('LOGIN COMPONENT: API URL:', this.apiUrl); 
-      console.log('IS PRODUCTION:', environment.production);
       const { email, password } = this.loginForm.value;
       console.log("Form is valid. Submitting:", email);
   
       const credentials = { email, password };
       console.log('Login button clicked. Sending credentials:', credentials);
   
-      this.authService.login(credentials).subscribe(
-        (res: HttpResponse<any>) => {
-          console.log('res.headers.getAll(Authorization)', res.headers.getAll('Authorization'))
+      // Use getHeaders() to get the authentication headers
+{
+          // Make the login request with the authentication headers
+          this.authService.login(credentials).subscribe(
+            (res: HttpResponse<any>) => {
+              
+              console.log('res.headers.getAll(Authorization)', res.headers.getAll('Authorization'))
+              // Handle successful login response
+              console.log('Login successful');
   
-          // Handle successful login response
-          console.log('Login successful');
-          console.log('LOGIN COMPONENT: API URL:', this.apiUrl); 
-          this.router.navigate(['/topics']);
-          const tokenArray = res.headers.getAll("Authorization");
-          if (tokenArray && tokenArray.length > 0) {
-            const token = tokenArray[0]; // Get the first element
-            console.log('Received token:', token);
-            
-            this.tokenService.setToken(token);
-            this.saveTokenToCookie(token);
-            
-            // Decode the token and cache topics after successfully setting the token
-            this.tokenService.decodeToken();
-            this.tokenService.getTopics().subscribe((topics: any[]) => {
-              this.tokenService.cacheTopics(topics);
-            });
-
-            this.tokenService.getNumbersets().subscribe((topics: any[]) => {
-              this.tokenService.cacheNumbersets(topics);
-              console.debug('Print Cached NumberSets: ', this.tokenService.getCachedNumbersets)
-            });
+              this.router.navigate(['/topics']);
+              const tokenArray = res.headers.getAll("Authorization");
+              console.log('tokenArray', tokenArray)
+              if (tokenArray && tokenArray.length > 0) {
+                const token = tokenArray[0]; // Get the first element
+                console.log('Received token:', token);
   
-            console.log("User being redirected to topics page")
-            this.router.navigate(['/topics']);
-          }
-        },
-        (error: any) => {
-          console.error('Login failed. Error:', error);
-          // Handle login error
+                this.tokenService.setToken(token);
+                this.saveTokenToCookie(token);
+  
+                // Decode the token and cache topics after successfully setting the token
+                this.tokenService.decodeToken();
+                
+                this.tokenService.getTopics().subscribe((topics: any[]) => {
+                  this.tokenService.cacheTopics(topics);
+                  console.debug('Print Cached TOPICS: ', this.tokenService.getCachedTopics())
+                });
+  
+                this.tokenService.getNumbersets().subscribe((topics: any[]) => {
+                  this.tokenService.cacheNumbersets(topics);
+                  console.debug('Print Cached NUMBERSETS: ', this.tokenService.getCachedNumbersets())
+                });
+  
+                console.log("User being redirected to topics page")
+                this.router.navigate(['/topics']);
+              }
+            },
+            (error: any) => {
+              console.error('Login failed. Error:', error);
+              // Handle login error
+            }
+          );
         }
-      );
+        (error: any) => {
+          console.error('Error retrieving authentication headers:', error);
+          // Handle error retrieving authentication headers
+        }
     } else {
       console.log("Form is invalid. Please fill in all fields correctly.");
     }
   }
-
+  
   saveTokenToCookie(token: string) {
     this.cookieService.set('authToken', token);
     console.log('token saved to cookie')

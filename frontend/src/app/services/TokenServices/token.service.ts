@@ -29,11 +29,11 @@ export class TokenService {
   }
   
   decodeToken() {
+    
     console.log('DecodeToken has been called');
     if (this.token) {
-      // console.log(`this.token, ${this.token}`)           // for debugging purposes only
       this.decodedToken = jwtDecode(this.token);
-      console.log('THE DecodedToken is:', this.decodedToken)
+      console.log('THE DecodedToken is:', this.decodedToken);
     }
   }
 
@@ -66,8 +66,8 @@ export class TokenService {
 
   cacheTopics(topics: any[]): void {
     localStorage.setItem('cachedTopics', JSON.stringify(topics));
-    console.log("topics being cached", topics);
     this.cachedTopics = topics;
+    // console.log("topics being cached", this.cachedTopics);
   }
 
   getCachedTopics(): any[] {
@@ -78,8 +78,8 @@ export class TokenService {
 
   getTopics(): Observable<any> {
     console.log('GetTopics has been called');
-    this.decodeToken();
     const topics = this.decodedToken && this.decodedToken['topics'];
+    console.log('GET TOPICS topics', topics)
     if (Array.isArray(topics)) {
       console.log('TOPICS from GET TOPICS:', topics);
       this.cacheTopics(topics);

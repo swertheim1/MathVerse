@@ -16,5 +16,15 @@ p {
 }
 img {
     max-width: 100%;
-    height: auto;
+   
 }
+  .center-image {
+    // Center the image horizontally and vertically
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // Optionally, set a maximum width for the centered image
+    max-width: 100%;
+    height: auto;
+  }

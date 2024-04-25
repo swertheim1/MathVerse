@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { TokenService } from '../services/TokenServices/token.service';
 
 interface ImageInfo {
@@ -20,29 +18,35 @@ export class TopicsComponent implements OnInit {
   message: string | null = null;
   topics: string[] = [];
   imageUrls: ImageInfo[] = [];
-  
+
   constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient,
     private tokenService: TokenService
   ) { }
 
   ngOnInit(): void {
     console.log("topics page has initialized");
-    this.topics = this.tokenService.getCachedTopics();
-    console.log(this.topics);
+    // Subscribe to the observable to get the topics and cache them
+    this.tokenService.getTopics().subscribe((topics: any[]) => {
+      // Cache the topics
+      const fetchedTopics = this.tokenService.getCachedTopics();
+      // Log the cached topics
+      console.debug('Print Cached TOPICS: ', this.tokenService.getCachedTopics());
+      // Assign the fetched topics to a variable
+      
+      // Once you have the topics, you can proceed with any further processing
+      this.imageUrls = this.getImageUrls(fetchedTopics);
+      console.log('LIST THE IMAGE URLS', this.imageUrls);
 
-    this.imageUrls = this.getImageUrls(this.topics);
-    console.log('this.imageUrls', this.imageUrls);
+      // Now you can log the fetched topics from the variable
+      console.log('LIST THE TOPICS', fetchedTopics);
+    });
   }
 
   constructRouterLink(name: string): string {
     // Ensure name is converted to lowercase
     const normalizedName = `${name.toLowerCase()}`;
-    // console.log('normalized name', normalizedName)
-    // Construct the router link with the normalized name
     return `/${normalizedName}-numbersets`;
-}
+  }
 
   getImageUrls(topic_list: string[]): ImageInfo[] {
     const imageUrls: ImageInfo[] = [];
@@ -56,7 +60,7 @@ export class TopicsComponent implements OnInit {
       switch (topic) {
         case 'Addition':
           {
-            name = 'Addition';
+            name = topic;
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/plus2@300x.png';
             order = 1;
@@ -65,7 +69,7 @@ export class TopicsComponent implements OnInit {
           break;
         case 'Subtraction':
           {
-            name = 'Subtraction';
+            name = topic;
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/minus2@300x.png';
             order = 2;
@@ -74,7 +78,7 @@ export class TopicsComponent implements OnInit {
           break;
         case 'Multiplication':
           {
-            name = 'Multiplication';
+            name = topic;
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/times2@300x.png';
             order = 3;
@@ -83,7 +87,7 @@ export class TopicsComponent implements OnInit {
           break;
         case 'Division':
           {
-            name = 'Division';
+            name = topic;
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/divide2@300x.png';
             order = 4;

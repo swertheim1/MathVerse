@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +10,11 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private httpClient: HttpClient) { }
-
-  login(credentials: { email: string; password: string }): Observable<HttpResponse<any>> {
-    console.debug('AUTH SERVICE LOGIN CALLED')
-    console.debug('AUTH SERVICE API URL:', this.apiUrl);
+  constructor(private httpClient: HttpClient, private cookieService: CookieService) { }
+  login(credentials: any, headers?: HttpHeaders): Observable<HttpResponse<any>> {
     return this.httpClient.post<HttpResponse<any>>(`${this.apiUrl}/login`, credentials, { observe: 'response' })
-      .pipe(
+    .pipe(
+      tap(response => console.log('Login Response:', response)),
         catchError(this.handleError)
       );
   }
@@ -26,10 +24,28 @@ export class AuthService {
     const httpHeaders = new HttpHeaders({
       'Authorization': token
     });
-    return this.httpClient.get(`${this.apiUrl}/user-data`, { headers: httpHeaders })
+    return this.httpClient.get(`${this.apiUrl}/login`, { headers: httpHeaders })
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  // Method to clear the authentication token
+  clearToken(): void {
+    // Remove token from local storage
+    localStorage.removeItem('authToken');
+    
+    // Delete authentication cookie
+    this.cookieService.delete('authToken');
+  }
+
+  // Method to handle user logout
+  logout(): void {
+    // Clear the authentication token
+    this.clearToken();
+    
+    // 
+    window.location.href = '/login';
   }
 
   private handleError(error: any) {

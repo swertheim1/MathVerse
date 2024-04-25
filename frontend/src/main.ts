@@ -5,8 +5,11 @@ import { environment } from './environments/environment';
 import { enableProdMode } from '@angular/core';
 
 if (environment.production) {
-  console.log("Is PRODUCTION: ", environment.production)
+  console.log("Is PRODUCTION: ", environment.apiUrl)
   enableProdMode();
+}
+else {
+  console.log('Is not production:', environment.apiUrl )
 }
 
 bootstrapApplication(AppComponent, appConfig)

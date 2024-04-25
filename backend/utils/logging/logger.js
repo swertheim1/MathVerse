@@ -40,9 +40,9 @@ const logger = winston.createLogger({
 });
 
 // Usage examples
-logger.error('This is an error message.');
-logger.warn('This is a warning message.');
-logger.info('This is an info message.');
-logger.debug('This is a debug message.');
+// logger.error('This is an error message.');
+// logger.warn('This is a warning message.');
+// logger.info('This is an info message.');
+// logger.debug('This is a debug message.');
 
 module.exports = logger;

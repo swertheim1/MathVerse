@@ -4,7 +4,11 @@ import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 import { enableProdMode } from '@angular/core';
 
+
+
+
 if (environment.production) {
+  console.log("Is PRODUCTION: ", environment.production)
   enableProdMode();
 }
 

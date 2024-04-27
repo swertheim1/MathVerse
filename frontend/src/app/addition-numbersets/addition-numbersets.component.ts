@@ -63,7 +63,7 @@ export class AdditionNumbersetsComponent {
 
     this.numbersets?.forEach(obj => {
       let numberset_name = (obj as any).numberset_name;
-      let imageUrl = '';
+      let imageUrl = '../../../assets/images/NumberSets/plus2@300x_blank.png';
       let name = '';
       let order = 0;
       let routerLinkName = '';
@@ -72,32 +72,32 @@ export class AdditionNumbersetsComponent {
         case 'Positive Whole Numbers':
           name = 'Positive Whole Numbers';
           routerLinkName = this.constructRouterLink(name)
-          imageUrl = 'assets/images/NumberSets/AddWPWholeNumbers.png';
+          imageUrl = imageUrl;
           order = 1;
           console.log('additionNumberset', routerLinkName, 'topic', numberset_name)
           break;
         case 'Decimals':
           name = 'Positive Decimals';
           routerLinkName = this.constructRouterLink(name)
-          imageUrl = 'assets/images/NumberSets/AddWPositiveDecimals.png';
+          imageUrl = imageUrl;
           order = 2;
           break;
         case 'Integers':
           name = 'integers';
           routerLinkName = this.constructRouterLink(name)
-          imageUrl = 'assets/images/times2@300x.png';
+          imageUrl = imageUrl;
           order = 3;
           break;
         case 'Fractions':
           name = 'Fractions';
           routerLinkName = this.constructRouterLink(name)
-          imageUrl = 'assets/images/divide2@300x.png';
+          imageUrl = imageUrl;
           order = 4;
           break;
         case 'Real Numbers':
           name = 'Real Numbers';
           routerLinkName = this.constructRouterLink(name)
-          imageUrl = 'assets/images/ratio@300x.png';
+          imageUrl = imageUrl;
           order = 5;
           break;
         default:

@@ -71,28 +71,28 @@ export class TopicsComponent implements OnInit {
 
       switch (topic_name) {
         case 'Addition':
-            name = 'addition';
+            name = 'Addition';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/plus2@300x.png';
             order = 1;
             console.log('additionNumberset', routerLinkName, 'topic', topic_name)
             break;
         case 'Subtraction':
-            name = 'subtraction';
+            name = 'Subtraction';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/minus2@300x.png';
             order = 2;
             console.log('subtractionNumberset', routerLinkName, 'topic', topic_name)
             break;
         case 'Multiplication':
-            name = 'multiplication';
+            name = 'Multiplication';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/times2@300x.png';
             order = 3;
             console.log('multiplicationNumberset', routerLinkName, 'topic', topic_name)
             break;
         case 'Division':
-            name = 'division';
+            name = 'Division';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/divide2@300x.png';
             order = 4;

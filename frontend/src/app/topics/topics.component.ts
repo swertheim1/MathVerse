@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenService } from '../services/TokenServices/token.service';
+import { Subscription } from 'rxjs';
+import { DataService } from '../services/DataServices/data.service';
+import { UserService } from '../services/UserService/user.service';
 
 interface ImageInfo {
   name: string;
@@ -16,31 +18,41 @@ interface ImageInfo {
 
 export class TopicsComponent implements OnInit {
   message: string | null = null;
-  topics: string[] = [];
   imageUrls: ImageInfo[] = [];
+  topics: any[] | null = null;
+  private topicsSubscription: Subscription | undefined;
 
   constructor(
-    private tokenService: TokenService
+    private dataService: DataService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
     console.log("topics page has initialized");
-    // Subscribe to the observable to get the topics and cache them
-    this.tokenService.getTopics().subscribe((topics: any[]) => {
-      // Cache the topics
-      const fetchedTopics = this.tokenService.getCachedTopics();
-      // Log the cached topics
-      console.debug('Print Cached TOPICS: ', this.tokenService.getCachedTopics());
-      // Assign the fetched topics to a variable
-      
-      // Once you have the topics, you can proceed with any further processing
-      this.imageUrls = this.getImageUrls(fetchedTopics);
-      console.log('LIST THE IMAGE URLS', this.imageUrls);
+    this.loadTopics();
 
-      // Now you can log the fetched topics from the variable
-      console.log('LIST THE TOPICS', fetchedTopics);
-    });
+  };
+  
+  ngOnDestroy(): void {
+    if (this.topicsSubscription) {
+      this.topicsSubscription.unsubscribe();
+    }
   }
+
+  loadTopics(): void {
+    this.topicsSubscription = this.dataService.getTopics().subscribe(
+      (topics: any[]) => {
+        this.topics = topics;
+        console.log('Topics:', this.topics);
+        this.imageUrls = this.getImageUrls(this.topics);
+        console.log('Image URLs:', this.imageUrls);
+      },
+      (error: any) => {
+        console.error('Failed to load topics. Error:', error);
+      }
+    );
+  }
+
 
   constructRouterLink(name: string): string {
     // Ensure name is converted to lowercase
@@ -49,72 +61,63 @@ export class TopicsComponent implements OnInit {
   }
 
   getImageUrls(topic_list: string[]): ImageInfo[] {
+    console.log('get images url called', topic_list)
     const imageUrls: ImageInfo[] = [];
 
-    for (const topic of topic_list) {
+    this.topics?.forEach(obj =>  {
+      let topic_name = obj.topic_name;
       let imageUrl = '';
       let name = '';
       let order = 0;
       let routerLinkName = '';
 
-      switch (topic) {
+      switch (topic_name) {
         case 'Addition':
-          {
-            name = topic;
+            name = 'addition';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/plus2@300x.png';
             order = 1;
-          }
-          console.log('additionNumberset', routerLinkName)
-          break;
+            console.log('additionNumberset', routerLinkName, 'topic', topic_name)
+            break;
         case 'Subtraction':
-          {
-            name = topic;
+            name = 'subtraction';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/minus2@300x.png';
             order = 2;
-          }
-          console.log('subtractionNumberset', routerLinkName)
-          break;
+            console.log('subtractionNumberset', routerLinkName, 'topic', topic_name)
+            break;
         case 'Multiplication':
-          {
-            name = topic;
+            name = 'multiplication';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/times2@300x.png';
             order = 3;
-          }
-          console.log('multiplicationNumberset', routerLinkName)
-          break;
+            console.log('multiplicationNumberset', routerLinkName, 'topic', topic_name)
+            break;
         case 'Division':
-          {
-            name = topic;
+            name = 'division';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/divide2@300x.png';
             order = 4;
-          }
-          console.log('divisionNumberset', routerLinkName)
-          break;
+            console.log('divisionNumberset', routerLinkName, 'topic', topic_name)
+            break;
         case 'Ratio':
-          {
-            name = topic;
+            name = 'ratio';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/ratio3@300x.png';
             order = 5;
-          }
-          console.log('ratioNumberset', routerLinkName)
-          break;
-
+            console.log('ratioNumberset', routerLinkName, 'topic', topic_name)
+            break;
         default:
-          console.log("No Topics to display")
-          break;
-      }
+            console.log("No Topics to display")
+            break;
+    }    
       if (imageUrl !== '') { // Only push if imageUrl is not empty
         imageUrls.push({ name, url: imageUrl, order, routerLinkName }); // Push imageUrl directly
       }
-    }
+    });
     // Sort the imageUrls array based on the order property
     imageUrls.sort((a, b) => a.order - b.order);
-    // console.log(imageUrls)
+    console.log('image locations',imageUrls)
     return imageUrls;
   }
 

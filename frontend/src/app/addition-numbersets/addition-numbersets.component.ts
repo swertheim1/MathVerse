@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { TokenService } from '../services/TokenServices/token.service';
+import { AuthService } from '../services/AuthenticationServices/auth.service';
+import { Subscription } from 'rxjs';
+import { DataService } from '../services/DataServices/data.service';
 
 interface ImageInfo {
   name: string;
@@ -20,35 +22,45 @@ export class AdditionNumbersetsComponent {
   message: string | null = null;
   numbersets: string[] = [];
   imageUrls: ImageInfo[] = [];
+  private numbersetSubscription: Subscription | undefined;
   
 
   constructor(
-    private tokenService: TokenService
+    private authService: AuthService,
+    private dataService: DataService,
   ) { }
 
   ngOnInit(): void {
-    console.log("topics page has initialized");
-    // Subscribe to the observable to get the topics and cache them
-    this.tokenService.getNumbersets().subscribe((topics: any[]) => {
-      // Cache the topics
-      const fetchedNumbersets = this.tokenService.getCachedNumbersets();
-      // Log the cached topics
-      console.debug('Print Cached TOPICS: ', this.tokenService.getCachedNumbersets());
-      // Assign the fetched topics to a variable
-      
-      // Once you have the topics, you can proceed with any further processing
-      this.imageUrls = this.getImageUrls(fetchedNumbersets);
-      console.log('LIST THE IMAGE URLS', this.imageUrls);
+    console.log("numbersets page has initialized");
+    this.loadNumbersets();
+    this.getImageUrls(this.numbersets);
+    
+  };
 
-      // Now you can log the fetched topics from the variable
-      console.log('LIST THE NUMBERSETS', fetchedNumbersets);
-    });
+  ngOnDestroy(): void {
+    if (this.numbersetSubscription) {
+      this.numbersetSubscription.unsubscribe();
+    }
   }
+
+  loadNumbersets(): void {
+    this.dataService.getTopics().subscribe(
+      (numbersets: any[]) => {
+        this.numbersets = numbersets;
+        console.log('Topics:', this.numbersets);
+      },
+      (error: any) => {
+        console.error('Failed to load topics. Error:', error);
+      }
+    );
+  }
+
   constructRouterLink(name: string): string {
     // Ensure name is converted to lowercase
     const normalizedName = name.toLowerCase();
     return `/Addition-${normalizedName}`;
   }
+
   getImageUrls(numberset_list: string[]): ImageInfo[] {
     const imageUrls: ImageInfo[] = [];
 
@@ -59,47 +71,36 @@ export class AdditionNumbersetsComponent {
       let routerLinkName = '';
 
       switch (numberset) {
-        case 'Positive Whole Numbers':
-          {
+        case 'Positive Whole Numbers':          
             name = numberset;
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/NumberSets/AddWPWholeNumbers.png';
             order = 1;
-          }
-          break;
-        case 'Positive Decimals':
-          {
+            break;
+        case 'Positive Decimals':          
             name = numberset;
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/NumberSets/AddWPositiveDecimals.png';
-            order = 2;
-          }
+            order = 2;          
           break;
         case 'Integers':
-          {
             name = numberset;
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/times2@300x.png';
             order = 3;
-          }
-          break;
+            break;
         case 'Fractions':
-          {
             name = numberset;
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/divide2@300x.png';
             order = 4;
-          }
           break;
         case 'Real Numbers':
-          {
             name = numberset;
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/ratio@300x.png';
-            order = 5;
-          }
+            order = 5;          
           break;
-
         default:
           console.log("No Numbersets to display")
           break;

@@ -7,8 +7,6 @@ require('dotenv').config();
 // create a route instance
 const topicsRouter = express.Router();
 
-
-
 // endpoint to get topics by grade level
 topicsRouter.route('/topics').get(topicsController.getTopicsByGrade);
 

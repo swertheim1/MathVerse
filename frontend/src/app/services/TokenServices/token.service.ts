@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { jwtDecode } from "jwt-decode";
-import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,147 +12,84 @@ export class TokenService {
   decodedToken!: { [key: string]: string };
   private cachedTopics: any[] = [];
   private cachedNumbersets: any[] = [];
-  
+  private apiUrl = environment.apiUrl;
+
   constructor(
     private cookieService: CookieService,
-    private httpClient: HttpClient
-  ) {}
 
-  setToken(token: string): void {
-    console.log('SetToken has been called');
-    this.token = token;
-    if (token)
-      this.cookieService.set('authToken', token); 
-    
-    this.decodeToken();
-  }
-  
-  decodeToken() {
-    
-    console.log('DecodeToken has been called');
-    if (this.token) {
-      this.decodedToken = jwtDecode(this.token);
-      console.log('THE DecodedToken is:', this.decodedToken);
+  ) { }
+
+  decodeToken(token: string): any {
+    try {
+      return jwtDecode(token);
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
     }
+  }
+
+  setToken(authToken: string) {
+    localStorage.setItem('authToken', authToken);
+    console.log("retrieving token from storage", localStorage.getItem('authToken'))
   }
 
   getToken(): string {
-    const tokenFromProperty = this.token || ''; 
-    const tokenFromCookie = this.cookieService.get('authToken') || ''; 
-    return tokenFromProperty || tokenFromCookie || '';
-}
+    // Retrieve token from local storage
+    const token = localStorage.getItem('authToken');
 
-  getGradeLevel() {
-    console.log('Get Grade level has been called');
-    if (this.decodedToken) {
-      console.log(this.decodedToken['grade_level'])
-      return this.decodedToken ? this.decodedToken['grade_level'] : null;
+    // If token is null, throw an error or handle it accordingly
+    if (token === null) {
+      throw new Error('Token is not found in local storage.');
     }
-    return null;
-  }
 
-  getEmail() {
-    console.log('Get Email has been called');
-    this.decodeToken();
-    if (this.decodedToken && this.decodedToken['email']) {
-      console.log(this.decodedToken['email']);
-      return this.decodedToken['email'];
-    } else {
-      console.error('Email not found in decoded token.');
-      return null; // or handle it in a way appropriate for your application
+    // Return the token
+    return token;
+  }
+  
+    parseToken(authToken: string): string {
+      if (authToken && authToken.startsWith('Bearer')) {
+        const parsedToken = authToken.split(' ');
+        console.log('Parsed token:', parsedToken[1]);
+        return parsedToken[1];
+      } else {
+        console.error('Invalid token format');
+        return ''; // Return empty string if token format is invalid
+      }
     }
+
+  // Method to clear the authentication token
+  clearToken(): void {
+    // Remove token from local storage
+    localStorage.removeItem('authToken');
+
+    // Delete authentication cookie
+    this.cookieService.delete('authToken');
   }
 
-  cacheTopics(topics: any[]): void {
-    localStorage.setItem('cachedTopics', JSON.stringify(topics));
-    this.cachedTopics = topics;
-    // console.log("topics being cached", this.cachedTopics);
-  }
-
-  getCachedTopics(): any[] {
-    console.log(`GetCached Topics has been called:  ${this.cachedTopics}`);
-    const cachedTopicsString = localStorage.getItem('cachedTopics');
-    return cachedTopicsString ? JSON.parse(cachedTopicsString) : [];
-  }
-
-  getTopics(): Observable<any> {
-    console.log('GetTopics has been called');
-    const topics = this.decodedToken && this.decodedToken['topics'];
-    console.log('GET TOPICS topics', topics)
-    if (Array.isArray(topics)) {
-      console.log('TOPICS from GET TOPICS:', topics);
-      this.cacheTopics(topics);
-      return of(topics);
-    } else {
-      console.error('Topics property not found or is not an array in decoded token.');
-      return of(null);
+  getTokenExpirationDate(token: string): Date | null {
+    const decodedToken = this.decodeToken(token);
+    if (!decodedToken || !decodedToken.exp) {
+      return null; // Token is invalid or doesn't have an expiration date
     }
+    const expirationDate = new Date(0); // Start date (epoch time)
+    expirationDate.setUTCSeconds(decodedToken.exp);
+    return expirationDate;
   }
 
-  cacheNumbersets(numbersets: any[]): void {
-    localStorage.setItem('cacheNumbersets', JSON.stringify(numbersets));
-    console.log('CacheNumbersets has been called');
-    console.log("Numbersets being cached", numbersets);
-    this.cachedNumbersets = numbersets;
-  }
-
-  getCachedNumbersets(): any[] {
-    console.log(`GetCachedNumbersets has been called:  ${this.cacheNumbersets}`);
-    const cachedNumbersetsString = localStorage.getItem('cacheNumbersets');
-    return cachedNumbersetsString ? JSON.parse(cachedNumbersetsString) : [];
-  }
-
-  getNumbersets(): Observable<any> {
-    console.log('GetNumbersets has been called');
-    this.decodeToken();
-    const numbersets = this.decodedToken && this.decodedToken['numbersets'];
-    if (Array.isArray(numbersets)) {
-      console.log('NUMBERSETS from GET NUMBERSETS:', numbersets);
-      this.cacheTopics(numbersets);
-      return of(numbersets);
-    } else {
-      console.error('Numbersets property not found or is not an array in decoded token.');
-      return of(null);
-    }
-  }
-
-  getExpiryTime() {
-    console.log('getExpiryTime has been called');
-    this.decodeToken();
-    console.log('Decoded token:', this.decodedToken);
-    const expiryTime = this.decodedToken ? parseInt(this.decodedToken['exp']) * 1000 : null;
-    console.log('Expiry time:', expiryTime);
-    return expiryTime;
-  }
-
-  isTokenExpired(): boolean {
-    console.log('IsTokenExpired has been called');
-    const expiryTime: number | null = this.getExpiryTime();
-    if (expiryTime !== null) {
-      console.log('is expiry time expired? ', expiryTime * 1000 < Date.now())
-      return expiryTime * 1000 < Date.now();
-    } 
-    console.log('Token is invalid because expiryTime is null');
-    return true; // Token is considered expired if expiryTime is null
-  }
-
-  isTokenValid(token: string): boolean {
-    console.log('IsTokenValid has been called');
+  isTokenNotExpired(token: string): boolean {
     try {
       const decodedToken: any = jwtDecode(token);
       const expirationTime = decodedToken.exp * 1000; // Convert seconds to milliseconds
       const currentTime = Date.now();
-      console.log(`The current time is ${currentTime} The expirationTime time is ${expirationTime} `);
-      console.log(`current time is less than expiration time? , ${currentTime < expirationTime}`);
-      return currentTime < expirationTime; // if true, token is valid
+      console.log(`Current time: ${new Date(currentTime).toISOString()}`);
+      console.log(`Expiration time: ${new Date(expirationTime).toISOString()}`);
+      console.log('currentTime < expirationTime', currentTime < expirationTime)
+      return currentTime < expirationTime; // Token is considered valid if current time is less than expiration time
     } catch (error) {
       console.error('Token decoding error:', error);
-      return false;
+      return false; // Treat decoding errors as token being expired
     }
   }
-  
-  handleError(error: any): void {
-    console.error('An error occurred while saving the token:', error);
-    // Perform any additional error handling actions, such as displaying an error message to the user
-  }
+
+
 }

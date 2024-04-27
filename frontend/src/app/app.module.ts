@@ -6,38 +6,54 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; // I
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { AppRoutingModule, routes } from './app.routes';
 import { AppComponent } from './app.component';
 
 import { CookieService } from './services/CookieServices/cookie-service.service';
-import { AuthService } from './services/AuthorizationServices/auth.service';
+import { AuthService } from './services/AuthenticationServices/auth.service';
 import { TokenInterceptor } from './services/TokenServices/token.interceptor';
-import { LocalStorageService } from './services/LocalStorageServices/local-storage-service.service';
 import { AuthGuardService } from './services/AuthGuardService/auth-guard.service';
+import { DataService } from './services/DataServices/data.service';
+import { UserService } from './services/UserService/user.service';
+import { TokenService } from './services/TokenServices/token.service';
 
 @NgModule({
-  declarations: [
-    
-  ],
+  declarations: [],
   imports: [
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes, { enableTracing: true })
+    RouterModule.forRoot(
+      routes, {
+        enableTracing: true
+      }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('authToken');
+        },
+      },
+    }),
+
   ],
   providers: [
     AuthGuardService,
     AuthService,
     CookieService,
-    LocalStorageService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    JwtHelperService, 
+    DataService,
+    UserService,
+    TokenService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
-  bootstrap: []
+  bootstrap: [] 
 })
-export class AppModule { 
+export class AppModule {
   ngDoBootstrap(appRef: ApplicationRef) {
     // Bootstrap your root component programmatically
     appRef.bootstrap(AppComponent);

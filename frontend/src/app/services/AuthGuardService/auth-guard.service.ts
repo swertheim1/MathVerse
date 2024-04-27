@@ -8,15 +8,21 @@ import { TokenService } from '../TokenServices/token.service';
 })
 export class AuthGuardService {
 
-  constructor(private router: Router, private TokenService: TokenService) { }
+  constructor(
+    private router: Router, 
+    private tokenService: TokenService
+  ) { }
 
   canActivate(): boolean {
     // Check if the user is authenticated 
-    const token = this.TokenService.getToken(); 
-    const isTokenValid = this.TokenService.isTokenValid(token); 
     
+    // Retrieve the token from the AuthService
+    const token = this.tokenService.getToken();
     
-    if (isTokenValid) {
+    // Check if the token is expired
+    const tokenNotExpired = this.tokenService.isTokenNotExpired(token);
+   
+    if (tokenNotExpired) {
       // User's token is valid - allow access to the route
       console.log('Token is valid - routing to topics page.');
       return true;

@@ -92,8 +92,8 @@ userController.login = async (req, res) => {
         const token = jwt.sign({
             email: user.email,
             grade_level: user.grade_level,
-            topics: topics.map(topic => topic.topic_name),
-            numbersets: numberSets.map(set => set.number_sets)
+            // topics: topics.map(topic => topic.topic_name),
+            // numbersets: numberSets.map(set => set.number_sets)
         }, process.env.JWT_KEY, {expiresIn: "4h"});;
       
 
@@ -107,7 +107,7 @@ userController.login = async (req, res) => {
             grade_level: user.grade_level,
             topics: topics,
             numbersets: numberSets,
-            token: token
+            // token: token
         });
     } catch (error) {
         // Handle errors

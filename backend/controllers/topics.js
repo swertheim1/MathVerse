@@ -6,13 +6,14 @@ exports.getTopicsByGrade = async (req, res) => {
     logger.info('Received GET request for topics');
    
     try {
-        const grade_level = req.params.grade_level;
-        const topics = await fetchTopics(grade_level);
-
+        const grade_level = req.query.grade_level;
+        console.log('grade_level received, fetching topics', grade_level)
+        
         if (!grade_level) {
             logger.warn('Grade level parameter is missing');
             return res.status(400).json({ error: 'Grade level parameter is required' });
         }
+        const topics = await fetchTopics(grade_level);
 
         if (!topics || topics.length === 0) {
             logger.warn('No topics found for the specified grade level');

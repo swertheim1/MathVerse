@@ -1,0 +1,3150 @@
+[
+  {
+    "name": "AdditionNumbersetsModule",
+    "file": "app/addition-numbersets/addition-numbersets.module.ts",
+    "providers": [],
+    "declarations": [
+      {
+        "name": "AdditionNumbersetsComponent",
+        "file": "app/addition-numbersets/addition-numbersets.component.ts",
+        "selector": "app-addition-numbersets",
+        "providers": [],
+        "templateUrl": [
+          "addition-numbersets.component.html"
+        ],
+        "styleUrls": [],
+        "__raw": [
+          {
+            "pos": 283,
+            "end": 322,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 283,
+              "end": 295,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "selector"
+            },
+            "initializer": {
+              "pos": 296,
+              "end": 322,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "app-addition-numbersets",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 323,
+            "end": 378,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 323,
+              "end": 338,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "templateUrl"
+            },
+            "initializer": {
+              "pos": 339,
+              "end": 378,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./addition-numbersets.component.html",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 379,
+            "end": 434,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 379,
+              "end": 391,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "styleUrl"
+            },
+            "initializer": {
+              "pos": 392,
+              "end": 434,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./addition-numbersets.component.scss",
+              "hasExtendedUnicodeEscape": false
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "ReactiveFormsModule"
+      },
+      {
+        "name": "CommonModule"
+      },
+      {
+        "name": "FormsModule"
+      },
+      {
+        "name": "HttpClientModule"
+      },
+      {
+        "name": "RouterLink"
+      }
+    ],
+    "exports": [
+      {
+        "name": "AdditionNumbersetsComponent"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 358,
+        "end": 415,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 358,
+          "end": 374,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "declarations"
+        },
+        "initializer": {
+          "pos": 375,
+          "end": 415,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 377,
+              "end": 410,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "AdditionNumbersetsComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 416,
+        "end": 538,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 416,
+          "end": 427,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 428,
+          "end": 538,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 430,
+              "end": 455,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ReactiveFormsModule"
+            },
+            {
+              "pos": 456,
+              "end": 474,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "CommonModule"
+            },
+            {
+              "pos": 475,
+              "end": 492,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "FormsModule"
+            },
+            {
+              "pos": 493,
+              "end": 515,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "HttpClientModule"
+            },
+            {
+              "pos": 516,
+              "end": 532,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "RouterLink"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 539,
+        "end": 591,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 539,
+          "end": 550,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "exports"
+        },
+        "initializer": {
+          "pos": 551,
+          "end": 591,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 553,
+              "end": 586,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "AdditionNumbersetsComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "AppModule",
+    "file": "src/app/app.module.ts",
+    "providers": [
+      {
+        "name": "AuthGuardService"
+      },
+      {
+        "name": "AuthService"
+      },
+      {
+        "name": "CookieService"
+      },
+      {
+        "name": "JwtHelperService"
+      },
+      {
+        "name": "{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:  }"
+      }
+    ],
+    "declarations": [],
+    "imports": [
+      {
+        "name": "ReactiveFormsModule"
+      },
+      {
+        "name": "BrowserModule"
+      },
+      {
+        "name": "FormsModule"
+      },
+      {
+        "name": "AppRoutingModule"
+      },
+      {
+        "name": "HttpClientModule"
+      },
+      {
+        "name": "BrowserAnimationsModule"
+      },
+      {
+        "ns": "RouterModule",
+        "name": "RouterModule.forRoot(args)"
+      },
+      {
+        "ns": "JwtModule",
+        "name": "JwtModule.forRoot(args)"
+      }
+    ],
+    "exports": [],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 1003,
+        "end": 1023,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 1003,
+          "end": 1019,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "declarations"
+        },
+        "initializer": {
+          "pos": 1020,
+          "end": 1023,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [],
+          "multiLine": false
+        }
+      },
+      {
+        "pos": 1024,
+        "end": 1425,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 1152,
+        "kind": 303,
+        "name": {
+          "pos": 1024,
+          "end": 1035,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 1036,
+          "end": 1425,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 1152,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 1038,
+              "end": 1063,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ReactiveFormsModule"
+            },
+            {
+              "pos": 1064,
+              "end": 1083,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "BrowserModule"
+            },
+            {
+              "pos": 1084,
+              "end": 1101,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "FormsModule"
+            },
+            {
+              "pos": 1102,
+              "end": 1124,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "AppRoutingModule"
+            },
+            {
+              "pos": 1125,
+              "end": 1147,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "HttpClientModule"
+            },
+            {
+              "pos": 1148,
+              "end": 1177,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "BrowserAnimationsModule"
+            },
+            {
+              "pos": 1178,
+              "end": 1261,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 213,
+              "expression": {
+                "pos": 1178,
+                "end": 1204,
+                "flags": 0,
+                "modifierFlagsCache": 0,
+                "transformFlags": 0,
+                "kind": 211,
+                "expression": {
+                  "pos": 1178,
+                  "end": 1196,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 80,
+                  "escapedText": "RouterModule"
+                },
+                "name": {
+                  "pos": 1197,
+                  "end": 1204,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 80,
+                  "escapedText": "forRoot"
+                }
+              },
+              "arguments": [
+                {
+                  "pos": 1205,
+                  "end": 1219,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 80,
+                  "escapedText": "routes"
+                },
+                {
+                  "pos": 1220,
+                  "end": 1260,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 210,
+                  "properties": [
+                    {
+                      "pos": 1222,
+                      "end": 1251,
+                      "flags": 0,
+                      "modifierFlagsCache": 0,
+                      "transformFlags": 0,
+                      "kind": 303,
+                      "name": {
+                        "pos": 1222,
+                        "end": 1245,
+                        "flags": 0,
+                        "modifierFlagsCache": 0,
+                        "transformFlags": 0,
+                        "kind": 80,
+                        "escapedText": "enableTracing"
+                      },
+                      "initializer": {
+                        "pos": 1246,
+                        "end": 1251,
+                        "flags": 0,
+                        "modifierFlagsCache": 0,
+                        "transformFlags": 0,
+                        "kind": 112
+                      }
+                    }
+                  ],
+                  "multiLine": true
+                }
+              ]
+            },
+            {
+              "pos": 1262,
+              "end": 1417,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 1152,
+              "kind": 213,
+              "expression": {
+                "pos": 1262,
+                "end": 1285,
+                "flags": 0,
+                "modifierFlagsCache": 0,
+                "transformFlags": 0,
+                "kind": 211,
+                "expression": {
+                  "pos": 1262,
+                  "end": 1277,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 80,
+                  "escapedText": "JwtModule"
+                },
+                "name": {
+                  "pos": 1278,
+                  "end": 1285,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 80,
+                  "escapedText": "forRoot"
+                }
+              },
+              "arguments": [
+                {
+                  "pos": 1286,
+                  "end": 1416,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 1152,
+                  "kind": 210,
+                  "properties": [
+                    {
+                      "pos": 1287,
+                      "end": 1408,
+                      "flags": 0,
+                      "modifierFlagsCache": 0,
+                      "transformFlags": 1152,
+                      "kind": 303,
+                      "name": {
+                        "pos": 1287,
+                        "end": 1301,
+                        "flags": 0,
+                        "modifierFlagsCache": 0,
+                        "transformFlags": 0,
+                        "kind": 80,
+                        "escapedText": "config"
+                      },
+                      "initializer": {
+                        "pos": 1302,
+                        "end": 1408,
+                        "flags": 0,
+                        "modifierFlagsCache": 0,
+                        "transformFlags": 1152,
+                        "kind": 210,
+                        "properties": [
+                          {
+                            "pos": 1304,
+                            "end": 1398,
+                            "flags": 0,
+                            "modifierFlagsCache": 0,
+                            "transformFlags": 1152,
+                            "kind": 303,
+                            "name": {
+                              "pos": 1304,
+                              "end": 1325,
+                              "flags": 0,
+                              "modifierFlagsCache": 0,
+                              "transformFlags": 0,
+                              "kind": 80,
+                              "escapedText": "tokenGetter"
+                            },
+                            "initializer": {
+                              "pos": 1326,
+                              "end": 1398,
+                              "flags": 0,
+                              "modifierFlagsCache": 0,
+                              "transformFlags": 4195456,
+                              "kind": 219,
+                              "parameters": [],
+                              "equalsGreaterThanToken": {
+                                "pos": 1329,
+                                "end": 1332,
+                                "flags": 0,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 0,
+                                "kind": 39
+                              },
+                              "body": {
+                                "pos": 1332,
+                                "end": 1398,
+                                "flags": 0,
+                                "modifierFlagsCache": 0,
+                                "transformFlags": 4194432,
+                                "kind": 241,
+                                "statements": [
+                                  {
+                                    "pos": 1334,
+                                    "end": 1387,
+                                    "flags": 0,
+                                    "modifierFlagsCache": 0,
+                                    "transformFlags": 4194432,
+                                    "kind": 253,
+                                    "expression": {
+                                      "pos": 1352,
+                                      "end": 1386,
+                                      "flags": 0,
+                                      "modifierFlagsCache": 0,
+                                      "transformFlags": 0,
+                                      "kind": 213,
+                                      "expression": {
+                                        "pos": 1352,
+                                        "end": 1373,
+                                        "flags": 0,
+                                        "modifierFlagsCache": 0,
+                                        "transformFlags": 0,
+                                        "kind": 211,
+                                        "expression": {
+                                          "pos": 1352,
+                                          "end": 1365,
+                                          "flags": 0,
+                                          "modifierFlagsCache": 0,
+                                          "transformFlags": 0,
+                                          "kind": 80,
+                                          "escapedText": "localStorage"
+                                        },
+                                        "name": {
+                                          "pos": 1366,
+                                          "end": 1373,
+                                          "flags": 0,
+                                          "modifierFlagsCache": 0,
+                                          "transformFlags": 0,
+                                          "kind": 80,
+                                          "escapedText": "getItem"
+                                        }
+                                      },
+                                      "arguments": [
+                                        {
+                                          "pos": 1374,
+                                          "end": 1385,
+                                          "flags": 0,
+                                          "modifierFlagsCache": 0,
+                                          "transformFlags": 0,
+                                          "kind": 11,
+                                          "text": "authToken",
+                                          "hasExtendedUnicodeEscape": false
+                                        }
+                                      ]
+                                    }
+                                  }
+                                ],
+                                "multiLine": true
+                              }
+                            }
+                          }
+                        ],
+                        "multiLine": true
+                      }
+                    }
+                  ],
+                  "multiLine": true
+                }
+              ]
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 1426,
+        "end": 1610,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 1426,
+          "end": 1439,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "providers"
+        },
+        "initializer": {
+          "pos": 1440,
+          "end": 1610,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 1442,
+              "end": 1464,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "AuthGuardService"
+            },
+            {
+              "pos": 1465,
+              "end": 1482,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "AuthService"
+            },
+            {
+              "pos": 1483,
+              "end": 1502,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "CookieService"
+            },
+            {
+              "pos": 1503,
+              "end": 1525,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "JwtHelperService"
+            },
+            {
+              "pos": 1526,
+              "end": 1604,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 210,
+              "properties": [
+                {
+                  "pos": 1534,
+                  "end": 1561,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 303,
+                  "name": {
+                    "pos": 1534,
+                    "end": 1542,
+                    "flags": 0,
+                    "modifierFlagsCache": 0,
+                    "transformFlags": 0,
+                    "kind": 80,
+                    "escapedText": "provide"
+                  },
+                  "initializer": {
+                    "pos": 1543,
+                    "end": 1561,
+                    "flags": 0,
+                    "modifierFlagsCache": 0,
+                    "transformFlags": 0,
+                    "kind": 80,
+                    "escapedText": "HTTP_INTERCEPTORS"
+                  }
+                },
+                {
+                  "pos": 1562,
+                  "end": 1589,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 303,
+                  "name": {
+                    "pos": 1562,
+                    "end": 1571,
+                    "flags": 0,
+                    "modifierFlagsCache": 0,
+                    "transformFlags": 0,
+                    "kind": 80,
+                    "escapedText": "useClass"
+                  },
+                  "initializer": {
+                    "pos": 1572,
+                    "end": 1589,
+                    "flags": 0,
+                    "modifierFlagsCache": 0,
+                    "transformFlags": 0,
+                    "kind": 80,
+                    "escapedText": "TokenInterceptor"
+                  }
+                },
+                {
+                  "pos": 1590,
+                  "end": 1602,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 303,
+                  "name": {
+                    "pos": 1590,
+                    "end": 1596,
+                    "flags": 0,
+                    "modifierFlagsCache": 0,
+                    "transformFlags": 0,
+                    "kind": 80,
+                    "escapedText": "multi"
+                  },
+                  "initializer": {
+                    "pos": 1597,
+                    "end": 1602,
+                    "flags": 0,
+                    "modifierFlagsCache": 0,
+                    "transformFlags": 0,
+                    "kind": 112
+                  }
+                }
+              ],
+              "multiLine": false
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 1611,
+        "end": 1628,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 1611,
+          "end": 1624,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "bootstrap"
+        },
+        "initializer": {
+          "pos": 1625,
+          "end": 1628,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [],
+          "multiLine": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "AppRoutingModule",
+    "file": "src/app/app.routes.ts",
+    "providers": [],
+    "declarations": [],
+    "imports": [
+      {
+        "ns": "RouterModule",
+        "name": "RouterModule.forRoot(args)"
+      }
+    ],
+    "exports": [
+      {
+        "name": "RouterModule"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 1529,
+        "end": 1574,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 1529,
+          "end": 1542,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 1543,
+          "end": 1574,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 1545,
+              "end": 1573,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 213,
+              "expression": {
+                "pos": 1545,
+                "end": 1565,
+                "flags": 0,
+                "modifierFlagsCache": 0,
+                "transformFlags": 0,
+                "kind": 211,
+                "expression": {
+                  "pos": 1545,
+                  "end": 1557,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 80,
+                  "escapedText": "RouterModule"
+                },
+                "name": {
+                  "pos": 1558,
+                  "end": 1565,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 80,
+                  "escapedText": "forRoot"
+                }
+              },
+              "arguments": [
+                {
+                  "pos": 1566,
+                  "end": 1572,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 80,
+                  "escapedText": "routes"
+                }
+              ]
+            }
+          ],
+          "multiLine": false
+        }
+      },
+      {
+        "pos": 1575,
+        "end": 1604,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 1575,
+          "end": 1588,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "exports"
+        },
+        "initializer": {
+          "pos": 1589,
+          "end": 1604,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 1591,
+              "end": 1603,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "RouterModule"
+            }
+          ],
+          "multiLine": false
+        }
+      }
+    ]
+  },
+  {
+    "name": "ForgotPasswordModule",
+    "file": "app/forgot-password/forgot-password.module.ts",
+    "providers": [],
+    "declarations": [
+      {
+        "name": "ForgotPasswordComponent",
+        "file": "app/forgot-password/forgot-password.component.ts",
+        "selector": "app-forgot-password",
+        "providers": [],
+        "templateUrl": [
+          "forgot-password.component.html"
+        ],
+        "styleUrls": [],
+        "__raw": [
+          {
+            "pos": 202,
+            "end": 237,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 202,
+              "end": 214,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "selector"
+            },
+            "initializer": {
+              "pos": 215,
+              "end": 237,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "app-forgot-password",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 238,
+            "end": 289,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 238,
+              "end": 253,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "templateUrl"
+            },
+            "initializer": {
+              "pos": 254,
+              "end": 289,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./forgot-password.component.html",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 290,
+            "end": 338,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 290,
+              "end": 302,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "styleUrl"
+            },
+            "initializer": {
+              "pos": 303,
+              "end": 338,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./forgot-password.component.scss",
+              "hasExtendedUnicodeEscape": false
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "CommonModule"
+      },
+      {
+        "name": "ReactiveFormsModule"
+      },
+      {
+        "name": "FormsModule"
+      },
+      {
+        "name": "HttpClientModule"
+      }
+    ],
+    "exports": [
+      {
+        "name": "ForgotPasswordComponent"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 303,
+        "end": 356,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 303,
+          "end": 319,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "declarations"
+        },
+        "initializer": {
+          "pos": 320,
+          "end": 356,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 322,
+              "end": 351,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ForgotPasswordComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 357,
+        "end": 462,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 357,
+          "end": 368,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 369,
+          "end": 462,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 371,
+              "end": 389,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "CommonModule"
+            },
+            {
+              "pos": 390,
+              "end": 415,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ReactiveFormsModule"
+            },
+            {
+              "pos": 416,
+              "end": 434,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "FormsModule"
+            },
+            {
+              "pos": 435,
+              "end": 457,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "HttpClientModule"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 463,
+        "end": 511,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 463,
+          "end": 474,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "exports"
+        },
+        "initializer": {
+          "pos": 475,
+          "end": 511,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 477,
+              "end": 506,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ForgotPasswordComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "HomeModule",
+    "file": "app/home/home.module.ts",
+    "providers": [],
+    "declarations": [
+      {
+        "name": "HomeComponent",
+        "file": "app/home/home.component.ts",
+        "selector": "app-home",
+        "providers": [],
+        "templateUrl": [
+          "home.component.html"
+        ],
+        "styleUrls": [
+          "home.component.scss"
+        ],
+        "__raw": [
+          {
+            "pos": 112,
+            "end": 136,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 112,
+              "end": 124,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "selector"
+            },
+            "initializer": {
+              "pos": 125,
+              "end": 136,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "app-home",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 137,
+            "end": 177,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 137,
+              "end": 152,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "templateUrl"
+            },
+            "initializer": {
+              "pos": 153,
+              "end": 177,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./home.component.html",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 178,
+            "end": 228,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 178,
+              "end": 191,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "styleUrls"
+            },
+            "initializer": {
+              "pos": 192,
+              "end": 228,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 209,
+              "elements": [
+                {
+                  "pos": 194,
+                  "end": 223,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 11,
+                  "text": "./home.component.scss",
+                  "hasExtendedUnicodeEscape": false
+                }
+              ],
+              "multiLine": true
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "CommonModule"
+      },
+      {
+        "name": "ReactiveFormsModule"
+      },
+      {
+        "name": "FormsModule"
+      }
+    ],
+    "exports": [
+      {
+        "name": "HomeComponent"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 224,
+        "end": 267,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 224,
+          "end": 240,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "declarations"
+        },
+        "initializer": {
+          "pos": 241,
+          "end": 267,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 243,
+              "end": 262,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "HomeComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 268,
+        "end": 350,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 268,
+          "end": 279,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 280,
+          "end": 350,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 282,
+              "end": 300,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "CommonModule"
+            },
+            {
+              "pos": 301,
+              "end": 326,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ReactiveFormsModule"
+            },
+            {
+              "pos": 327,
+              "end": 344,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "FormsModule"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 351,
+        "end": 389,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 351,
+          "end": 362,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "exports"
+        },
+        "initializer": {
+          "pos": 363,
+          "end": 389,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 365,
+              "end": 384,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "HomeComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "LoginModule",
+    "file": "app/login/login.module.ts",
+    "providers": [],
+    "declarations": [
+      {
+        "name": "LoginComponent",
+        "file": "app/login/login.component.ts",
+        "selector": "app-login",
+        "providers": [],
+        "templateUrl": [
+          "login.component.html"
+        ],
+        "styleUrls": [
+          "login.component.scss"
+        ],
+        "__raw": [
+          {
+            "pos": 448,
+            "end": 473,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 448,
+              "end": 460,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "selector"
+            },
+            "initializer": {
+              "pos": 461,
+              "end": 473,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "app-login",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 474,
+            "end": 515,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 474,
+              "end": 489,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "templateUrl"
+            },
+            "initializer": {
+              "pos": 490,
+              "end": 515,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./login.component.html",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 516,
+            "end": 557,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 516,
+              "end": 529,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "styleUrls"
+            },
+            "initializer": {
+              "pos": 530,
+              "end": 557,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 209,
+              "elements": [
+                {
+                  "pos": 532,
+                  "end": 556,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 11,
+                  "text": "./login.component.scss",
+                  "hasExtendedUnicodeEscape": false
+                }
+              ],
+              "multiLine": false
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "CommonModule"
+      },
+      {
+        "name": "FormsModule"
+      },
+      {
+        "name": "HttpClientModule"
+      },
+      {
+        "name": "ReactiveFormsModule"
+      }
+    ],
+    "exports": [
+      {
+        "name": "LoginComponent"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 320,
+        "end": 373,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 320,
+          "end": 338,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "declarations"
+        },
+        "initializer": {
+          "pos": 339,
+          "end": 373,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 341,
+              "end": 365,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "LoginComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 374,
+        "end": 421,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 374,
+          "end": 387,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "exports"
+        },
+        "initializer": {
+          "pos": 388,
+          "end": 421,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 390,
+              "end": 414,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "LoginComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 422,
+        "end": 547,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 422,
+          "end": 435,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 436,
+          "end": 547,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 438,
+              "end": 460,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "CommonModule"
+            },
+            {
+              "pos": 461,
+              "end": 482,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "FormsModule"
+            },
+            {
+              "pos": 483,
+              "end": 509,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "HttpClientModule"
+            },
+            {
+              "pos": 510,
+              "end": 539,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ReactiveFormsModule"
+            }
+          ],
+          "multiLine": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "NavbarModule",
+    "file": "app/navbar/navbar.module.ts",
+    "providers": [],
+    "declarations": [
+      {
+        "name": "NavbarComponent",
+        "file": "app/navbar/navbar.component.ts",
+        "selector": "app-navbar",
+        "providers": [],
+        "templateUrl": [
+          "navbar.component.html"
+        ],
+        "styleUrls": [],
+        "__raw": [
+          {
+            "pos": 102,
+            "end": 128,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 102,
+              "end": 114,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "selector"
+            },
+            "initializer": {
+              "pos": 115,
+              "end": 128,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "app-navbar",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 129,
+            "end": 171,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 129,
+              "end": 144,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "templateUrl"
+            },
+            "initializer": {
+              "pos": 145,
+              "end": 171,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./navbar.component.html",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 172,
+            "end": 211,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 172,
+              "end": 184,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "styleUrl"
+            },
+            "initializer": {
+              "pos": 185,
+              "end": 211,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./navbar.component.scss",
+              "hasExtendedUnicodeEscape": false
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "CommonModule"
+      },
+      {
+        "name": "ReactiveFormsModule"
+      },
+      {
+        "name": "FormsModule"
+      },
+      {
+        "name": "RouterModule"
+      }
+    ],
+    "exports": [
+      {
+        "name": "NavbarComponent"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 277,
+        "end": 322,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 277,
+          "end": 293,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "declarations"
+        },
+        "initializer": {
+          "pos": 294,
+          "end": 322,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 296,
+              "end": 317,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "NavbarComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 323,
+        "end": 423,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 323,
+          "end": 334,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 335,
+          "end": 423,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 337,
+              "end": 355,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "CommonModule"
+            },
+            {
+              "pos": 356,
+              "end": 381,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ReactiveFormsModule"
+            },
+            {
+              "pos": 382,
+              "end": 399,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "FormsModule"
+            },
+            {
+              "pos": 400,
+              "end": 418,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "RouterModule"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 424,
+        "end": 471,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 424,
+          "end": 435,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "exports"
+        },
+        "initializer": {
+          "pos": 436,
+          "end": 471,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 438,
+              "end": 459,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "NavbarComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "NumberSetsModule",
+    "file": "app/number-sets/number-sets.module.ts",
+    "providers": [],
+    "declarations": [
+      {
+        "name": "NumberSetsComponent",
+        "file": "app/number-sets/number-sets.component.ts",
+        "selector": "app-number-sets",
+        "providers": [],
+        "templateUrl": [
+          "number-sets.component.html"
+        ],
+        "styleUrls": [],
+        "__raw": [
+          {
+            "pos": 68,
+            "end": 99,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 68,
+              "end": 80,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "selector"
+            },
+            "initializer": {
+              "pos": 81,
+              "end": 99,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "app-number-sets",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 100,
+            "end": 147,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 100,
+              "end": 115,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "templateUrl"
+            },
+            "initializer": {
+              "pos": 116,
+              "end": 147,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./number-sets.component.html",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 148,
+            "end": 192,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 148,
+              "end": 160,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "styleUrl"
+            },
+            "initializer": {
+              "pos": 161,
+              "end": 192,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./number-sets.component.scss",
+              "hasExtendedUnicodeEscape": false
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "CommonModule"
+      },
+      {
+        "name": "ReactiveFormsModule"
+      },
+      {
+        "name": "FormsModule"
+      }
+    ],
+    "exports": [
+      {
+        "name": "NumberSetsComponent"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 237,
+        "end": 286,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 237,
+          "end": 253,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "declarations"
+        },
+        "initializer": {
+          "pos": 254,
+          "end": 286,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 256,
+              "end": 281,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "NumberSetsComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 287,
+        "end": 369,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 287,
+          "end": 298,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 299,
+          "end": 369,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 301,
+              "end": 319,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "CommonModule"
+            },
+            {
+              "pos": 320,
+              "end": 345,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ReactiveFormsModule"
+            },
+            {
+              "pos": 346,
+              "end": 363,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "FormsModule"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 370,
+        "end": 414,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 370,
+          "end": 381,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "exports"
+        },
+        "initializer": {
+          "pos": 382,
+          "end": 414,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 384,
+              "end": 409,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "NumberSetsComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "SignupModule",
+    "file": "app/signup/signup.module.ts",
+    "providers": [
+      {
+        "name": "SignupService"
+      }
+    ],
+    "declarations": [
+      {
+        "name": "SignupComponent",
+        "file": "app/signup/signup.component.ts",
+        "selector": "app-signup",
+        "providers": [],
+        "templateUrl": [
+          "signup.component.html"
+        ],
+        "styleUrls": [
+          "signup.component.scss"
+        ],
+        "__raw": [
+          {
+            "pos": 376,
+            "end": 402,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 376,
+              "end": 388,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "selector"
+            },
+            "initializer": {
+              "pos": 389,
+              "end": 402,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "app-signup",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 403,
+            "end": 445,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 403,
+              "end": 418,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "templateUrl"
+            },
+            "initializer": {
+              "pos": 419,
+              "end": 445,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./signup.component.html",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 446,
+            "end": 498,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 446,
+              "end": 459,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "styleUrls"
+            },
+            "initializer": {
+              "pos": 460,
+              "end": 498,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 209,
+              "elements": [
+                {
+                  "pos": 462,
+                  "end": 493,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 11,
+                  "text": "./signup.component.scss",
+                  "hasExtendedUnicodeEscape": false
+                }
+              ],
+              "multiLine": true
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "CommonModule"
+      },
+      {
+        "name": "ReactiveFormsModule"
+      },
+      {
+        "name": "FormsModule"
+      }
+    ],
+    "exports": [
+      {
+        "name": "SignupComponent"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 340,
+        "end": 380,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 340,
+          "end": 353,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "providers"
+        },
+        "initializer": {
+          "pos": 354,
+          "end": 380,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 356,
+              "end": 375,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "SignupService"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 381,
+        "end": 426,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 381,
+          "end": 397,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "declarations"
+        },
+        "initializer": {
+          "pos": 398,
+          "end": 426,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 400,
+              "end": 421,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "SignupComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 427,
+        "end": 509,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 427,
+          "end": 439,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 440,
+          "end": 509,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 442,
+              "end": 460,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "CommonModule"
+            },
+            {
+              "pos": 461,
+              "end": 486,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ReactiveFormsModule"
+            },
+            {
+              "pos": 487,
+              "end": 504,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "FormsModule"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 510,
+        "end": 557,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 510,
+          "end": 522,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "exports"
+        },
+        "initializer": {
+          "pos": 523,
+          "end": 557,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 525,
+              "end": 546,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "SignupComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "Status404Module",
+    "file": "app/status-404/status-404.module.ts",
+    "providers": [],
+    "declarations": [
+      {
+        "name": "Status404Component",
+        "file": "app/status-404/status-404.component.ts",
+        "selector": "app-status-404",
+        "providers": [],
+        "templateUrl": [
+          "status-404.component.html"
+        ],
+        "styleUrls": [],
+        "__raw": [
+          {
+            "pos": 58,
+            "end": 88,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 58,
+              "end": 70,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "selector"
+            },
+            "initializer": {
+              "pos": 71,
+              "end": 88,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "app-status-404",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 89,
+            "end": 135,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 89,
+              "end": 104,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "templateUrl"
+            },
+            "initializer": {
+              "pos": 105,
+              "end": 135,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./status-404.component.html",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 136,
+            "end": 179,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 136,
+              "end": 148,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "styleUrl"
+            },
+            "initializer": {
+              "pos": 149,
+              "end": 179,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./status-404.component.scss",
+              "hasExtendedUnicodeEscape": false
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "CommonModule"
+      },
+      {
+        "name": "ReactiveFormsModule"
+      },
+      {
+        "name": "FormsModule"
+      },
+      {
+        "name": "HttpClientModule"
+      }
+    ],
+    "exports": [
+      {
+        "name": "Status404Component"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 293,
+        "end": 341,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 293,
+          "end": 309,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "declarations"
+        },
+        "initializer": {
+          "pos": 310,
+          "end": 341,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 312,
+              "end": 336,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "Status404Component"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 342,
+        "end": 449,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 342,
+          "end": 353,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 354,
+          "end": 449,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 356,
+              "end": 374,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "CommonModule"
+            },
+            {
+              "pos": 375,
+              "end": 400,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ReactiveFormsModule"
+            },
+            {
+              "pos": 401,
+              "end": 418,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "FormsModule"
+            },
+            {
+              "pos": 419,
+              "end": 441,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "HttpClientModule"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 450,
+        "end": 493,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 450,
+          "end": 461,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "exports"
+        },
+        "initializer": {
+          "pos": 462,
+          "end": 493,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 464,
+              "end": 488,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "Status404Component"
+            }
+          ],
+          "multiLine": true
+        }
+      }
+    ]
+  },
+  {
+    "name": "TopicsModule",
+    "file": "app/topics/topics.module.ts",
+    "providers": [],
+    "declarations": [
+      {
+        "name": "TopicsComponent",
+        "file": "app/topics/topics.component.ts",
+        "selector": "app-topics",
+        "providers": [],
+        "templateUrl": [
+          "topics.component.html"
+        ],
+        "styleUrls": [
+          "topics.component.scss"
+        ],
+        "__raw": [
+          {
+            "pos": 289,
+            "end": 315,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 289,
+              "end": 301,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "selector"
+            },
+            "initializer": {
+              "pos": 302,
+              "end": 315,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "app-topics",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 316,
+            "end": 358,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 316,
+              "end": 331,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "templateUrl"
+            },
+            "initializer": {
+              "pos": 332,
+              "end": 358,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 11,
+              "text": "./topics.component.html",
+              "hasExtendedUnicodeEscape": false
+            }
+          },
+          {
+            "pos": 359,
+            "end": 401,
+            "flags": 0,
+            "modifierFlagsCache": 0,
+            "transformFlags": 0,
+            "kind": 303,
+            "name": {
+              "pos": 359,
+              "end": 372,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "styleUrls"
+            },
+            "initializer": {
+              "pos": 373,
+              "end": 401,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 209,
+              "elements": [
+                {
+                  "pos": 375,
+                  "end": 400,
+                  "flags": 0,
+                  "modifierFlagsCache": 0,
+                  "transformFlags": 0,
+                  "kind": 11,
+                  "text": "./topics.component.scss",
+                  "hasExtendedUnicodeEscape": false
+                }
+              ],
+              "multiLine": false
+            }
+          }
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "ReactiveFormsModule"
+      },
+      {
+        "name": "CommonModule"
+      },
+      {
+        "name": "FormsModule"
+      },
+      {
+        "name": "HttpClientModule"
+      },
+      {
+        "name": "RouterLink"
+      }
+    ],
+    "exports": [
+      {
+        "name": "TopicsComponent"
+      }
+    ],
+    "bootstrap": [],
+    "__raw": [
+      {
+        "pos": 333,
+        "end": 378,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 333,
+          "end": 349,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "declarations"
+        },
+        "initializer": {
+          "pos": 350,
+          "end": 378,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 352,
+              "end": 373,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "TopicsComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 379,
+        "end": 420,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 379,
+          "end": 391,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "exports"
+        },
+        "initializer": {
+          "pos": 392,
+          "end": 420,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 394,
+              "end": 415,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "TopicsComponent"
+            }
+          ],
+          "multiLine": true
+        }
+      },
+      {
+        "pos": 421,
+        "end": 543,
+        "flags": 0,
+        "modifierFlagsCache": 0,
+        "transformFlags": 0,
+        "kind": 303,
+        "name": {
+          "pos": 421,
+          "end": 432,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 80,
+          "escapedText": "imports"
+        },
+        "initializer": {
+          "pos": 433,
+          "end": 543,
+          "flags": 0,
+          "modifierFlagsCache": 0,
+          "transformFlags": 0,
+          "kind": 209,
+          "elements": [
+            {
+              "pos": 435,
+              "end": 460,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "ReactiveFormsModule"
+            },
+            {
+              "pos": 461,
+              "end": 479,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "CommonModule"
+            },
+            {
+              "pos": 480,
+              "end": 497,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "FormsModule"
+            },
+            {
+              "pos": 498,
+              "end": 520,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "HttpClientModule"
+            },
+            {
+              "pos": 521,
+              "end": 537,
+              "flags": 0,
+              "modifierFlagsCache": 0,
+              "transformFlags": 0,
+              "kind": 80,
+              "escapedText": "RouterLink"
+            }
+          ],
+          "multiLine": true
+        }
+      }
+    ]
+  }
+]

@@ -3,10 +3,15 @@ import { CommonModule } from '@angular/common';
 import { SignupComponent } from './signup.component'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { SignupService } from '../services/SignupService/signup.service';
+
 
 @NgModule({
+  providers: [
+    SignupService
+  ],
   declarations: [
-    SignupComponent,
+    SignupComponent
   ], 
   imports: [
     CommonModule,
@@ -15,6 +20,7 @@ import { FormsModule } from '@angular/forms';
   ], 
   exports: [
     SignupComponent
+    
   ], 
 })
 export class SignupModule { }

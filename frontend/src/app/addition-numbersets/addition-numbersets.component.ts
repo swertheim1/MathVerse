@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/AuthenticationServices/auth.service';
 import { Subscription } from 'rxjs';
 import { DataService } from '../services/DataServices/data.service';
 
@@ -10,31 +9,26 @@ interface ImageInfo {
   routerLinkName: string;
 }
 
-
 @Component({
   selector: 'app-addition-numbersets',
   templateUrl: './addition-numbersets.component.html',
-  styleUrl:    './addition-numbersets.component.scss'
+  styleUrl: './addition-numbersets.component.scss'
 })
 
 export class AdditionNumbersetsComponent {
-
   message: string | null = null;
   numbersets: string[] = [];
   imageUrls: ImageInfo[] = [];
   private numbersetSubscription: Subscription | undefined;
-  
 
   constructor(
-    private authService: AuthService,
     private dataService: DataService,
   ) { }
 
   ngOnInit(): void {
     console.log("numbersets page has initialized");
     this.loadNumbersets();
-    this.getImageUrls(this.numbersets);
-    
+
   };
 
   ngOnDestroy(): void {
@@ -44,13 +38,15 @@ export class AdditionNumbersetsComponent {
   }
 
   loadNumbersets(): void {
-    this.dataService.getTopics().subscribe(
+    this.numbersetSubscription = this.dataService.getNumbersets().subscribe(
       (numbersets: any[]) => {
         this.numbersets = numbersets;
-        console.log('Topics:', this.numbersets);
+        console.log('Numbersets:', this.numbersets);
+        this.imageUrls = this.getImageUrls(this.numbersets);
+        console.log('Image URLs:', this.imageUrls);
       },
       (error: any) => {
-        console.error('Failed to load topics. Error:', error);
+        console.error('Failed to load numbersets. Error:', error);
       }
     );
   }
@@ -62,44 +58,47 @@ export class AdditionNumbersetsComponent {
   }
 
   getImageUrls(numberset_list: string[]): ImageInfo[] {
+    console.log('get images url called', numberset_list)
     const imageUrls: ImageInfo[] = [];
 
-    for (const numberset of numberset_list) {
+    this.numbersets?.forEach(obj => {
+      let numberset_name = (obj as any).numberset_name;
       let imageUrl = '';
       let name = '';
       let order = 0;
       let routerLinkName = '';
 
-      switch (numberset) {
-        case 'Positive Whole Numbers':          
-            name = numberset;
-            routerLinkName = this.constructRouterLink(name)
-            imageUrl = 'assets/images/NumberSets/AddWPWholeNumbers.png';
-            order = 1;
-            break;
-        case 'Positive Decimals':          
-            name = numberset;
-            routerLinkName = this.constructRouterLink(name)
-            imageUrl = 'assets/images/NumberSets/AddWPositiveDecimals.png';
-            order = 2;          
+      switch (numberset_name) {
+        case 'Positive Whole Numbers':
+          name = 'Positive Whole Numbers';
+          routerLinkName = this.constructRouterLink(name)
+          imageUrl = 'assets/images/NumberSets/AddWPWholeNumbers.png';
+          order = 1;
+          console.log('additionNumberset', routerLinkName, 'topic', numberset_name)
+          break;
+        case 'Decimals':
+          name = 'Positive Decimals';
+          routerLinkName = this.constructRouterLink(name)
+          imageUrl = 'assets/images/NumberSets/AddWPositiveDecimals.png';
+          order = 2;
           break;
         case 'Integers':
-            name = numberset;
-            routerLinkName = this.constructRouterLink(name)
-            imageUrl = 'assets/images/times2@300x.png';
-            order = 3;
-            break;
+          name = 'integers';
+          routerLinkName = this.constructRouterLink(name)
+          imageUrl = 'assets/images/times2@300x.png';
+          order = 3;
+          break;
         case 'Fractions':
-            name = numberset;
-            routerLinkName = this.constructRouterLink(name)
-            imageUrl = 'assets/images/divide2@300x.png';
-            order = 4;
+          name = 'Fractions';
+          routerLinkName = this.constructRouterLink(name)
+          imageUrl = 'assets/images/divide2@300x.png';
+          order = 4;
           break;
         case 'Real Numbers':
-            name = numberset;
-            routerLinkName = this.constructRouterLink(name)
-            imageUrl = 'assets/images/ratio@300x.png';
-            order = 5;          
+          name = 'Real Numbers';
+          routerLinkName = this.constructRouterLink(name)
+          imageUrl = 'assets/images/ratio@300x.png';
+          order = 5;
           break;
         default:
           console.log("No Numbersets to display")
@@ -107,8 +106,9 @@ export class AdditionNumbersetsComponent {
       }
       if (imageUrl !== '') { // Only push if imageUrl is not empty
         imageUrls.push({ name, url: imageUrl, order, routerLinkName }); // Push imageUrl directly
-      }
-    }
+      };
+    });
+
     // Sort the imageUrls array based on the order property
     imageUrls.sort((a, b) => a.order - b.order);
     console.log(imageUrls)

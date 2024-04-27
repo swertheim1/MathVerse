@@ -37,53 +37,77 @@ export class DataService {
       console.error('Authentication token not found');
       return of([]); // Return empty array if authentication token is not found
     }
-    
+
     // get grade_level from user service
     const grade_level: string | null = this.userService.getGradeLevel()
     if (grade_level !== null) {
       // Prepare request headers with authentication token 
       const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${authToken}`)
-      .set('Content-Type', 'application/x-www-form-urlencoded'); 
+        .set('Authorization', `Bearer ${authToken}`)
+        .set('Content-Type', 'application/x-www-form-urlencoded');
 
-      const params = new HttpParams().set('grade_level', grade_level );
+      const params = new HttpParams().set('grade_level', grade_level);
       // Handle the case where gradeLevel is null
- 
-    // Make HTTP GET request to fetch topics
-    return this.httpClient.get<any[]>(`${this.apiUrl}/topics`, { headers, params })
-    .pipe(
-      tap((topics: any) => {
-        // store topics directly in local storage
-        localStorage.setItem('topics_list', JSON.stringify(topics));
-        console.log('Topics added to local storage');
-      }),
-    );
+
+      // Make HTTP GET request to fetch topics
+      return this.httpClient.get<any[]>(`${this.apiUrl}/topics`, { headers, params })
+        .pipe(
+          tap((topics: any) => {
+            // store topics directly in local storage
+            localStorage.setItem('topics_list', JSON.stringify(topics));
+            console.log('Topics added to local storage');
+          }),
+        );
     } else {
       console.error('User needs to log back in');
       return of([]); // Grade Level not available so return an empty string
     }
 
-      catchError(error => {
-        console.error('Error fetching topics:', error);
-        return of([]); // Return an empty array in case of error
-      })
-    
+    catchError(error => {
+      console.error('Error fetching topics:', error);
+      return of([]); // Return an empty array in case of error
+    })
+
   }
 
+  // Return the cached Number sets
   getNumbersets(): Observable<any[]> {
-    const headers = new HttpHeaders();
-    return this.httpClient.get<any[]>(`${this.apiUrl}/numbersets`, { headers }).pipe(
-      tap((response: any) => {
-        // Access data from response body
-        const numbersets: any[] = response.body;
-        localStorage.setItem('numbersets', JSON.stringify(numbersets));
-        console.log('Numbersets added to local storage');
+    // Retrieve authentication token from local storage
+    const authToken = localStorage.getItem('authToken');
+    if (!authToken) {
+      console.error('Authentication token not found');
+      return of([]); // Return empty array if authentication token is not found
+    }
 
-      }),
-      catchError(error => {
-        console.error('Error fetching numbersets:', error);
-        return of([]); // Return an empty array in case of error
-      })
-    );
+    // get grade_level from user service
+    const grade_level: string | null = this.userService.getGradeLevel()
+    if (grade_level !== null) {
+      // Prepare request headers with authentication token 
+      const headers = new HttpHeaders()
+        .set('Authorization', `Bearer ${authToken}`)
+        .set('Content-Type', 'application/x-www-form-urlencoded');
+
+      const params = new HttpParams().set('grade_level', grade_level);
+      // Handle the case where gradeLevel is null
+
+      // Make HTTP GET request to fetch numbersets
+      return this.httpClient.get<any[]>(`${this.apiUrl}/numbersets`, { headers, params })
+        .pipe(
+          tap((numbersets: any) => {
+            // store numbersets directly in local storage
+            localStorage.setItem('numbersets_list', JSON.stringify(numbersets));
+            console.log('Numbersets added to local storage');
+          }),
+        );
+    } else {
+      console.error('User needs to log back in');
+      return of([]); // Grade Level not available so return an empty string
+    }
+
+    catchError(error => {
+      console.error('Error fetching numbersets:', error);
+      return of([]); // Return an empty array in case of error
+    })
+
   }
 }

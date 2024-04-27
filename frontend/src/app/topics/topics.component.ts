@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DataService } from '../services/DataServices/data.service';
-import { UserService } from '../services/UserService/user.service';
 
 interface ImageInfo {
   name: string;
@@ -24,7 +23,7 @@ export class TopicsComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private userService: UserService
+
   ) { }
 
   ngOnInit(): void {
@@ -52,7 +51,6 @@ export class TopicsComponent implements OnInit {
       }
     );
   }
-
 
   constructRouterLink(name: string): string {
     // Ensure name is converted to lowercase

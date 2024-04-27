@@ -4,11 +4,10 @@ const pool = require("../pool");
 
 async function fetchNumberSets(grade_level) {
     logger.info('FetchingNumberSets function in numberSetService called');
-    logger.info(grade_level);
     try {
         // Validate input parameters
         if (!grade_level) {
-            logger.warn("Grade level parameter is missing")
+            logger.debug(`Grade level parameter: ${grade_level}`);
             throw new Error('Grade level parameter is required');
         }
 
@@ -21,8 +20,7 @@ async function fetchNumberSets(grade_level) {
         if (rows.length === 0) {
             throw new Error('No numberSets found for the given grade level');
         }
-        logger.info('numberSets:', rows);
-
+        
         // Extract relevant data from the rows
         const numberSetsData = rows.map(row => ({
             numberset_name: row.numberset_name,

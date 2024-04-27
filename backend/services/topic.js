@@ -25,7 +25,6 @@ async function fetchTopics(grade_level) {
         const topicsData = rows.map(row => ({
             topic_name: row.topic_name,
         }));
-
         return topicsData;
 
     } catch (error) {

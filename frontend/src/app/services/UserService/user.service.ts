@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { TokenService } from '../TokenServices/token.service';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +19,11 @@ export class UserService {
     return null;
   }
 
-  getTopicsFromLocalStorage(): any[] {
+  getTopicsFromLocalStorage(): string[] {
     const topics = localStorage.getItem('topics_list');
     if (topics) {
       // Parse the JSON string to convert it back to an array of objects
-      const topicsList: any[] = JSON.parse(topics);
+      const topicsList: string[] = JSON.parse(topics);
       console.log('Topics retrieved from local storage:', topicsList);
       return topicsList;
     } else {
@@ -33,17 +32,22 @@ export class UserService {
     }
   }
 
-  getNumbersetsFromLocalStorage(): any[] {
+  getNumbersetsFromLocalStorage(): string[] {
     const numbersets = localStorage.getItem('numbersets_list');
     if (numbersets) {
       // Parse the JSON string to convert it back to an array of objects
-      const numbersetsList: any[] = JSON.parse(numbersets);
+      const numbersetsList: string[] = JSON.parse(numbersets);
       console.log('Numbersets retrieved from local storage:', numbersetsList);
       return numbersetsList;
     } else {
       console.log('No Numbersets found in local storage');
       return [];
     }
+  }
+
+  sendResultsToServer(results: object): {} {
+    
+    return results
   }
 
 }

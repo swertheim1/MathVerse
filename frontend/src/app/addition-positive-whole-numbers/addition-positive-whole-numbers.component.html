@@ -1,1 +1,44 @@
-<p>addition-positive-whole-numbers works!</p>
+<!-- <div class="frame-container"> -->
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1 style="margin-top: 5%; margin-bottom: 5%;">Addition with Positive Whole Numbers</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center">
+    <div class="row ">
+        <div class='col'>
+            <p class="center-text" id="problem">What is the sum of {{ randomNumber1 }} and {{ randomNumber2 }}?</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class='col '>
+            <p class="center-text" id="expression">{{ expression }} </p>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <!-- <div class="col-md-12"> -->
+            <div class="row">
+                <ng-container *ngFor="let answer of answerList">
+                    <div class="col-md-5 col-lg-4 col-xl-3 my-4">
+                        <div class="d-flex flex-column align-items-center">
+                            <button type="button" id="answers" (click)="checkAnswer(answer)" class="image-button">
+                                <div class="button-content">
+                                    <img src="../../assets/images/addition.png" class="button-image" />
+                                    <span class="answer-text">{{ answer }}</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        <!-- </div> -->
+    </div>
+</div>

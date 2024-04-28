@@ -1,0 +1,45 @@
+.image-button {
+  position: relative;
+  border: none; /* Remove button border */
+  background-color: transparent; /* Make button background transparent */
+  padding: 0; /* Remove any default padding */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
+.answer-text {
+  position: absolute;
+  top: 50%; /* Adjust vertical position */
+  left: 50%; /* Adjust horizontal position */
+  transform: translate(-50%, -50%);
+  font-size: 84px; /* Adjust font size */
+  font-weight: bolder;
+  color: white; /* Adjust text color */
+  padding: 5px 10px; /* Adjust padding */
+  border-radius: 5px; /* Adjust border radius */
+}
+
+.col-md-5,
+.col-lg-4,
+.col-xl-3 {
+  flex-basis: calc(100% / 3); /* Adjust to desired number of items per row */
+  max-width: calc(100% / 3); /* Adjust to desired number of items per row */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+@media (max-width: 991.98px) { /* Adjust breakpoint as needed */
+  .col-md-5,
+  .col-lg-4,
+  .col-xl-3 {
+      flex-basis: calc(100% / 2); /* Adjust to desired number of items per row */
+      max-width: calc(100% / 2); /* Adjust to desired number of items per row */
+  }
+}
+
+@media (max-width: 767.98px) { /* Adjust breakpoint as needed */
+  .col-md-5,
+  .col-lg-4,
+  .col-xl-3 {
+      flex-basis: 100%; /* Display one item per row */
+      max-width: 100%; /* Display one item per row */
+  }
+}

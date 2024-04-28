@@ -30,13 +30,13 @@ export class TopicsComponent implements OnInit {
     console.log("topics page has initialized");
     this.loadTopics();
 
-  };
-  
-  ngOnDestroy(): void {
-    if (this.topicsSubscription) {
-      this.topicsSubscription.unsubscribe();
-    }
   }
+  
+  // ngOnDestroy(): void {
+  //   if (this.topicsSubscription) {
+  //     this.topicsSubscription.unsubscribe();
+  //   }
+  // }
 
   loadTopics(): void {
     this.topicsSubscription = this.dataService.getTopics().subscribe(
@@ -46,7 +46,7 @@ export class TopicsComponent implements OnInit {
         this.imageUrls = this.getImageUrls(this.topics);
         console.log('Image URLs:', this.imageUrls);
       },
-      (error: any) => {
+      (error: string) => {
         console.error('Failed to load topics. Error:', error);
       }
     );
@@ -63,7 +63,7 @@ export class TopicsComponent implements OnInit {
     const imageUrls: ImageInfo[] = [];
 
     this.topics?.forEach(obj =>  {
-      let topic_name = obj.topic_name;
+      const topic_name = obj.topic_name;
       let imageUrl = '';
       let name = '';
       let order = 0;
@@ -75,35 +75,35 @@ export class TopicsComponent implements OnInit {
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/plus2@300x.png';
             order = 1;
-            console.log('additionNumberset', routerLinkName, 'topic', topic_name)
+            console.log('additionNumbersets', routerLinkName, 'topic', topic_name)
             break;
         case 'Subtraction':
             name = 'Subtraction';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/minus2@300x.png';
             order = 2;
-            console.log('subtractionNumberset', routerLinkName, 'topic', topic_name)
+            console.log('subtractionNumbersets', routerLinkName, 'topic', topic_name)
             break;
         case 'Multiplication':
             name = 'Multiplication';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/times2@300x.png';
             order = 3;
-            console.log('multiplicationNumberset', routerLinkName, 'topic', topic_name)
+            console.log('multiplicationNumbersets', routerLinkName, 'topic', topic_name)
             break;
         case 'Division':
             name = 'Division';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/divide2@300x.png';
             order = 4;
-            console.log('divisionNumberset', routerLinkName, 'topic', topic_name)
+            console.log('divisionNumbersets', routerLinkName, 'topic', topic_name)
             break;
         case 'Ratio':
             name = 'ratio';
             routerLinkName = this.constructRouterLink(name)
             imageUrl = 'assets/images/ratio3@300x.png';
             order = 5;
-            console.log('ratioNumberset', routerLinkName, 'topic', topic_name)
+            console.log('ratioNumbersets', routerLinkName, 'topic', topic_name)
             break;
         default:
             console.log("No Topics to display")

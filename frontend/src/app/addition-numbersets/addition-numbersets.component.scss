@@ -1,72 +1,71 @@
 .image-grid {
-    display: flex;
-    justify-content: center; /* Center content horizontally */
-  }
-  
+  display: flex;
+  justify-content: center;
+  /* Center content horizontally */
+}
+
 
 .figure-image {
-    display: flex;
-    flex-wrap: wrap; /* Enable wrapping */
-    justify-content: space-between; /* Distribute items evenly along the main axis */
-    list-style-type: none; /* Remove default list styles */
-    padding: 0;
-  }
-  
-  .image-item {
-    width: 48%; /* Set width of each image item */
-    margin-bottom: 20px; /* Add some spacing between items */
-    padding: 20px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  /* Enable wrapping */
+  justify-content: space-between;
+  /* Distribute items evenly along the main axis */
+  list-style-type: none;
+  /* Remove default list styles */
+  padding: 0;
+}
 
-  /* Create two equal columns that sits next to each other */
+.image-item {
+  width: 48%;
+  /* Set width of each image item */
+  margin-bottom: 20px;
+  /* Add some spacing between items */
+  padding: 20px;
+}
+
+/* Create two equal columns that sits next to each other */
 .col {
-    -ms-flex: 50%; /* IE 10 */
-    flex: 50%;
-    padding: 0 4px;
-  }
+  -ms-flex: 50%;
+  /* IE 10 */
+  flex: 50%;
+  padding: 0 4px;
+}
 
-  .col {
-    margin-top: 8px;
-    vertical-align: middle;
-  }
+.col {
+  margin-top: 8px;
+  vertical-align: middle;
+}
 
-  .figure-caption {
-    font-size: x-large;
-    font-weight: bold;
-  }
+.pseudo-3d-image {
+  position: relative;
+  display: inline-block;
+  border-radius: 40px;
+  overflow: hidden; /* Ensure image doesn't overflow its container */
+}
 
-  .pseudo-3d-image {
-    position: relative;
-    display: inline-block;
-    border-radius: 40px;
-  }
+.pseudo-3d-image img {
+  display: block;
+  transition: transform 0.3s ease-in-out; /* Transition for the image */
+}
+
+.overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 32px;
+  font-weight: bolder;
+  text-align: center;
   
-  .pseudo-3d-image img {
-    display: block;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .pseudo-3d-image:hover img {
-    transform: translate(8px, 8px); /* Move the image slightly on hover to create depth */
-  }
-  
-  .image-container {
-    position: relative;
-    overflow: hidden; /* Ensure text doesn't overflow from the container */
-  }
-  
-  .overlay-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: white;
-    font-size: 32px;
-    font-weight: bolder;
-    text-align: center;
-  }
-  //   border-radius: 5px;
-  //   font-size: 16px; /* Adjust as needed */
-  //   font-weight: bold;
-  //   color: white;
-  // }
+}
+
+.pseudo-3d-image:hover img {
+  transform: translate(8px, 8px); /* Move image on hover */
+}
+
+.overlay-text:hover {
+  transform: translate(1px, 1px); /* Move overlay text with the same distance and speed */
+  transition: transform 0.3s ease-in-out; /* Transition for the overlay text */
+}

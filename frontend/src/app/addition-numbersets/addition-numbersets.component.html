@@ -10,13 +10,13 @@
 
 <div class="container">
   <div class="row justify-content-center">
-    <div class="col-md-12" >
+    <div class="col-md-12">
       <div class="row ">
         <ng-container *ngFor="let imageUrl of imageUrls">
           <div class="col-md-5 me-auto my-4">
             <div class="d-flex flex-column align-items-center">
               <a [routerLink]="[imageUrl.routerLinkName]">
-                <div class="image-container">
+                <div class="pseudo-3d-image">
                   <img [src]="imageUrl.url" class="figure-img img-fluid rounded" alt="Topic Image">
                   <div class="overlay-text">{{ imageUrl.name }}</div>
                 </div>

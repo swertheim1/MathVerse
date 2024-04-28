@@ -12,7 +12,7 @@ interface ImageInfo {
 @Component({
   selector: 'app-addition-numbersets',
   templateUrl: './addition-numbersets.component.html',
-  styleUrl: './addition-numbersets.component.scss'
+  styleUrls: ['./addition-numbersets.component.scss']
 })
 
 export class AdditionNumbersetsComponent {
@@ -29,7 +29,7 @@ export class AdditionNumbersetsComponent {
     console.log("numbersets page has initialized");
     this.loadNumbersets();
 
-  };
+  }
 
   ngOnDestroy(): void {
     if (this.numbersetSubscription) {
@@ -50,19 +50,22 @@ export class AdditionNumbersetsComponent {
       }
     );
   }
-
+ 
   constructRouterLink(name: string): string {
-    // Ensure name is converted to lowercase
-    const normalizedName = name.toLowerCase();
-    return `/Addition-${normalizedName}`;
+    // Ensure name is converted to lowercase with - in place of spaces
+    const normalizedName = this.convertToSlug(name);
+    return `/addition-${normalizedName}`;
   }
 
+  convertToSlug(text: string): string {
+    return text.toLowerCase().replace(/\s+/g, '-');
+}
   getImageUrls(numberset_list: string[]): ImageInfo[] {
     console.log('get images url called', numberset_list)
     const imageUrls: ImageInfo[] = [];
 
     this.numbersets?.forEach(obj => {
-      let numberset_name = (obj as any).numberset_name;
+      const numberset_name = (obj as any).numberset_name;
       let imageUrl = '../../../assets/images/NumberSets/plus2@300x_blank.png';
       let name = '';
       let order = 0;
@@ -106,7 +109,7 @@ export class AdditionNumbersetsComponent {
       }
       if (imageUrl !== '') { // Only push if imageUrl is not empty
         imageUrls.push({ name, url: imageUrl, order, routerLinkName }); // Push imageUrl directly
-      };
+      }
     });
 
     // Sort the imageUrls array based on the order property

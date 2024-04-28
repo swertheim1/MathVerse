@@ -31,14 +31,6 @@ export class AuthService {
       );
   }
 
-  // Method to handle user logout
-  logout(): void {
-    // Clear the authentication token
-    this.tokenService.clearToken();
-    window.location.href = '/login';
-  }
-
-
   private handleError(error: any) {
     // Log the error to console or analytics service
     console.error('Error in AuthService:', error);

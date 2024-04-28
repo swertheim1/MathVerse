@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../services/AuthenticationServices/auth.service';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router'; 
-import { environment } from '../../environments/environment';
+import { AuthService } from '../services/AuthenticationServices/auth.service';
 
+export interface DialogData {
+  message: string;
+}
 
 @Component({
   selector: 'app-login',
@@ -13,21 +13,20 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+  [x: string]: any;
   loginForm!: FormGroup;
   public router: Router;
-  private apiUrl = environment.apiUrl;
   gradeLevel: string | null = null; 
+  errorMessage: string = '';
   
   constructor(
     private authService: AuthService,
-    private cookieService: CookieService,
     router: Router,
-    private fb: FormBuilder
-    
+    private fb: FormBuilder,
+      
   ) { 
     // Log when constructor is called
     console.log('Login App Constructor called'); 
-    
     this.router = router;
   }
 
@@ -54,15 +53,13 @@ export class LoginComponent {
       );
     } else {
       console.log("Form is invalid. Please fill in all fields correctly.");
+      const errorMessage = "Form is invalid. Please fill in all fields correctly.";
     }
   }
-  
-  saveTokenToCookie(token: string) {
-    this.cookieService.set('authToken', token);
-    console.log('token saved to cookie')
-  }
 
-  forgotPasswordClick(): void {
+ 
+  
+   forgotPasswordClick(): void {
     // Implement your logic here:
     // Show a modal, navigate to a password reset page, etc.
     console.log("Forgot Password button clicked!");

@@ -9,6 +9,7 @@ import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { Status404Component } from './status-404/status-404.component';
 import { AdditionNumbersetsComponent } from './addition-numbersets/addition-numbersets.component';
+import { LogoutModalComponent } from './logout-modal/logout-modal.component';
 
 export const routes: Routes = [
 
@@ -19,7 +20,8 @@ export const routes: Routes = [
     { path: 'numbersets', component: NumberSetsComponent, canActivate: [AuthGuardService] }, //
     { path: 'signup', component: SignupComponent},
     { path: 'forgotPassword', component: ForgotPasswordComponent},
-    { path: 'status-404', component: Status404Component }, // Corrected route for handling unknown routes
+    { path: 'logout-modal', component: LogoutModalComponent},
+    { path: 'status-404', component: Status404Component }, 
     { path: 'home', redirectTo: '', pathMatch: 'full' }, // Redirect /home to /
     { path: '**', redirectTo: 'status-404' },
 ];

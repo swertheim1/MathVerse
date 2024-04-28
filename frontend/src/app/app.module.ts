@@ -6,7 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; // I
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
-
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { AppRoutingModule, routes } from './app.routes';
 import { AppComponent } from './app.component';
@@ -49,7 +48,7 @@ import { TokenService } from './services/TokenServices/token.service';
     DataService,
     UserService,
     TokenService,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },    
   ],
   bootstrap: [] 
 })

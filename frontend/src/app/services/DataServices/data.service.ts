@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { TokenService } from '../TokenServices/token.service';
 import { UserService } from '../UserService/user.service';
+import { LogoutModalComponent } from '../../logout-modal/logout-modal.component';
+
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +20,7 @@ export class DataService {
   constructor(
     private httpClient: HttpClient,
     private tokenService: TokenService,
-    private userService: UserService
+    private userService: UserService,
 
   ) {
     this.lastModified = null;
@@ -35,7 +37,8 @@ export class DataService {
     const authToken = localStorage.getItem('authToken');
     if (!authToken) {
       console.error('Authentication token not found');
-      return of([]); // Return empty array if authentication token is not found
+      console.log("User needs to log back in.")
+      return of([]); 
     }
 
     // get grade_level from user service
@@ -47,8 +50,7 @@ export class DataService {
         .set('Content-Type', 'application/x-www-form-urlencoded');
 
       const params = new HttpParams().set('grade_level', grade_level);
-      // Handle the case where gradeLevel is null
-
+      
       // Make HTTP GET request to fetch topics
       return this.httpClient.get<any[]>(`${this.apiUrl}/topics`, { headers, params })
         .pipe(
@@ -57,17 +59,15 @@ export class DataService {
             localStorage.setItem('topics_list', JSON.stringify(topics));
             console.log('Topics added to local storage');
           }),
+          catchError(error => {
+            console.error('Error fetching topics:', error);
+            return of([]); // Return an empty array in case of error
+          })
         );
     } else {
       console.error('User needs to log back in');
       return of([]); // Grade Level not available so return an empty string
     }
-
-    catchError(error => {
-      console.error('Error fetching topics:', error);
-      return of([]); // Return an empty array in case of error
-    })
-
   }
 
   // Return the cached Number sets
@@ -88,8 +88,7 @@ export class DataService {
         .set('Content-Type', 'application/x-www-form-urlencoded');
 
       const params = new HttpParams().set('grade_level', grade_level);
-      // Handle the case where gradeLevel is null
-
+      
       // Make HTTP GET request to fetch numbersets
       return this.httpClient.get<any[]>(`${this.apiUrl}/numbersets`, { headers, params })
         .pipe(
@@ -98,16 +97,14 @@ export class DataService {
             localStorage.setItem('numbersets_list', JSON.stringify(numbersets));
             console.log('Numbersets added to local storage');
           }),
+          catchError(error => {
+            console.error('Error fetching numbersets:', error);
+            return of([]); // Return an empty array in case of error
+          })
         );
     } else {
       console.error('User needs to log back in');
       return of([]); // Grade Level not available so return an empty string
     }
-
-    catchError(error => {
-      console.error('Error fetching numbersets:', error);
-      return of([]); // Return an empty array in case of error
-    })
-
   }
 }

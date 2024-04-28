@@ -57,15 +57,6 @@ export class TokenService {
       }
     }
 
-  // Method to clear the authentication token
-  clearToken(): void {
-    // Remove token from local storage
-    localStorage.removeItem('authToken');
-
-    // Delete authentication cookie
-    this.cookieService.delete('authToken');
-  }
-
   getTokenExpirationDate(token: string): Date | null {
     const decodedToken = this.decodeToken(token);
     if (!decodedToken || !decodedToken.exp) {

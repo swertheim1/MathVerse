@@ -14,6 +14,7 @@ const logger = require('./utils/logging/logger');
 const userController = require('./controllers/users');
 const topicsController = require('./controllers/topics');
 const numberSetsController = require('./controllers/numbersets');
+const resultsController = require('./controllers/results')
 const homeController = require('./controllers/home')
 const pool = require('./pool')
 
@@ -44,7 +45,7 @@ app.use((req, res, next) => {
 });
 
 const userRouter = require('./routes/users');
-const problemRouter = require('./routes/problems');
+const resultsRouter = require('./routes/results');
 const topicsRouter = require('./routes/topics');
 const numberSetsRouter = require('./routes/numbersets');
 const homeRoute = require('./routes/home');
@@ -76,7 +77,7 @@ app.use(express.static(path.join(__dirname, '../frontend/dist/mathverse/browser'
 // Mount the routes to the base URL path
 app.use('/', userRouter);
 app.use('/', topicsRouter);
-app.use('/', problemRouter);
+app.use('/', resultsRouter);
 app.use('/', numberSetsRouter);
 app.use('/', homeRoute);
 

@@ -6,6 +6,7 @@ const AuthenticationService = require("../services/authentication");
 const AuthorizationService = require("../services/authorization");
 const DataFetchingService = require("../services/data-fetching");
 const TokenService = require("../services/token");
+const UserService = require('../services/user')
 
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
@@ -67,9 +68,15 @@ userController.login = async (req, res) => {
             return res.status(400).json({ errors: validationErrors });
         }
 
-        // Authenticate user
+        // Authenticate user by email and password
         const { email, password } = req.body;
-        const { userExists, passwordMatch, user } = await AuthenticationService.authenticateUser(email, password);
+        logger.debug(email, password)
+        if (!email || !password) {
+            logger.error("Email or password is missing");
+            return res.status(400).json({ message: "Email or password is missing" });
+        }
+        const { userExists, passwordMatch, user } = await AuthenticationService.authenticateUserDuringLogin(email, password);
+        
         if (!userExists) {
             logger.info("User does not exist for email:", email);
             return res.status(401).json({ message: "Authorization failed" });
@@ -90,24 +97,18 @@ userController.login = async (req, res) => {
 
         // Generate JWT token
         const token = jwt.sign({
+            user_id: user.user_id,
             email: user.email,
-            grade_level: user.grade_level,
-            // topics: topics.map(topic => topic.topic_name),
-            // numbersets: numberSets.map(set => set.number_sets)
-        }, process.env.JWT_KEY, {expiresIn: "4h"});;
-      
+            grade_level: user.grade_level
+        }, process.env.JWT_KEY, {expiresIn: "4h"});
 
         // Set Authorization header and respond with success message, token, and other data
         res.setHeader('Authorization', `Bearer ${token}`);
-        // logger.debug('Response object with Authorization header:', res); // for debugging
-        return res.status(200)
-        .header('Authorization', `Bearer ${token}`)
-        .json({
+        return res.status(200).json({
             message: "Authorization successful",
             grade_level: user.grade_level,
             topics: topics,
             numbersets: numberSets,
-            // token: token
         });
     } catch (error) {
         // Handle errors
@@ -115,6 +116,7 @@ userController.login = async (req, res) => {
         return res.status(500).json({ message: 'Database error' });
     }
 };
+
 
 userController.forgotPassword = async (req, res, next) => {
     console.log("Received POST request to /forgotPassword");

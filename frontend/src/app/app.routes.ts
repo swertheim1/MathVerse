@@ -11,6 +11,7 @@ import { Status404Component } from './status-404/status-404.component';
 import { AdditionNumbersetsComponent } from './addition-numbersets/addition-numbersets.component';
 import { AdditionPositiveWholeNumbersComponent } from './addition-positive-whole-numbers/addition-positive-whole-numbers.component';
 import { LogoutModalComponent } from './logout-modal/logout-modal.component';
+import { ReportsComponent } from './reports/reports.component';
 
 export const routes: Routes = [
 
@@ -18,8 +19,9 @@ export const routes: Routes = [
     
     { path: 'signup', component: SignupComponent},
     { path: 'login', component: LoginComponent },
-    { path: 'topics', component: TopicsComponent, canActivate: [AuthGuardService] }, //
-    { path: 'numbersets', component: NumberSetsComponent, canActivate: [AuthGuardService] }, //
+    { path: 'topics', component: TopicsComponent, canActivate: [AuthGuardService] }, 
+    { path: 'numbersets', component: NumberSetsComponent, canActivate: [AuthGuardService] }, 
+    { path: 'reports', component: ReportsComponent},
     { path: 'addition-numbersets', component: AdditionNumbersetsComponent },
     { path: 'addition-positive-whole-numbers', component: AdditionPositiveWholeNumbersComponent},
    

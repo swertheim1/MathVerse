@@ -18,7 +18,7 @@ export class AdditionPositiveWholeNumbersComponent {
   MAX_TWO: number = 20;
   answerList: number[] = [];
   numberOfQuestionsAsked: number = 0;     // Counter for questions asked
-  totalQuestionsToAsk: number = 10;        // total number of questions to ask
+  totalQuestionsToAsk: number = 3;        // total number of questions to ask
   answer: number = 0;
   expression: string = '';
   numberOfAttempts: number = 0;           // Counter to keep track of the number of times an answer was tried
@@ -72,20 +72,19 @@ export class AdditionPositiveWholeNumbersComponent {
       this.generateAlternateAnswers();
       this.numberOfQuestionsAsked++;
       this.numberOfAttempts = 0;
-
     }
     // if maximum number of problems have already been generated
     else {
       const dataToSend = {
         totalQuestions: this.totalQuestionsToAsk,
         totalCorrect: this.numberOfCorrectAnswers,
-        totalAsked: this.numberOfQuestionsAsked,
       };
+      console.log(dataToSend.totalCorrect, dataToSend.totalQuestions)
       this.userService.sendResultsToServer(dataToSend)
-      console.log('Data sent to ResultsDataService:', dataToSend)
-      {
-          this.router.navigate(['../results']);
-      }
+      // .subscribe(response => {
+      //   console.log('Data sent to ResultsDataService:', dataToSend)
+      // })
+      this.router.navigate(['../reports'], { state: { data: dataToSend } });
     }
   }
 

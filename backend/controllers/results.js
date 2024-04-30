@@ -6,7 +6,7 @@ resultsController = {}
 resultsController.saveResults = async (req, res, next) => {
 
     logger.debug('Received POST request to save Results to Database');
-    const { topic: topic_name, numberset: numberset_name, totalQuestions, totalCorrect, email, grade_level } = req.body;
+    const { topic: topic_name, numberset: numberset_name, totalQuestions, totalCorrect, user_id, grade_level } = req.body;
 
     try {
         // Retrieve topic_id
@@ -41,22 +41,7 @@ resultsController.saveResults = async (req, res, next) => {
             logger.info('No topics found');
         }
 
-        // Retrieve user_id
-        const userResult = await pool.query('SELECT user_id FROM users where TRIM(email) = ?', [email]);
-        const fetchedUser = JSON.stringify(userResult[0]);
-
-        // Parse the stringified JSON into a JavaScript object
-        const user = JSON.parse(fetchedUser);
-
-        // Check if topics is an array and not empty
-        if (Array.isArray(user) && user.length > 0) {
-            // Access the first element of the array and get the topic_id
-            user_id = user[0].user_id;
-            logger.debug(`user_id: ${user_id}`);
-        } else {
-            logger.info('No topics found');
-        }
-
+        
         // Insert into results table
         logger.info(`inserting data into table: topic_id ${topic_id}, numberset_id ${numberset_id}, user_id ${user_id}`)
         const query = "INSERT INTO results (number_of_questions, number_correct, topic_id, numberset_id, user_id) VALUES (?, ?, ?, ?, ?)";

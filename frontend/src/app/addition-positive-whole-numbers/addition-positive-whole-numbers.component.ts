@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/UserService/user.service';
+import { DataService } from '../services/DataServices/data.service';
 import { RandomWholeNumbersService } from '../services/Calculations/RandomNumbers/random-whole-numbers.service';
 
 
@@ -29,6 +30,7 @@ export class AdditionPositiveWholeNumbersComponent {
 
   constructor(
     private userService: UserService,
+    private dataService: DataService,
     private randomWholeNumbers: RandomWholeNumbersService,
     private router: Router,
   ) { }
@@ -81,21 +83,58 @@ export class AdditionPositiveWholeNumbersComponent {
     }
     // if maximum number of problems have already been generated
     else {
-     this.sendDataToReportsPage();
+      const dataToSend = {
+        topic: this.TOPIC,
+        numberset: this.NUMBERSET, 
+        totalQuestions: this.totalQuestionsToAsk,
+        totalCorrect: this.numberOfCorrectAnswers,
+      };
+    
+      this.dataService.setResults(dataToSend)
+      console.log('Data sent to ResultsDataService:', dataToSend)
+  
+     this.sendResults();
       
     }
   }
 
-  sendDataToReportsPage() {
+  sendResults() {
     const dataToSend = {
       topic: this.TOPIC,
       numberset: this.NUMBERSET, 
       totalQuestions: this.totalQuestionsToAsk,
       totalCorrect: this.numberOfCorrectAnswers,
     };
-    console.log('DATA TO SEND TO REPORTS PAGE:', dataToSend.totalCorrect, dataToSend.totalQuestions, dataToSend.topic, dataToSend.numberset)
-    // this.userService.sendResultsToServer(dataToSend) // not implemented yet
-    this.router.navigate(['../reports'], { state: { data: dataToSend } });
+  
+    // this.dataService.setResults(dataToSend)
+    console.log('Data sent to ResultsDataService:', dataToSend)
+
+    console.log('DATA TO SEND TO REPORTS PAGE:', dataToSend);
+  
+    const { topic, numberset, totalCorrect, totalQuestions } = dataToSend;
+  
+    // Navigate to the reports page with the data
+    this.router.navigate(['../reports'], {
+      state: {
+        topic,
+        numberset,
+        totalCorrect,
+        totalQuestions
+      }
+    }).then(() => {
+      // After navigation, save results to the database
+      this.dataService.saveResultsToDatabase(topic, numberset, totalCorrect, totalQuestions)
+        .subscribe(
+          (response: any) => { // Explicitly define the type of 'response'
+            console.log('Results saved to database:', response);
+            // Optionally, you can handle success response here
+          },
+          (error: any) => { // Explicitly define the type of 'error'
+            console.error('Error saving results to database:', error);
+            // Handle error appropriately
+          }
+        );
+    });
   }
 
 

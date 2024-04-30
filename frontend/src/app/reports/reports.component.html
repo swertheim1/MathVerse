@@ -9,18 +9,22 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="text-center">
-            <div *ngIf="reportData">
-                <h2>Report Data</h2>
-                <p> Report Data: {{ reportData | json }} </p>
-                <p>Topic: {{ reportData.topic }}</p>
-                <p>Number Set: {{ reportData.numberset }}</p>
-                <p>Total Questions: {{ reportData.totalQuestions }}</p>
-                <p>Total Correct: {{ reportData.totalCorrect }}</p>
+            <div class="col-5">
+                <h1>Current Problem Set: </h1>
             </div>
-            <div *ngIf="!reportData">
-                <p>No report data available.</p>
-            </div>             
+            <div class="col-7">
+                <h1>{{ this.topic }} with {{ this.numberset}} </h1>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <h3>Total problems: {{ this.questions }} </h3>
+                </div>
+                <div class="col-4">
+                    <h3>Total correct: {{ this.correct }} </h3>
+                </div>
+                <div class="col-4">
+                    <h3>Percent correct: {{ this.percentCorrect }}&percnt;</h3>
+                </div>
+            </div>
         </div>
     </div>
-</div>

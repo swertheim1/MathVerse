@@ -10,11 +10,20 @@ export class UserService {
     private tokenService: TokenService
   ) { }
 
-  getGradeLevel(): string | null {
+  getGradeLevelFromLocalStorage(): string | null {
     const token = localStorage.getItem('authToken');
     if (token) {
       const decodedToken = this.tokenService.decodeToken(token);
       return decodedToken ? decodedToken['grade_level'] : null;
+    }
+    return null;
+  }
+
+  getUserIdFromLocalStorage(): number | null {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      const decodedToken = this.tokenService.decodeToken(token);
+      return decodedToken ? decodedToken['user_id'] : null;
     }
     return null;
   }
@@ -45,10 +54,6 @@ export class UserService {
     }
   }
 
-  sendResultsToServer(results: object): {} {
-    
-    return results
-  }
 
 }
 

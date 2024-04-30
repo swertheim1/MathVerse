@@ -107,6 +107,7 @@ userController.login = async (req, res) => {
         return res.status(200).json({
             message: "Authorization successful",
             grade_level: user.grade_level,
+            // user_id: user.user_id,
             topics: topics,
             numbersets: numberSets,
         });

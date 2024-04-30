@@ -12,6 +12,7 @@ import { SignupModule } from './signup/signup.module';
 import { NavbarModule } from './navbar/navbar.module';
 import { AdditionNumbersetsModule } from './addition-numbersets/addition-numbersets.module';
 import { AdditionPositiveWholeNumbersModule } from './addition-positive-whole-numbers/addition-positive-whole-numbers.module';
+import { ReportsModule } from './reports/reports.module';
 
 
 @Component({
@@ -31,7 +32,8 @@ import { AdditionPositiveWholeNumbersModule } from './addition-positive-whole-nu
     SignupModule,
     NavbarModule,
     AdditionNumbersetsModule,
-    AdditionPositiveWholeNumbersModule
+    AdditionPositiveWholeNumbersModule,
+    ReportsModule
 
   ],
   templateUrl: './app.component.html',

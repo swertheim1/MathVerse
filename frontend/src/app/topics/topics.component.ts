@@ -19,6 +19,7 @@ export class TopicsComponent implements OnInit {
   message: string | null = null;
   imageUrls: ImageInfo[] = [];
   topics: any[] | null = null;
+  
   private topicsSubscription: Subscription | undefined;
 
   constructor(
@@ -32,12 +33,6 @@ export class TopicsComponent implements OnInit {
 
   }
   
-  // ngOnDestroy(): void {
-  //   if (this.topicsSubscription) {
-  //     this.topicsSubscription.unsubscribe();
-  //   }
-  // }
-
   loadTopics(): void {
     this.topicsSubscription = this.dataService.getTopics().subscribe(
       (topics: any[]) => {

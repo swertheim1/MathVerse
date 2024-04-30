@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { TokenService } from '../TokenServices/token.service';
 import { UserService } from '../UserService/user.service';
-import { LogoutModalComponent } from '../../logout-modal/logout-modal.component';
 
 
 @Injectable({

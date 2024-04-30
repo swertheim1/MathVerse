@@ -1,22 +1,73 @@
 const pool = require('../pool');
 const logger = require("../utils/logging/logger");
 
-
-// express-validator used for validating and sanitizing input data
-const { body, validationResult } = require('express-validator');
-// const { firstName, lastName, email, password, age, gradeLevel, role, status } = req.body;
-
-const resultsController = {};
+resultsController = {}
 
 resultsController.saveResults = async (req, res, next) => {
-    logger.debug("info", 'Received POST request to save Results to Database');
-    // logger.debug('Request body:',  req.body)
+
+    logger.debug('Received POST request to save Results to Database');
+    const { topic: topic_name, numberset: numberset_name, totalQuestions, totalCorrect, email, grade_level } = req.body;
 
     try {
+        // Retrieve topic_id
+        const topicResult = await pool.query('SELECT * FROM topics WHERE topic_name = ? AND grade_level = ?', [topic_name, grade_level]);
+        const fetchedTopic = JSON.stringify(topicResult[0]);
 
-    } catch (error) {
-        logger.error('Error saving results:', error);
-        res.status(500).json({ message: 'Error saving results' });
+        // Parse the stringified JSON into a JavaScript object
+        const topics = JSON.parse(fetchedTopic);
+
+        // Check if topics is an array and not empty
+        if (Array.isArray(topics) && topics.length > 0) {
+            // Access the first element of the array and get the topic_id
+            topic_id = topics[0].topic_id;
+            logger.debug(`topic_id: ${topic_id}`);
+        } else {
+            logger.info('No topics found');
+        }
+
+        // Retrieve numberset_id
+        const numbersetResult = await pool.query("SELECT numberset_id FROM numbersets WHERE LOWER(numberset_name) = LOWER(?) AND LOWER(grade_level) = LOWER(?)", [numberset_name, grade_level]);
+        const fetchedNumberset = JSON.stringify(numbersetResult[0]);
+
+        // Parse the stringified JSON into a JavaScript object
+        const numberset = JSON.parse(fetchedNumberset);
+
+        // Check if topics is an array and not empty
+        if (Array.isArray(numberset) && numberset.length > 0) {
+            // Access the first element of the array and get the topic_id
+            numberset_id = numberset[0].numberset_id;
+            logger.debug(`numberset_id: ${numberset_id}`);
+        } else {
+            logger.info('No topics found');
+        }
+
+        // Retrieve user_id
+        const userResult = await pool.query('SELECT user_id FROM users where TRIM(email) = ?', [email]);
+        const fetchedUser = JSON.stringify(userResult[0]);
+
+        // Parse the stringified JSON into a JavaScript object
+        const user = JSON.parse(fetchedUser);
+
+        // Check if topics is an array and not empty
+        if (Array.isArray(user) && user.length > 0) {
+            // Access the first element of the array and get the topic_id
+            user_id = user[0].user_id;
+            logger.debug(`user_id: ${user_id}`);
+        } else {
+            logger.info('No topics found');
+        }
+
+        // Insert into results table
+        logger.info(`inserting data into table: topic_id ${topic_id}, numberset_id ${numberset_id}, user_id ${user_id}`)
+        const query = "INSERT INTO results (number_of_questions, number_correct, topic_id, numberset_id, user_id) VALUES (?, ?, ?, ?, ?)";
+        await pool.query(query, [totalQuestions, totalCorrect, topic_id, numberset_id, user_id]);
+
+        // Respond with success message
+        return res.status(201).json({ message: "Results Saved to Database" });
     }
-};
+    catch (error) {
+        logger.error('Error saving results:', error);
+        return res.status(500).json({ message: 'Error saving results' });
+    }
+}
 module.exports = resultsController;

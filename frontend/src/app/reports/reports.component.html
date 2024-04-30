@@ -1,1 +1,26 @@
-<p>reports works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1 style="margin-top: 5%; margin-bottom: 5%;">Results</h1>
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="text-center">
+            <div *ngIf="reportData">
+                <h2>Report Data</h2>
+                <p> Report Data: {{ reportData | json }} </p>
+                <p>Topic: {{ reportData.topic }}</p>
+                <p>Number Set: {{ reportData.numberset }}</p>
+                <p>Total Questions: {{ reportData.totalQuestions }}</p>
+                <p>Total Correct: {{ reportData.totalCorrect }}</p>
+            </div>
+            <div *ngIf="!reportData">
+                <p>No report data available.</p>
+            </div>             
+        </div>
+    </div>
+</div>

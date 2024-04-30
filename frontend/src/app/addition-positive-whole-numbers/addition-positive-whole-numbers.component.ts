@@ -10,6 +10,8 @@ import { RandomWholeNumbersService } from '../services/Calculations/RandomNumber
   styleUrl: './addition-positive-whole-numbers.component.scss'
 })
 export class AdditionPositiveWholeNumbersComponent {
+  TOPIC: string = 'Addition';
+  NUMBERSET: string = 'Positive Whole Numbers'
   randomNumber1: number = 0;
   randomNumber2: number = 0;
   MIN_ONE: number = 1;
@@ -50,9 +52,13 @@ export class AdditionPositiveWholeNumbersComponent {
     this.randomNumber1 = this.generateRandomWholeNumbers(this.MIN_ONE, this.MAX_ONE);
     this.randomNumber2 = this.generateRandomWholeNumbers(this.MIN_TWO, this.MAX_TWO);
     this.generateExpression();
-    console.log('Random numbers: ', this.randomNumber1, this.randomNumber2, 'Expression: ',
-      this.expression, 'Answer: ', this.randomNumber1 + this.randomNumber2);
-    this.shuffleAnswerList();
+    if (this.numberOfQuestionsAsked < this.numberOfQuestionsAsked)
+      {
+        console.log('Random numbers: ', this.randomNumber1, this.randomNumber2, 'Expression: ',
+        this.expression, 'Answer: ', this.randomNumber1 + this.randomNumber2);
+        this.shuffleAnswerList();
+      }
+
   }
 
   generateRandomWholeNumbers(min: number, max: number): number {
@@ -75,18 +81,23 @@ export class AdditionPositiveWholeNumbersComponent {
     }
     // if maximum number of problems have already been generated
     else {
-      const dataToSend = {
-        totalQuestions: this.totalQuestionsToAsk,
-        totalCorrect: this.numberOfCorrectAnswers,
-      };
-      console.log(dataToSend.totalCorrect, dataToSend.totalQuestions)
-      this.userService.sendResultsToServer(dataToSend)
-      // .subscribe(response => {
-      //   console.log('Data sent to ResultsDataService:', dataToSend)
-      // })
-      this.router.navigate(['../reports'], { state: { data: dataToSend } });
+     this.sendDataToReportsPage();
+      
     }
   }
+
+  sendDataToReportsPage() {
+    const dataToSend = {
+      topic: this.TOPIC,
+      numberset: this.NUMBERSET, 
+      totalQuestions: this.totalQuestionsToAsk,
+      totalCorrect: this.numberOfCorrectAnswers,
+    };
+    console.log('DATA TO SEND TO REPORTS PAGE:', dataToSend.totalCorrect, dataToSend.totalQuestions, dataToSend.topic, dataToSend.numberset)
+    // this.userService.sendResultsToServer(dataToSend) // not implemented yet
+    this.router.navigate(['../reports'], { state: { data: dataToSend } });
+  }
+
 
   generateAlternateAnswers() {
     // add correct answer to the list

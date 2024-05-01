@@ -8,23 +8,47 @@
 
 
 <div class="container">
-    <div class="row justify-content-center">
-            <div class="col-5">
-                <h1>Current Problem Set: </h1>
+    <div class="row mb-10 justify-content-center">
+        <div class="col-5">
+            <h1>Current Problem Set: </h1>
+        </div>
+        <div class="col-7">
+            <h1>{{ this.topic }} with {{ this.numberset}} </h1>
+        </div>
+        <div class="row mb-10 ">
+            <div class="col-4">
+                <h3>Total problems: {{ this.questions }} </h3>
             </div>
-            <div class="col-7">
-                <h1>{{ this.topic }} with {{ this.numberset}} </h1>
+            <div class="col-4">
+                <h3>Total correct: {{ this.correct }} </h3>
             </div>
-            <div class="row">
-                <div class="col-4">
-                    <h3>Total problems: {{ this.questions }} </h3>
-                </div>
-                <div class="col-4">
-                    <h3>Total correct: {{ this.correct }} </h3>
-                </div>
-                <div class="col-4">
-                    <h3>Percent correct: {{ this.percentCorrect }}&percnt;</h3>
+            <div class="col-4">
+                <h3>Percent correct: {{ this.percentCorrect }}&percnt;</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-10 justify-content-center ">
+        <div *ngIf="statisticsData.length > 0">
+            <h1>Statistics Data</h1>
+            <div *ngFor="let stat of statisticsData">
+                <div class="row">
+                    <div class="col">
+                        <h3>History for {{ stat.topic }} with Numberset {{ stat.numberset }}</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <h3> Total Questions: {{ stat.number_of_questions }} </h3>
+                        </div>
+                        <div class="col-4">
+                            <h3> Total Correct: {{ stat.number_correct }}</h3>
+                        </div>
+                        <div class="col-4">
+                            <h3>Total Percent Correct: {{ stat.accuracy }}&percnt;</h3>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>

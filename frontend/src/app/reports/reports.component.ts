@@ -1,7 +1,6 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Component } from '@angular/core';
 import { DataService } from '../services/DataServices/data.service';
+import { UserService } from '../services/UserService/user.service';
 
 @Component({
   selector: 'app-reports',
@@ -10,10 +9,13 @@ import { DataService } from '../services/DataServices/data.service';
 })
 export class ReportsComponent {
   topic: string = '';
-  numberset: string = '';
+  numberset: string | null = '';
+  grade_level: string | null = '';
+  user_id: number | null = 0;
   questions: number = 0;
   correct: number = 0;
   percentCorrect: number = 0;
+  statisticsData: any [] = [];
 
   reportData: {
     topic: string ,
@@ -23,14 +25,15 @@ export class ReportsComponent {
   } | null = null ;
 
   constructor(
-    private router: Router,
-    private cdr: ChangeDetectorRef,
+    private userService: UserService,
     private dataService: DataService
   ) {
     console.log("ReportsComponent constructor");
    }
    results: any;
    ngOnInit() {
+   
+    this.user_id = this.userService.getUserIdFromLocalStorage();
     this.results = this.dataService.getResults();
     console.log('Results in ResultsPage:', this.results);
     this.topic = this.results.topic;
@@ -39,58 +42,23 @@ export class ReportsComponent {
     this.correct = this.results.totalCorrect;
     this.percentCorrect = parseFloat((this.correct / this.questions * 100).toFixed(2));
     
-
-    console.log(this.topic, this.numberset, this.questions, this.correct, new Date().toISOString())
-
-
-    console.log("ReportsComponent ngOnInit start", new Date().toISOString());
-    console.log("Initial reportData:", this.reportData, new Date().toISOString());
-
+    if (this.user_id !== null) {
+      this.dataService.getResultsFromDatabase(this.user_id).subscribe(dataSet => {
+        console.log(dataSet)
+        this.statisticsData = this.dataService.calculateRolledUpStatistics(dataSet);
+        console.log("this.statisticsData",  this.statisticsData);
+        this.statisticsData.forEach(stat => {
+          stat.accuracy = parseFloat(((stat.number_correct / stat.number_of_questions) * 100).toFixed(2));
+        });
   
-    // Check if the ReportsComponent is being initialized
-    console.log("The reports page is being initialized");
-  
-    // Log the initial value of reportData
-    console.log("Initial reportData:", this.reportData);
-  
-    // Check if navigation extras state is available and log its contents
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation && navigation.extras && navigation.extras.state) {
-      this.reportData = navigation.extras.state['data'];
-      console.log('Initial reportData from navigation extras:', this.reportData);
+      });
+
     } else {
-      console.log('No navigation extras state found.');
+      console.log('user_id not available.')
     }
-  
-    // Check if state is available and log its contents
-    const state = this.router.getCurrentNavigation()?.extras.state;
-    if (state) {
-      const { topic, numberset, totalCorrect, totalQuestions } = state;
-      console.log('Navigation Extras State:', state);
-      console.log('Extracted data:', topic, numberset, totalCorrect, totalQuestions);
-      console.log('Assigned reportData:', this.reportData, new Date().toISOString());
-      
-    } else {
-      console.log('No state found in getCurrentNavigation extras.');
-    }
-  
-    // Subscribe to router events separately
-    this.subscribeToRouterEvents();
-  }
-  
-  private subscribeToRouterEvents() {
-    this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      const navigation = this.router.getCurrentNavigation();
-      if (navigation && navigation.extras && navigation.extras.state) {
-        this.reportData = navigation.extras.state['data'];
-        console.log('navigation: ', navigation.extras.state);
-      } else {
-        console.log('No navigation extras state found in router events subscription.');
-      }
-    });
+
     
-  console.log("ReportsComponent ngOnInit end", new Date().toISOString());
+
+
   }
 }  

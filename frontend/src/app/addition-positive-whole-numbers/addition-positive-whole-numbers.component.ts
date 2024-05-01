@@ -21,12 +21,13 @@ export class AdditionPositiveWholeNumbersComponent {
   MAX_TWO: number = 20;
   answerList: number[] = [];
   numberOfQuestionsAsked: number = 0;     // Counter for questions asked
-  totalQuestionsToAsk: number = 3;        // total number of questions to ask
+  totalQuestionsToAsk: number = 10;        // total number of questions to ask
   answer: number = 0;
   expression: string = '';
   numberOfAttempts: number = 0;           // Counter to keep track of the number of times an answer was tried
   numberOfCorrectAnswers: number = 0;     // Counter for correct answers
   alternateAnswer: number = 0;
+  numberOfAttemptsAllowed: number = 1;
 
   constructor(
     private userService: UserService,
@@ -137,7 +138,6 @@ export class AdditionPositiveWholeNumbersComponent {
     });
   }
 
-
   generateAlternateAnswers() {
     // add correct answer to the list
     console.log('generate an alternate answer function accessed')
@@ -158,6 +158,7 @@ export class AdditionPositiveWholeNumbersComponent {
         }
       }
     }
+    this.shuffleAnswerList();
     return this.answerList;
   }
 
@@ -193,16 +194,10 @@ export class AdditionPositiveWholeNumbersComponent {
 
     } else {
       // Incorrect answer
-      if (this.numberOfAttempts < 3 && this.answer != selectedAnswer) {
-        console.log(`Attempt ${this.numberOfAttempts}: Try again!`);
-
-
-      }
-      else {
-        this.generateProblem();
-
-      }
+      console.log(`incorrect answer selected.`)
+      this.generateProblem();
     }
+
   }
 
 }

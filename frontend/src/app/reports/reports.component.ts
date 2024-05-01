@@ -44,9 +44,9 @@ export class ReportsComponent {
     
     if (this.user_id !== null) {
       this.dataService.getResultsFromDatabase(this.user_id).subscribe(dataSet => {
-        console.log(dataSet)
+        // console.log(dataSet)
         this.statisticsData = this.dataService.calculateRolledUpStatistics(dataSet);
-        console.log("this.statisticsData",  this.statisticsData);
+        // console.log("this.statisticsData",  this.statisticsData);
         this.statisticsData.forEach(stat => {
           stat.accuracy = parseFloat(((stat.number_correct / stat.number_of_questions) * 100).toFixed(2));
         });

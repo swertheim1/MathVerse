@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1 style="margin-top: 5%; margin-bottom: 5%;">Addition with Positive Fractions</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center">
+    <div class="row">
+        <h1 class="center-text" id="problem" >What is the sum of:</h1>
+    </div>
+    <div class="row align-items-center">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col">
+            <div class="fraction">
+                <p class="numerator">{{ actualFraction1.numerator }}</p>
+                <hr class="horizontal-line">
+                <p class="denominator">{{ actualFraction1.denominator }} </p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="d-flex align-items-center justify-content-center">
+                <p style="font-size: 32px;">+</p>
+            </div>
+        </div>
+        <div class="col">
+            <div class="fraction">
+                <p class="numerator">{{ actualFraction2.numerator }}</p>
+                <hr class="horizontal-line">
+                <p class="denominator">{{ actualFraction2.denominator }}</p>
+            </div>
+        </div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col"></div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="row">
+            <ng-container *ngFor="let answer of answerList">
+                <div class="col-md-5 col-lg-4 col-xl-3 my-4">
+                    <div class="d-flex flex-column align-items-center">
+                        <button type="button" id="answers" (click)="checkAnswer(answer)" class="image-button">
+                            <div class="button-content">
+                                <img src="../../assets/images/addition.png" class="button-image" />
+                                <span class="answer-text">
+                                    <p>{{ answer.numerator }}</p>
+                                    <hr class="horizontal-line">
+                                    <p>{{ answer.denominator }}</p>
+                                </span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>

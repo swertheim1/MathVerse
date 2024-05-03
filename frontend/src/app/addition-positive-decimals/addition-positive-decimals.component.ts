@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { RandomDecimalsService } from '../services/Calculations/RandomNumbers/random-decimals.service';
 import { DataService } from '../services/DataServices/data.service';
-import { RandomWholeNumbersService } from '../services/Calculations/RandomNumbers/random-whole-numbers.service';
 
 
 @Component({
-  selector: 'app-addition-positive-whole-numbers',
-  templateUrl: './addition-positive-whole-numbers.component.html',
-  styleUrl: './addition-positive-whole-numbers.component.scss'
+  selector: 'app-addition-positive-decimals',
+  templateUrl: './addition-positive-decimals.component.html',
+  styleUrl: './addition-positive-decimals.component.scss'
 })
-export class AdditionPositiveWholeNumbersComponent {
+export class AdditionPositiveDecimalsComponent {
   TOPIC: string = 'Addition';
-  NUMBERSET: string = 'Positive Whole Numbers'
+  NUMBERSET: string = 'Decimals'
   randomNumber1: number = 0;
   randomNumber2: number = 0;
   MIN_ONE: number = 1;
@@ -30,7 +30,7 @@ export class AdditionPositiveWholeNumbersComponent {
 
   constructor(
     private dataService: DataService,
-    private randomWholeNumbers: RandomWholeNumbersService,
+    private randomDecimalService: RandomDecimalsService,
     private router: Router,
   ) { }
 
@@ -43,15 +43,15 @@ export class AdditionPositiveWholeNumbersComponent {
 
   ngAfterViewInit() {
     this.shuffleAnswerList();
-    // console.log('answer list accessed in ngAfterViewInit', this.answerList)
+    
   }
 
 
   generateProblem(): void {
     console.log('Generate Problem function accessed')
 
-    this.randomNumber1 = this.generateRandomWholeNumbers(this.MIN_ONE, this.MAX_ONE);
-    this.randomNumber2 = this.generateRandomWholeNumbers(this.MIN_TWO, this.MAX_TWO);
+    this.randomNumber1 = parseFloat((this.randomDecimalService.generatePositiveDecimals(this.MIN_ONE, this.MAX_ONE)).toFixed(2));
+    this.randomNumber2 = parseFloat((this.randomDecimalService.generatePositiveDecimals(this.MIN_TWO, this.MAX_TWO)).toFixed(2));
     this.generateExpression();
     if (this.numberOfQuestionsAsked < this.numberOfQuestionsAsked)
       {
@@ -62,17 +62,12 @@ export class AdditionPositiveWholeNumbersComponent {
 
   }
 
-  generateRandomWholeNumbers(min: number, max: number): number {
-    console.log('generate a random whole number function accessed')
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   generateExpression() {
     console.log('generate an expression function accessed')
     this.answerList = [];
 
     if (this.numberOfQuestionsAsked < this.totalQuestionsToAsk) {
-      this.answer = this.randomNumber1 + this.randomNumber2;
+      this.answer = parseFloat((this.randomNumber1 + this.randomNumber2).toFixed(2));
 
       //clear answer list when a new expression is generated
       this.expression = `${this.randomNumber1} + ${this.randomNumber2}`
@@ -143,11 +138,12 @@ export class AdditionPositiveWholeNumbersComponent {
 
     while (this.answerList.length < 6) {
       // Generate a new alternate answer in each iteration
-      const alternateAnswer = this.randomWholeNumbers.generateIntegers(1,
-        this.answer + this.randomWholeNumbers.generateIntegers(this.randomWholeNumbers.generateIntegers(1, 9),
-          this.randomWholeNumbers.generateIntegers(1, 9)
+      let alternateAnswer = this.randomDecimalService.generatePositiveDecimals(1,
+        this.answer + this.randomDecimalService.generatePositiveDecimals(this.randomDecimalService.generatePositiveDecimals(1, 9),
+        this.randomDecimalService.generatePositiveDecimals(1, 9)
         )
       );
+      alternateAnswer = parseFloat(alternateAnswer.toFixed(2));
       // Ensure the alternate answer is different from the correct answer
       if (alternateAnswer !== this.answer) {
         // Ensure the alternate answer is not already in the list
@@ -199,3 +195,4 @@ export class AdditionPositiveWholeNumbersComponent {
   }
 
 }
+

@@ -12,6 +12,8 @@ import { SignupModule } from './signup/signup.module';
 import { NavbarModule } from './navbar/navbar.module';
 import { AdditionNumbersetsModule } from './addition-numbersets/addition-numbersets.module';
 import { AdditionPositiveWholeNumbersModule } from './addition-positive-whole-numbers/addition-positive-whole-numbers.module';
+import { AdditionPositiveDecimalsModule } from './addition-positive-decimals/addition-positive-decimals.module';
+import { AdditionPositiveFractionsModule } from './addition-positive-fractions/addition-positive-fractions.module';
 import { ReportsModule } from './reports/reports.module';
 
 
@@ -33,6 +35,8 @@ import { ReportsModule } from './reports/reports.module';
     NavbarModule,
     AdditionNumbersetsModule,
     AdditionPositiveWholeNumbersModule,
+    AdditionPositiveDecimalsModule,
+    AdditionPositiveFractionsModule,
     ReportsModule
 
   ],

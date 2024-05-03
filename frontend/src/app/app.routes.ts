@@ -12,6 +12,8 @@ import { AdditionNumbersetsComponent } from './addition-numbersets/addition-numb
 import { AdditionPositiveWholeNumbersComponent } from './addition-positive-whole-numbers/addition-positive-whole-numbers.component';
 import { LogoutModalComponent } from './logout-modal/logout-modal.component';
 import { ReportsComponent } from './reports/reports.component';
+import { AdditionPositiveDecimalsComponent } from './addition-positive-decimals/addition-positive-decimals.component';
+import { AdditionPositiveFractionsComponent } from './addition-positive-fractions/addition-positive-fractions.component';
 
 export const routes: Routes = [
 
@@ -24,7 +26,8 @@ export const routes: Routes = [
     { path: 'reports', component: ReportsComponent},
     { path: 'addition-numbersets', component: AdditionNumbersetsComponent },
     { path: 'addition-positive-whole-numbers', component: AdditionPositiveWholeNumbersComponent},
-   
+    { path: 'addition-positive-decimals', component: AdditionPositiveDecimalsComponent},
+    { path: 'addition-fractions', component: AdditionPositiveFractionsComponent},
     
     { path: 'forgotPassword', component: ForgotPasswordComponent},
     { path: 'logout-modal', component: LogoutModalComponent},

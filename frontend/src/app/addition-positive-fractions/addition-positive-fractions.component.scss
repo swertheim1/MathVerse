@@ -1,0 +1,43 @@
+@import '../../theme/shared-addition.scss';
+
+.answer-text {
+    font-stretch: semi-condensed;
+    padding: -50; /* Adjust padding */
+    border-radius: 5px; /* Adjust border radius */
+    font-size: 48px; /* Adjust font size */
+}
+
+.horizontal-line {
+    border: solid;
+    border-color: black;
+    height: 6px;
+    background-color: black;
+    margin: 20px 0; /* Adjust as needed */
+  }
+
+  .expression-separator {
+    order: solid;
+    border-color: black;
+    height: 3px;
+    background-color: black;
+    margin: 20px 0; /* Adjust as needed */
+    width: 10px;
+  }
+
+  .fraction {
+    display: inline-block;
+    text-align: center;
+}
+.numerator, .denominator {
+    display: block;
+    font-size: 32px;
+}
+.fraction-line {
+    border-top: 3px solid black; /* Adjust the width and color as needed */
+    width: 100%;
+    margin: 0 auto;
+}
+
+#problem {
+    font-size: 32px;
+}

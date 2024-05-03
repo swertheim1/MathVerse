@@ -94,7 +94,7 @@ export class DataService {
     console.log("Calculate Rolled up Statistics has been accessed")
     const rolledUpStatistics: RolledUpStatistics[] = [];
     results.forEach(result => {
-      console.log("Processing result:", result);
+      // console.log("Processing result:", result);
       const { topic_name, numberset_name, number_correct, number_of_questions } = result;
   
       // Check if the statistics already exist for this topic and numberset

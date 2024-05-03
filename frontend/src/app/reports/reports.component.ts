@@ -36,29 +36,27 @@ export class ReportsComponent {
     this.user_id = this.userService.getUserIdFromLocalStorage();
     this.results = this.dataService.getResults();
     console.log('Results in ResultsPage:', this.results);
+    if (this.results){
     this.topic = this.results.topic;
     this.numberset = this.results.numberset;
     this.questions = this.results.totalQuestions;
     this.correct = this.results.totalCorrect;
     this.percentCorrect = parseFloat((this.correct / this.questions * 100).toFixed(2));
+  } else {
+    console.log('Results not available')
+  }
     
     if (this.user_id !== null) {
       this.dataService.getResultsFromDatabase(this.user_id).subscribe(dataSet => {
         // console.log(dataSet)
         this.statisticsData = this.dataService.calculateRolledUpStatistics(dataSet);
-        // console.log("this.statisticsData",  this.statisticsData);
+        console.log("this.statisticsData",  this.statisticsData);
         this.statisticsData.forEach(stat => {
           stat.accuracy = parseFloat(((stat.number_correct / stat.number_of_questions) * 100).toFixed(2));
         });
-  
       });
-
     } else {
       console.log('user_id not available.')
     }
-
-    
-
-
   }
 }  
